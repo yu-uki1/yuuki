@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Streampad kaufen</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            background: #f4f4f9; 
+            color: #333; 
+        }
+        header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background-color: #6200ea; 
+            padding: 15px 30px; 
+            color: white; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        header a { 
+            color: white; 
+            text-decoration: none; 
+            margin: 0 15px; 
+            font-weight: bold;
+        }
+        header a:hover { text-decoration: underline; }
+        main { 
+            max-width: 800px; 
+            margin: 30px auto; 
+            padding: 20px; 
+            background: white; 
+            border-radius: 10px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 { color: #6200ea; }
+        .price-section {
+            margin-top: 20px;
+        }
+        .price-section input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            font-size: 16px;
+        }
+        .price-section button {
+            padding: 10px 20px;
+            background-color: #6200ea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .price-section button:hover {
+            background-color: #4500b5;
+        }
+        /* Slideshow */
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            height: 400px;
+            margin: 40px auto;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .slides {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        .slides.active {
+            opacity: 1;
+            z-index: 1;
+        }
+        /* Produktinfos */
+        .product-info {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fafafa;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .product-info h2 {
+            color: #6200ea;
+            margin-top: 0;
+        }
+        .product-info ul {
+            list-style: disc inside;
+            padding-left: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div><strong>Yuuki's Streampad</strong></div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="ueber.html">Über den Entwickler</a>
+	    <a href="projekte.html">Projekte</a>
+            <a href="kontakt.html">Kontakt</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Streampad kaufen</h1>
+
+        <div class="price-section">
+            <p>Preis pro Stück: <strong>49,99 €</strong></p>
+            <label for="quantity">Anzahl (max. 20): </label>
+            <input type="number" id="quantity" min="1" max="20" value="1">
+            <p>Gesamtpreis: <strong id="total">49,99 €</strong></p>
+            <button onclick="alert('Danke für Ihren Kauf!')">Kaufen</button>
+        </div>
+
+        <!-- Slideshow -->
+        <div class="slideshow-container">
+            <img class="slides active" src="bilder_streampad/streampad1.jpg" alt="Streampad 1">
+            <img class="slides" src="bilder_streampad/streampad2.jpg" alt="Streampad 2">
+            <img class="slides" src="bilder_streampad/streampad3.jpg" alt="Streampad 3">
+        </div>
+
+        <!-- Produktinfos -->
+        <div class="product-info">
+            <h2>Produktinformationen</h2>
+            <ul>
+                <li>Hochwertiges Streampad für einfache Bedienung</li>
+                <li>PC nötig zur Tastenbelegung</li>
+                <li>Kompatibel mit PC und den meisten Android-Geräten</li>
+                <li>Kompaktes Design, perfekt für Schreibtische</li>
+                <li>Robustes Gehäuse und langlebige Tasten</li>
+            </ul>
+        </div>
+
+    </main>
+
+    <script>
+        const price = 49.99;
+        const quantityInput = document.getElementById('quantity');
+        const totalDisplay = document.getElementById('total');
+
+        quantityInput.addEventListener('input', () => {
+            let qty = parseInt(quantityInput.value);
+            if (qty > 20) { qty = 20; quantityInput.value = 20; }
+            if (qty < 1) { qty = 1; quantityInput.value = 1; }
+            totalDisplay.textContent = (price * qty).toFixed(2) + ' €';
+        });
+
+        // Slideshow
+        let slideIndex = 0;
+        const slides = document.getElementsByClassName('slides');
+
+        function showSlide(n) {
+            if (n >= slides.length) slideIndex = 0;
+            if (n < 0) slideIndex = slides.length - 1;
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove('active');
+            }
+            slides[slideIndex].classList.add('active');
+        }
+
+        function changeSlide(n) {
+            slideIndex += n;
+            showSlide(slideIndex);
+        }
+
+        // Automatisches Wechseln alle 5 Sekunden
+        setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+    </script>
+</body>
+</html>

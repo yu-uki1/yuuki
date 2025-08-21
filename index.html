@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Yuuki's Streampad</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            background: #f4f4f9; 
+            color: #333; 
+        }
+        header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background-color: #6200ea; 
+            padding: 15px 30px; 
+            color: white; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        header a { 
+            color: white; 
+            text-decoration: none; 
+            margin: 0 15px; 
+            font-weight: bold;
+        }
+        header a:hover { text-decoration: underline; }
+        main { 
+            max-width: 800px; 
+            margin: 30px auto; 
+            padding: 20px; 
+        }
+        h1 { color: #6200ea; }
+        .button-container { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+            margin-top: 20px;
+        }
+        .btn { 
+            padding: 12px 25px; 
+            background-color: #6200ea; 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 1em; 
+            cursor: pointer; 
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover { background-color: #4500b5; }
+        #disclaimer { 
+            display: none; 
+            background: white; 
+            padding: 20px; 
+            border-radius: 10px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        function toggleDisclaimer() {
+            const d = document.getElementById('disclaimer');
+            d.style.display = (d.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div><strong>Yuuki's Website</strong></div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="ueber.html">Über den Entwickler</a>
+	    <a href="projekte.html">Projekte</a>
+            <a href="kontakt.html">Kontakt</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Willkommen zu Yuuki's Website</h1>
+        <div class="button-container">
+            <a href="Streampad.exe" download class="btn">Download der Software für das Streampad</a>
+	    <a href="kaufen.html" class="btn">Streampad kaufen</a>
+            <button class="btn" onclick="toggleDisclaimer()">Haftungsausschluss & Hinweise</button>
+        </div>
+        <div id="disclaimer">
+            <p>Dieses Produkt, im Folgenden „Yuuki's Streampad“ bezeichnet, verwendet als zentrales Steuerelement einen offiziell hergestellten Raspberry Pi Pico H Mikrocontroller. Sämtliche Rechte, Pflichten, Verantwortlichkeiten, Lizenzen, Patente, Schutzrechte, Designs, Softwarekomponenten, Markenzeichen, Markenrechte und sonstigen mit diesem Mikrocontroller verbundenen Elemente liegen ausschließlich bei der Raspberry Pi Foundation oder den jeweils zuständigen Rechteinhabern. An dieser Stelle wird ausdrücklich, unmissverständlich und für jeden rechtlich versierten Dritten sofort nachvollziehbar klargestellt, dass weder die Raspberry Pi Foundation, noch deren Tochtergesellschaften, Partner, Lizenzgeber, Auftragnehmer, Berater, Sponsoren, Mitarbeiter, Vertreter, verbundenen Unternehmen, Freiwilligen oder andere juristisch relevante Akteure in irgendeiner Form als offizielle Mitwirkende, Unterstützer, Befürworter, Genehmiger, Förderer, Sponsor oder in sonstiger Weise verpflichtend handelnd angesehen werden dürfen. Jegliche Namensnennung, Darstellung oder Bezugnahme auf die Marke „Raspberry Pi“ dient ausschließlich der technischen Beschreibung der eingesetzten Hardware. In keinem Fall stellt die Verwendung des Namens, Logos, der Marke oder anderer Kennzeichen von Raspberry Pi eine Befürwortung, Empfehlung, Unterstützung, offizielle Zustimmung, Sponsorenschaft, Garantie oder sonstige rechtlich relevante Bindung dar.</p>
+
+            <p>Die Software, die für die Nutzung des Produkts erforderlich ist, darf nur von dieser offiziellen Website heruntergeladen werden, da hier die jeweils aktuelle, geprüfte und offiziell freigegebene Version bereitgestellt wird. Jegliche Verwendung von Softwareversionen, die außerhalb dieser offiziellen Quelle bereitgestellt werden, erfolgt vollständig auf eigenes Risiko des Nutzers. Dies schließt ausdrücklich, jedoch nicht abschließend, das Herunterladen, Installieren, Modifizieren, Patchen, Konfigurieren, Testen, Aktualisieren, Einbinden, Deinstallieren, Löschen, Kopieren, Weitergeben, Replizieren, Reverse-Engineering oder sonstige Nutzung von Software, Daten, Skripten, Bibliotheken, Frameworks oder Komponenten ein, die in Zusammenhang mit dem Produkt stehen.</p>
+
+            <p>Der Entwickler übernimmt keinerlei ausdrückliche, stillschweigende oder gesetzlich geforderte Gewährleistung hinsichtlich Funktionsfähigkeit, Sicherheit, Stabilität, Kompatibilität, Zuverlässigkeit, Vollständigkeit, Fehlerfreiheit, Verfügbarkeit, Integrität, Performance, Datenkonsistenz, Wartbarkeit, Erweiterbarkeit, Skalierbarkeit, Benutzerfreundlichkeit oder irgendeines sonstigen Aspekts von Software oder Hardware. Die Nutzung des Produkts und der Software erfolgt ausschließlich auf eigenes Risiko. Jegliche Schäden, Verluste, Beeinträchtigungen, Folgeschäden, indirekte Schäden, unmittelbare Schäden, zufällige Schäden, exemplarische Schäden, entgangene Gewinne, Datenverluste, Systemabstürze, Stromausfälle, Hardwaredefekte, Fehlfunktionen, Fehlbedienungen, Eingriffe Dritter oder sonstige nachteilige Konsequenzen, die im Zusammenhang mit Nutzung, Nichtnutzung, Fehlanwendung oder sonstigen Umständen auftreten, werden vollständig ausgeschlossen, soweit gesetzlich zulässig.</p>
+
+            <p>Es wird ausdrücklich betont, dass alle Risiken, Pflichten und Verantwortlichkeiten im Zusammenhang mit der Nutzung des Produkts allein beim Benutzer liegen. Nutzer sind verpflichtet, alle geltenden gesetzlichen Vorschriften, technischen Richtlinien, Sicherheitsbestimmungen, Umweltauflagen, Geräteanforderungen, Stromversorgungsvorgaben, Softwarekompatibilitäten, Netzwerkbedingungen, Datenschutzbestimmungen, Datensicherungsmaßnahmen und sonstigen relevanten Faktoren eigenständig zu berücksichtigen. Der Entwickler übernimmt keinerlei Verantwortung für Verstöße gegen diese Bestimmungen oder daraus resultierende Folgen, gleich ob direkt, indirekt, mittelbar, zufällig, exemplarisch, vorhersehbar oder unvorhersehbar.</p>
+
+	    <p>Durch das Herunterladen, Installieren oder Verwenden der Software und des Produkts akzeptiert der Nutzer unwiderruflich, dass jegliche Ansprüche, Forderungen, Schadensersatzansprüche, rechtliche Schritte, Klagen, Beschwerden, Mahnungen oder sonstige rechtliche Maßnahmen gegen den Entwickler, sei es in vertraglicher, deliktischer, unerlaubter Handlung, fahrlässiger oder sonstiger Form, vollständig ausgeschlossen sind, soweit dies nach geltendem Recht zulässig ist. Sollte eine Bestimmung dieses Haftungsausschlusses als ungültig, nichtig, unwirksam, nicht durchsetzbar oder in irgendeiner Weise anfechtbar gelten, bleiben alle übrigen Bestimmungen in vollem Umfang wirksam, bindend, rechtlich gültig, durchsetzbar und rechtlich bindend.</p>
+
+	    <p>Wichtig und unmissverständlich: Raspberry Pi ist in keiner Weise Sponsor, Unterstützer, Partner, Genehmiger oder Förderer dieses Produkts. Jegliche Namensnennung erfolgt ausschließlich zur technischen Identifikation der verwendeten Hardware. Es besteht kein vertragliches, finanzielles, rechtliches oder sonstiges Verhältnis zwischen dem Entwickler und der Raspberry Pi Foundation, das über die reine Nutzung der Hardware hinausgeht.</p>
+
+	    <p>Die Nutzung von „Yuuki's Streampad“ impliziert die uneingeschränkte Zustimmung zu allen in diesem Dokument beschriebenen Bedingungen, Regelungen, Einschränkungen, Ausschlüssen, Haftungsbefreiungen, Warnungen, Anweisungen, Empfehlungen, Hinweisen, Ratschlägen, technischen Spezifikationen, Sicherheitsanweisungen, Updates, Änderungen und Modifikationen. Jegliche Nutzung außerhalb dieser Bedingungen erfolgt vollständig auf eigene Gefahr, Verantwortung und Risiko des Nutzers, einschließlich aller unmittelbaren, mittelbaren, vorhersehbaren oder unvorhersehbaren Konsequenzen.</p>
+
+	    <p>Dieses Gerät wird in absolut unmanipulierter Originalform ausgeliefert, versehen mit einzigartigen, unwiderruflichen Garantieabklebern, die beim Öffnen oder Verändern unwiderruflich zerstört werden. Jegliche Modifikation oder Manipulation führt sofort und endgültig zum Erlöschen aller Gewährleistungsansprüche. Gleichzeitig liegt der gesamte Gebrauch des Geräts, einschließlich aller Funktionen und Softwareanwendungen, in der alleinigen Verantwortung des Nutzers. Die Garantie deckt ausschließlich die einwandfreie Funktionsfähigkeit im ursprünglichen, unveränderten Zustand. Jegliche Abweichung von diesem Zustand überträgt sämtliche Risiken und Folgen direkt auf den Nutzer. Fotografischer Nachweis unversehrter Garantieabkleber gilt als das einzige offizielle Beweismittel für die unmanipulierte Auslieferung. Jegliche andere Behauptung wird nicht anerkannt.</p>
+        </div>
+    </main>
+</body>
+</html>

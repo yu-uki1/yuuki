@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Kontakt - Yuuki's Streampad</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            background: #f4f4f9; 
+            color: #333; 
+        }
+        header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background-color: #6200ea; 
+            padding: 15px 30px; 
+            color: white; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        header a { 
+            color: white; 
+            text-decoration: none; 
+            margin: 0 15px; 
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        header a:hover { text-decoration: underline; }
+        main { 
+            max-width: 800px; 
+            margin: 40px auto; 
+            padding: 20px; 
+        }
+        h1, h2 { color: #6200ea; }
+        .contact-info { 
+            background: white; 
+            padding: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+            margin-bottom: 35px;
+            transition: transform 0.3s;
+        }
+        .contact-info:hover { transform: translateY(-3px); }
+        .contact-info p { margin: 10px 0; font-size: 1.1em; }
+        form { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        form label { display: block; margin: 15px 0 5px 0; font-weight: bold; }
+        form input, form textarea { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #ccc; 
+            border-radius: 8px; 
+            font-size: 1em; 
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        form input:focus, form textarea:focus { 
+            border-color: #6200ea; 
+            box-shadow: 0 0 8px rgba(98,0,234,0.3); 
+            outline: none; 
+        }
+        form button { 
+            margin-top: 25px; 
+            padding: 14px 30px; 
+            background-color: #6200ea; 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 1em; 
+            cursor: pointer; 
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        form button:hover { 
+            background-color: #4500b5; 
+            transform: translateY(-2px);
+        }
+        small { color: #666; }
+        @media (max-width: 600px) {
+            header { flex-direction: column; gap: 10px; text-align: center; }
+            header nav { margin-top: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div><strong>Yuuki's Streampad</strong></div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="ueber.html">Über den Entwickler</a>
+	    <a href="projekte.html">Projekte</a>
+            <a href="kontakt.html">Kontakt</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Kontakt</h1>
+
+        <div class="contact-info">
+            <p><strong>Telefon:</strong> +49 176 46674886</p>
+            <p><strong>E-Mail:</strong> yuuki.akano.hefenbrock@gmail.com</p>
+        </div>
+
+        <h2>Nachricht senden</h2>
+        <form action="mailto:yuuki.akano.hefenbrock@gmail.com" method="post" enctype="text/plain">
+            <label for="name">Ihr Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Ihre E-Mail-Adresse:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="age">Ihr Alter:</label>
+            <input type="number" id="age" name="age" min="13" max="120" required>
+            <small>Bitte geben Sie Ihr Alter ein (mindestens 13 Jahre).</small>
+
+            <label for="message">Nachricht:</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <button type="submit">Absenden</button>
+        </form>
+    </main>
+</body>
+</html>

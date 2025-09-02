@@ -63,7 +63,7 @@
     <main>
         <h1 class="fade-in-top" style="animation-delay: 0.2s;">Über den Entwickler</h1>
         <p class="fade-in-top" style="animation-delay: 0.4s;">Hallo und willkommen!</p>
-	<p class="fade-in-top" style="animation-delay: 0.6s;">Ich bin Jan-Luca Hefenbrock, bekannt als Yuuki Akano, 17 Jahre alt und leidenschaftlicher Tüftler.</p>
+	<p class="fade-in-top" style="animation-delay: 0.6s;">Ich bin Jan-Luca Hefenbrock, bekannt als Yuuki Akano, <span id="age"></span> Jahre alt und leidenschaftlicher Tüftler.</p>
 	<p class="fade-in-top" style="animation-delay: 0.8s;">Seit Jahren fasziniert mich alles rund um Technik, Programmierung und kreative Projekte – vom Basteln am Raspberry Pi bis hin zu eigenen Webprojekten.</p>
 	<p class="fade-in-top" style="animation-delay: 1.0s;">Das Streampad ist eines meiner Herzensprojekte: Dort kombiniere ich Technik, Design und Kreativität, um etwas zu erschaffen, das nicht nur funktioniert, sondern auch Spaß macht.</p> 
 	<p class="fade-in-top" style="animation-delay: 1.2s;">Für mich geht es dabei immer darum, Neues auszuprobieren, zu lernen und meine Ideen mit anderen zu teilen.<p>
@@ -81,8 +81,25 @@
     	margin: 0;">
     	&copy; 2025 Yuuki – Alle Rechte vorbehalten.
 	</footer>
+	<script>
+  		// Geburtsdatum (1. August 2008)
+  		const birthDate = new Date(2005, 7, 1); // Monat 7 = August, da JS bei 0 = Januar anfängt
+  		const today = new Date();
+
+  		let age = today.getFullYear() - birthDate.getFullYear();
+  		const hasHadBirthday =
+    		today.getMonth() > birthDate.getMonth() ||
+    		(today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+
+  		if (!hasHadBirthday) {
+    		age--;
+  		}
+
+  		document.getElementById("age").textContent = age;
+	</script>
 </body>
 </html>
+
 
 
 

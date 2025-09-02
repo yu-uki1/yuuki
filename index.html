@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Yuuki's Streampad</title>
+    <title>Yuuki's Website</title>
     <style>
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
@@ -59,6 +59,19 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
             margin-top: 20px;
         }
+		.fade-in-top {
+  	    opacity: 0;
+  	    transform: translateY(-30px); /* startet 30px über der Position */
+            animation: fadeInTop 1s ease forwards; /* forwards = bleibt am Endzustand */
+	}
+
+	    @keyframes fadeInTop {
+  	to {
+    	    opacity: 1;
+            transform: translateY(0);
+            }
+    	}
+
     </style>
     <script>
         function toggleDisclaimer() {
@@ -69,22 +82,21 @@
 </head>
 <body>
     <header>
-        <div><strong>Yuuki's Website</strong></div>
+        <div><strong class="fade-in-top">Yuuki's Website</strong></div>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="ueber.html">Über den Entwickler</a>
-	    <a href="projekte.html">Projekte</a>
-            <a href="kontakt.html">Kontakt</a>
+            <a href="index.html" class="fade-in-top" style="animation-delay: 0.2s;">Home</a>
+            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.4s;">Über den Entwickler</a>
+	        <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.6s;">Projekte</a>
+            <a href="kontakt.html" class="fade-in-top" style="animation-delay: 0.8s;">Kontakt</a>
         </nav>
     </header>
 
     <main>
-        <h1>Willkommen zu Yuuki's Website</h1>
-
+        <h1 class="fade-in-top">Willkommen zu Yuuki's Website</h1>
 		<p>&nbsp;</p>
 		<p>&nbsp;</p>
 		<p>&nbsp;</p>
-        <p>Diese Website ist noch in Entwicklung. Einiges funktioniert, anderes noch nicht</p>
+        <p class="fade-in-top" style="animation-delay: 0.2s;">Diese Website ist noch in Entwicklung. Einiges funktioniert, anderes noch nicht</p>
 		
         
     </main>
@@ -104,6 +116,7 @@
 
 </body>
 </html>
+
 
 
 

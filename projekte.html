@@ -80,6 +80,18 @@
         .project-card .project-info a:hover {
             background-color: #4b00b5;
         }
+		.fade-in-top {
+  	    opacity: 0;
+  	    transform: translateY(-30px); /* startet 30px über der Position */
+            animation: fadeInTop 1s ease forwards; /* forwards = bleibt am Endzustand */
+	}
+
+	    @keyframes fadeInTop {
+  	to {
+    	    opacity: 1;
+            transform: translateY(0);
+            }
+    	}
     </style>
 </head>
 <body>
@@ -130,6 +142,7 @@
 	</footer>
 </body>
 </html>
+
 
 
 

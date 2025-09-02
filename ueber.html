@@ -35,6 +35,18 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         h1 { color: #6200ea; }
+		.fade-in-top {
+  	    opacity: 0;
+  	    transform: translateY(-30px); /* startet 30px über der Position */
+            animation: fadeInTop 1s ease forwards; /* forwards = bleibt am Endzustand */
+	}
+
+	    @keyframes fadeInTop {
+  	to {
+    	    opacity: 1;
+            transform: translateY(0);
+            }
+    	}
     </style>
 </head>
 <body>
@@ -72,4 +84,5 @@
 	</footer>
 </body>
 </html>
+
 

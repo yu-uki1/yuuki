@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wissenschaftlicher Taschenrechner</title>
+<title>Taschenrechner</title>
 <style>
     body {
         display: flex;
@@ -36,13 +36,13 @@
 
     .buttons {
         display: grid;
-        grid-template-columns: repeat(6, 60px);
+        grid-template-columns: repeat(4, 70px);
         gap: 10px;
     }
 
     .btn {
-        padding: 15px;
-        font-size: 1em;
+        padding: 20px;
+        font-size: 1.2em;
         border: none;
         border-radius: 10px;
         background: #6c3483;
@@ -65,7 +65,7 @@
     }
 
     .equal {
-        grid-column: span 2;
+        grid-row: span 2;
         background: #2980b9;
     }
 
@@ -82,40 +82,28 @@
 <div class="calculator">
     <input type="text" class="display" id="display" disabled>
     <div class="buttons">
-        <!-- Linke Spalte: Wissenschaftliche Funktionen -->
-        <button class="btn" onclick="appendFunction('Math.sin')">sin</button>
-        <button class="btn" onclick="appendFunction('Math.cos')">cos</button>
-        <button class="btn" onclick="appendFunction('Math.tan')">tan</button>
-        <button class="btn" onclick="appendFunction('Math.log')">ln</button>
-        <button class="btn" onclick="appendFunction('Math.exp')">exp</button>
-        <button class="btn operator" onclick="appendOperator('**')">xʸ</button>
-
-        <button class="btn" onclick="appendNumber('(')">(</button>
-        <button class="btn" onclick="appendNumber(')')">)</button>
-        <button class="btn operator" onclick="appendOperator('%')">%</button>
+        <button class="btn" onclick="clearDisplay()">C</button>
+        <button class="btn" onclick="deleteLast()">⌫</button>
         <button class="btn operator" onclick="appendOperator('/')">÷</button>
         <button class="btn operator" onclick="appendOperator('*')">×</button>
-        <button class="btn operator" onclick="appendOperator('-')">−</button>
 
-        <!-- Zahlen und Grundoperatoren -->
         <button class="btn" onclick="appendNumber('7')">7</button>
         <button class="btn" onclick="appendNumber('8')">8</button>
         <button class="btn" onclick="appendNumber('9')">9</button>
-        <button class="btn operator" onclick="appendOperator('+')">+</button>
-        <button class="btn" onclick="clearDisplay()">C</button>
-        <button class="btn" onclick="deleteLast()">⌫</button>
+        <button class="btn operator" onclick="appendOperator('-')">−</button>
 
         <button class="btn" onclick="appendNumber('4')">4</button>
         <button class="btn" onclick="appendNumber('5')">5</button>
         <button class="btn" onclick="appendNumber('6')">6</button>
-        <button class="btn operator" onclick="appendOperator('**0.5')">√x</button>
-        <button class="btn equal" onclick="calculateResult()">=</button>
-        <button class="btn" onclick="appendNumber('1')">1</button>
+        <button class="btn operator" onclick="appendOperator('+')">+</button>
 
+        <button class="btn" onclick="appendNumber('1')">1</button>
         <button class="btn" onclick="appendNumber('2')">2</button>
         <button class="btn" onclick="appendNumber('3')">3</button>
-        <button class="btn" onclick="appendNumber('0')">0</button>
-        <button class="btn zero" onclick="appendNumber('.')">.</button>
+        <button class="btn equal" onclick="calculateResult()">=</button>
+
+        <button class="btn zero" onclick="appendNumber('0')">0</button>
+        <button class="btn" onclick="appendNumber('.')">.</button>
     </div>
 </div>
 
@@ -128,10 +116,6 @@ function appendNumber(number) {
 
 function appendOperator(operator) {
     display.value += operator;
-}
-
-function appendFunction(func) {
-    display.value += func + '(';
 }
 
 function clearDisplay() {

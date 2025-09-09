@@ -1,150 +1,139 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<title>Android Desktop Simulation</title>
-<style>
-/* --- Grundstil --- */
-body {
-    margin: 0;
-    font-family: sans-serif;
-    background-image: url('background.jpg'); /* Euer Wallpaper */
-    background-size: cover;
-    height: 100vh;
-    overflow: hidden;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moderner Taschenrechner</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            font-family: 'Arial', sans-serif;
+        }
 
-/* --- Statusleiste oben --- */
-#status-bar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 30px;
-    background-color: rgba(0,0,0,0.5);
-    color: white;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 0 10px;
-    z-index: 1000;
-}
+        .calculator {
+            background: #2c2c2c;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
 
-/* --- Desktop Icons --- */
-#desktop {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 50px 20px 20px 20px;
-}
+        .display {
+            width: 100%;
+            height: 60px;
+            margin-bottom: 15px;
+            font-size: 2em;
+            text-align: right;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            background: #3d3d3d;
+            color: #fff;
+        }
 
-.app-icon {
-    width: 80px;
-    margin: 10px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 70px);
+            gap: 10px;
+        }
 
-.app-icon:hover {
-    transform: scale(1.1);
-}
+        .btn {
+            padding: 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            background: #6c3483;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
 
-.app-icon img {
-    width: 64px;
-    height: 64px;
-    display: block;
-    margin: 0 auto 5px;
-}
+        .btn:hover {
+            background: #8e44ad;
+            transform: scale(1.05);
+        }
 
-/* --- Widget unten rechts --- */
-#widget {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 200px;
-    height: 100px;
-    background-color: rgba(255,255,255,0.7);
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    cursor: grab;
-    user-select: none;
-}
-</style>
+        .operator {
+            background: #d35400;
+        }
+
+        .operator:hover {
+            background: #e67e22;
+        }
+
+        .equal {
+            grid-row: span 2;
+            background: #2980b9;
+        }
+
+        .equal:hover {
+            background: #3498db;
+        }
+
+        .zero {
+            grid-column: span 2;
+        }
+    </style>
 </head>
 <body>
+    <div class="calculator">
+        <input type="text" class="display" id="display" disabled>
+        <div class="buttons">
+            <button class="btn" onclick="clearDisplay()">C</button>
+            <button class="btn" onclick="deleteLast()">⌫</button>
+            <button class="btn operator" onclick="appendOperator('/')">÷</button>
+            <button class="btn operator" onclick="appendOperator('*')">×</button>
 
-<!-- Statusleiste -->
-<div id="status-bar">
-    <span id="time">00:00</span>
-    <span style="margin-left: 10px;">🔋 85%</span>
-    <span style="margin-left: 10px;">📶 WLAN</span>
-</div>
+            <button class="btn" onclick="appendNumber('7')">7</button>
+            <button class="btn" onclick="appendNumber('8')">8</button>
+            <button class="btn" onclick="appendNumber('9')">9</button>
+            <button class="btn operator" onclick="appendOperator('-')">−</button>
 
-<!-- Desktop Icons -->
-<div id="desktop">
-    <div class="app-icon" onclick="openApp('App1')">
-        <img src="app_icon.png" alt="App1">
-        <span>App1</span>
+            <button class="btn" onclick="appendNumber('4')">4</button>
+            <button class="btn" onclick="appendNumber('5')">5</button>
+            <button class="btn" onclick="appendNumber('6')">6</button>
+            <button class="btn operator" onclick="appendOperator('+')">+</button>
+
+            <button class="btn" onclick="appendNumber('1')">1</button>
+            <button class="btn" onclick="appendNumber('2')">2</button>
+            <button class="btn" onclick="appendNumber('3')">3</button>
+            <button class="btn equal" onclick="calculateResult()">=</button>
+
+            <button class="btn zero" onclick="appendNumber('0')">0</button>
+            <button class="btn" onclick="appendNumber('.')">.</button>
+        </div>
     </div>
-    <div class="app-icon" onclick="openApp('App2')">
-        <img src="app_icon2.png" alt="App2">
-        <span>App2</span>
-    </div>
-    <div class="app-icon" onclick="openApp('App3')">
-        <img src="app_icon3.png" alt="App3">
-        <span>App3</span>
-    </div>
-    <div class="app-icon" onclick="openApp('App4')">
-        <img src="app_icon4.png" alt="App4">
-        <span>App4</span>
-    </div>
-</div>
 
-<!-- Widget -->
-<div id="widget">
-    <p>Wetter Widget: 22°C 🌤️</p>
-</div>
+    <script>
+        const display = document.getElementById('display');
 
-<script>
-// --- Echtzeit-Uhr ---
-function updateTime() {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2,'0');
-    const minutes = String(now.getMinutes()).padStart(2,'0');
-    document.getElementById('time').textContent = `${hours}:${minutes}`;
-}
-setInterval(updateTime, 1000);
-updateTime();
+        function appendNumber(number) {
+            display.value += number;
+        }
 
-// --- Apps öffnen ---
-function openApp(name) {
-    alert(`${name} wird geöffnet!`);
-}
+        function appendOperator(operator) {
+            if(display.value === '') return;
+            display.value += operator;
+        }
 
-// --- Drag & Drop Widget ---
-const widget = document.getElementById('widget');
-let isDragging = false;
-let offsetX, offsetY;
+        function clearDisplay() {
+            display.value = '';
+        }
 
-widget.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    offsetX = e.offsetX;
-    offsetY = e.offsetY;
-    widget.style.cursor = 'grabbing';
-});
+        function deleteLast() {
+            display.value = display.value.slice(0, -1);
+        }
 
-document.addEventListener('mousemove', (e) => {
-    if(isDragging){
-        widget.style.left = (e.clientX - offsetX) + 'px';
-        widget.style.top = (e.clientY - offsetY) + 'px';
-    }
-});
-
-document.addEventListener('mouseup', () => {
-    isDragging = false;
-    widget.style.cursor = 'grab';
-});
-</script>
-
+        function calculateResult() {
+            try {
+                display.value = eval(display.value);
+            } catch {
+                display.value = 'Fehler';
+            }
+        }
+    </script>
 </body>
 </html>

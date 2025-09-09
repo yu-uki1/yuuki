@@ -3,23 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>You spelled it wrong!</title>
+<title>Random Message</title>
 <style>
     body {
         margin: 0;
-        height: 30vh;
+        height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
         background-color: #1e1e1e;
         color: #9b59b6; /* schönes Lila */
         font-family: Arial, sans-serif;
-        font-size: 10vw; /* Schriftgröße skaliert mit Bildschirm */
+        font-size: 5vw; /* skaliert mit Bildschirmgröße */
         text-align: center;
     }
 </style>
 </head>
 <body>
-    You spelled it wrong!
+<script>
+    // Array mit Nachrichten
+    const messages = [
+        "You spelled it wrong!",
+        "Try again, champ!",
+        "Oops, that's not right!",
+        "Check your spelling!",
+        "Incorrect, my friend!"
+    ];
+
+    // Zufällige Nachricht auswählen
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+
+    // Nachricht ins Dokument schreiben
+    document.body.textContent = randomMessage;
+</script>
 </body>
 </html>

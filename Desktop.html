@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Android Desktop Simulation</title>
+<style>
+/* --- Grundstil --- */
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-image: url('background.jpg'); /* Euer Wallpaper */
+    background-size: cover;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* --- Statusleiste oben --- */
+#status-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 30px;
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 10px;
+    z-index: 1000;
+}
+
+/* --- Desktop Icons --- */
+#desktop {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 50px 20px 20px 20px;
+}
+
+.app-icon {
+    width: 80px;
+    margin: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.app-icon:hover {
+    transform: scale(1.1);
+}
+
+.app-icon img {
+    width: 64px;
+    height: 64px;
+    display: block;
+    margin: 0 auto 5px;
+}
+
+/* --- Widget unten rechts --- */
+#widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 200px;
+    height: 100px;
+    background-color: rgba(255,255,255,0.7);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    cursor: grab;
+    user-select: none;
+}
+</style>
+</head>
+<body>
+
+<!-- Statusleiste -->
+<div id="status-bar">
+    <span id="time">00:00</span>
+    <span style="margin-left: 10px;">🔋 85%</span>
+    <span style="margin-left: 10px;">📶 WLAN</span>
+</div>
+
+<!-- Desktop Icons -->
+<div id="desktop">
+    <div class="app-icon" onclick="openApp('App1')">
+        <img src="app_icon.png" alt="App1">
+        <span>App1</span>
+    </div>
+    <div class="app-icon" onclick="openApp('App2')">
+        <img src="app_icon2.png" alt="App2">
+        <span>App2</span>
+    </div>
+    <div class="app-icon" onclick="openApp('App3')">
+        <img src="app_icon3.png" alt="App3">
+        <span>App3</span>
+    </div>
+    <div class="app-icon" onclick="openApp('App4')">
+        <img src="app_icon4.png" alt="App4">
+        <span>App4</span>
+    </div>
+</div>
+
+<!-- Widget -->
+<div id="widget">
+    <p>Wetter Widget: 22°C 🌤️</p>
+</div>
+
+<script>
+// --- Echtzeit-Uhr ---
+function updateTime() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2,'0');
+    const minutes = String(now.getMinutes()).padStart(2,'0');
+    document.getElementById('time').textContent = `${hours}:${minutes}`;
+}
+setInterval(updateTime, 1000);
+updateTime();
+
+// --- Apps öffnen ---
+function openApp(name) {
+    alert(`${name} wird geöffnet!`);
+}
+
+// --- Drag & Drop Widget ---
+const widget = document.getElementById('widget');
+let isDragging = false;
+let offsetX, offsetY;
+
+widget.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    offsetX = e.offsetX;
+    offsetY = e.offsetY;
+    widget.style.cursor = 'grabbing';
+});
+
+document.addEventListener('mousemove', (e) => {
+    if(isDragging){
+        widget.style.left = (e.clientX - offsetX) + 'px';
+        widget.style.top = (e.clientY - offsetY) + 'px';
+    }
+});
+
+document.addEventListener('mouseup', () => {
+    isDragging = false;
+    widget.style.cursor = 'grab';
+});
+</script>
+
+</body>
+</html>

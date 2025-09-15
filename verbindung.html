@@ -53,6 +53,13 @@
       margin-bottom: 10px;
     }
 
+    .db-route {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.1em;
+      margin-bottom: 12px;
+    }
+
     .details-button {
       display: block;
       margin: 0 auto 12px auto;
@@ -67,12 +74,6 @@
 
     .details-button:hover {
       background-color: #0066cc;
-    }
-
-    .db-route {
-      display: flex;
-      justify-content: space-between;
-      font-size: 1.1em;
     }
 
     .stops {
@@ -102,11 +103,11 @@
       <span class="db-delay">15:06 - 15:18</span>
     </div>
     <div class="db-train">RB73</div>
-    <button class="details-button" onclick="toggleStops()">Details</button>
     <div class="db-route">
       <span>Lemgo-Lüttfeld</span>
       <span>Lage (Lippe)</span>
     </div>
+    <button class="details-button" onclick="toggleStops()">Details</button>
     <div class="stops" id="stops">
       <div class="stop">
         <span>Lemgo</span>

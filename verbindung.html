@@ -41,7 +41,8 @@
     .db-delay {
       color: #e74c3c;
       font-size: 1em;
-      margin-left: 8px;
+      display: block;
+      margin-top: 4px;
     }
 
     .db-train {
@@ -57,7 +58,41 @@
     .db-route {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       font-size: 1.1em;
+    }
+
+    .db-route button {
+      background-color: #004a99;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9em;
+    }
+
+    .db-route button:hover {
+      background-color: #0066cc;
+    }
+
+    .stops {
+      display: none;
+      margin-top: 12px;
+      background-color: #2a2a2a;
+      padding: 8px;
+      border-radius: 6px;
+    }
+
+    .stop {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      border-bottom: 1px solid #444;
+    }
+
+    .stop:last-child {
+      border-bottom: none;
     }
   </style>
 </head>
@@ -65,15 +100,33 @@
   <div class="db-box">
     <div class="db-header">
       <div>
-        <span class="db-time">15:04 - 15:16    | 12 Min</span>
-        <span class="db-delay">15:06 - 15:18</span>
+        <span class="db-time">15:04 - 15:16 | 12 Min</span>
+        <span class="db-delay">+2 Min</span>
       </div>
     </div>
     <div class="db-train">RB73</div>
     <div class="db-route">
       <span>Lemgo-Lüttfeld</span>
+      <button onclick="toggleStops()">Details</button>
       <span>Lage (Lippe)</span>
     </div>
+    <div class="stops" id="stops">
+      <div class="stop">
+        <span>Lemgo</span>
+        <span>15:06</span>
+      </div>
+      <div class="stop">
+        <span>Hörstmar</span>
+        <span>15:11</span>
+      </div>
+    </div>
   </div>
+
+  <script>
+    function toggleStops() {
+      const stops = document.getElementById('stops');
+      stops.style.display = stops.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
 </body>
 </html>

@@ -53,6 +53,16 @@
       margin-bottom: 10px;
     }
 
+    .db-bus {
+      background-color: #800080;
+      text-align: center;
+      font-size: 1.3em;
+      font-weight: bold;
+      padding: 6px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
     .db-route {
       display: flex;
       justify-content: space-between;
@@ -123,27 +133,37 @@
   <!-- Zweite Verbindung -->
   <div class="db-box">
     <div class="db-header">
-      <span class="db-time">15:04 - 15:16 | 12 Min</span>
-      <span class="db-delay">15:06 - 15:18</span>
+      <span class="db-time">15:19 - 15:40 | 21 Min</span>
+      <span class="db-delay"></span>
     </div>
-    <div class="db-train">RB73</div>
+    <div class="db-bus">Bus 732 / S73</div>
     <div class="db-route">
       <span>Lemgo-Lüttfeld</span>
       <span>Lage (Lippe)</span>
     </div>
     <button class="details-button" onclick="toggleStops('stops1')">Details</button>
     <div class="stops" id="stops1">
-      <div class="stop"><span>Lemgo-Lüttfeld</span><span>(Gleis 1) 15:04</span></div>
-      <div class="stop"><span>Lemgo</span><span>(Gleis 1) 15:06</span></div>
-      <div class="stop"><span>Hörstmar (Lippe)</span><span>(Gleis 1) 15:11</span></div>
-      <div class="stop"><span>Lage (Lippe)</span><span>(Gleis 5) 15:16</span></div>
+      <div class="stop"><span>Brake Lüttfeld, Lemgo</span><span>15:19</span></div>
+      <div class="stop"><span>Braker Weg, Lemgo</span><span>15:20</span></div>
+      <div class="stop"><span>Breite Straße, Lemgo</span><span></span>15:21</span></div>
+      <div class="stop"><span>Bahnhof, Lemgo</span><span>15:24</span></div>
+      <div class="stop"><span>Brückenhaus, Lemgo</span><span>15:26</span></div>
+      <div class="stop"><span>Lagesche Straße, Lemgo</span><span>15:27</span></div>
+      <div class="stop"><span>Lüpke, Lemgo</span><span>15:29</span></div>
+      <div class="stop"><span>Hörstmar Uferstraße, Lemgo</span><span>15:31</span></div>
+      <div class="stop"><span>Hörstmar Magdeburger Str., Lemgo</span><span>15:32</span></div>
+      <div class="stop"><span>Abzw. Hardissen, Lage (Lippe)</span><span>15:34</span></div>
+      <div class="stop"><span>Freiligrathstraße, Lage (Lippe)</span><span>15:36</span></div>
+      <div class="stop"><span>Düstersiek, Lage (Lippe)</span><span>15:36</span></div>
+      <div class="stop"><span>Lagenser Forum, Lage (Lippe)</span><span>15:38</span></div>
+      <div class="stop"><span>Bahnhof Hst.1/3 5, Lage (Lippe)</span><span>15:40</span></div>
     </div>
   </div>
 
   <!-- Dritte Verbindung -->
   <div class="db-box">
     <div class="db-header">
-      <span class="db-time">16:04 - 16:16 | 12 Min</span>
+      <span class="db-time">15:04 - 15:16 | 12 Min</span>
       <span class="db-delay"></span>
     </div>
     <div class="db-train">RB73</div>

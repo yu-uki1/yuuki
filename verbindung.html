@@ -5,21 +5,25 @@
   <title>DB Anzeige</title>
   <style>
     body {
+      margin: 0;
+      padding: 0;
       background-color: #222;
       font-family: Arial, sans-serif;
       color: white;
       display: flex;
       justify-content: center;
-      align-items: center;
-      height: 100vh;
+      align-items: flex-start;
+      min-height: 100vh;
     }
 
     .db-box {
       background-color: #1a1a1a;
       border-radius: 8px;
-      width: 600px;
+      width: 95%;
+      max-width: 600px;
       box-shadow: 0 0 10px rgba(0,0,0,0.6);
       padding: 16px;
+      margin: 16px auto;
     }
 
     .db-header {
@@ -35,9 +39,9 @@
     }
 
     .db-delay {
-      color: #e74c3c; /* rot für Verspätung */
+      color: #e74c3c;
       font-size: 1em;
-      margin-left: 10px;
+      margin-left: 8px;
     }
 
     .db-train {

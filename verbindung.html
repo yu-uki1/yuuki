@@ -3,150 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fahrplan</title>
+  <title>DB Fahrplananzeige</title>
   <style>
     body {
       font-family: "DB Sans", Arial, sans-serif;
-      background-color: #f5f5f5;
+      background-color: #e5e5e5;
       margin: 0;
-      padding: 0;
-      color: #111;
+      padding: 2em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
 
-    .header {
-      background-color: #ec0016; /* DB-Rot */
+    .board {
+      background-color: #2c2c2c; /* sehr dunkles Grau */
       color: white;
-      text-align: center;
-      padding: 1em;
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-
-    .connection {
-      max-width: 800px;
-      margin: 1.5em auto;
-      background-color: white;
-      border: 1px solid #ddd;
-      border-radius: 4px;
+      width: 700px;
+      border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      position: relative;
     }
 
-    .train-header {
-      background-color: #f2f2f2;
-      padding: 0.8em 1em;
+    .line-bar {
+      background-color: #666;
+      text-align: center;
+      padding: 0.6em;
       font-weight: bold;
+      font-size: 1.4em;
+      color: white;
+    }
+
+    .board-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 1em 1.5em;
+    }
+
+    .station {
+      font-size: 1.3em;
+      font-weight: bold;
+    }
+
+    .time-info {
+      text-align: right;
+    }
+
+    .fahrzeit {
       font-size: 1.2em;
-      border-bottom: 1px solid #ddd;
-    }
-
-    .times {
-      padding: 1em;
-    }
-
-    .info {
-      display: flex;
-      justify-content: space-between;
-      margin: 0.5em 0;
-      font-size: 1.1em;
-    }
-
-    .label {
       font-weight: bold;
+      color: #fff;
     }
 
-    .time {
-      font-weight: bold;
-      color: #111;
-    }
-
-    .delay {
-      color: #ec0016; /* Rot wie DB-Verspätung */
-      font-weight: bold;
-      margin-left: 0.5em;
-    }
-
-    .arrival-gleis {
-      font-size: 0.9em;
-      color: #444;
-      margin-left: 0.5em;
-    }
-
-    .halts {
-      border-top: 1px solid #ddd;
-      margin-top: 1em;
-    }
-
-    .halts h3 {
-      margin: 0;
-      padding: 0.5em 1em;
-      background-color: #f9f9f9;
-      border-bottom: 1px solid #ddd;
+    .verspaetung {
       font-size: 1em;
-    }
-
-    .halts div {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.6em 1em;
-      border-bottom: 1px solid #eee;
-      font-size: 1em;
-    }
-
-    .halts .station-time {
+      color: #ec0016; /* DB-Rot für Abweichungen */
       font-weight: bold;
-      color: #111;
+      margin-top: 0.3em;
     }
   </style>
 </head>
 <body>
-  <div class="header">Fahrplanauskunft</div>
-  
-  <div class="connection">
-    <div class="train-header">RB73 → Lage</div>
-    <div class="times">
-      <div class="info">
-        <span class="label">Abfahrt:</span>
-        <span class="time">
-          15:04
-          <span class="delay">+0 Min</span>
-          <span class="arrival-gleis">Gleis 1</span>
-        </span>
+  <div class="board">
+    <div class="line-bar">RB73</div>
+    <div class="board-content">
+      <div class="station">Lemgo-Lüttfeld</div>
+      <div class="time-info">
+        <div class="fahrzeit">15:04 → 15:16</div>
+        <div class="verspaetung">15:19</div>
       </div>
-      <div class="info">
-        <span class="label">Ankunft:</span>
-        <span class="time">
-          15:16
-          <span class="delay">+3 Min</span>
-          <span class="arrival-gleis">Gleis 5</span>
-        </span>
-      </div>
-      <div class="info">
-        <span class="label">Dauer:</span>
-        <span class="time">12 Min</span>
-      </div>
-    </div>
-
-    <div class="halts">
-      <h3>Zwischenhalte:</h3>
-      <div>
-        <span class="station">Lemgo</span>
-        <span class="station-time">15:06</span>
-      </div>
-      <div>
-        <span class="station">Hörstmar</span>
-        <span class="station-time">15:11</span>
-      </div>
+      <div class="station">Lage (Lippe)</div>
     </div>
   </div>
-
-  <script>
-    // Blendet leere Verspätungen automatisch aus
-    document.querySelectorAll('.delay').forEach(span => {
-      if (!span.textContent.trim()) {
-        span.style.display = 'none';
-      }
-    });
-  </script>
 </body>
 </html>

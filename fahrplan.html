@@ -51,6 +51,18 @@
             color: #007700;
         }
 
+        .delay {
+            color: red;
+            font-weight: bold;
+            margin-left: 0.5em;
+        }
+
+        .arrival-gleis {
+            font-size: 0.9em;
+            color: #555;
+            margin-left: 0.5em;
+        }
+
         .halts {
             margin-top: 1em;
             padding: 0.5em;
@@ -72,12 +84,6 @@
             color: #007700;
             font-weight: bold;
         }
-
-        .arrival-gleis {
-            font-size: 0.9em;
-            color: #555;
-            margin-left: 0.5em;
-        }
     </style>
 </head>
 <body>
@@ -86,11 +92,20 @@
         <h2>RB73 → Lage</h2>
         <div class="info">
             <span class="label">Abfahrt:</span>
-            <span class="time">15:04<span class="arrival-gleis">Gleis 1</span></span>
+            <span class="time">
+                15:04
+                <!-- Verspätung anzeigen nur wenn sie > 0 -->
+                <span class="delay" style="display:none;">+5 Min</span>
+                <span class="arrival-gleis">Gleis 1</span>
+            </span>
         </div>
         <div class="info">
             <span class="label">Ankunft:</span>
-            <span class="time">15:16<span class="arrival-gleis">Gleis 5</span></span>
+            <span class="time">
+                15:16
+                <span class="delay">+3 Min</span>
+                <span class="arrival-gleis">Gleis 5</span>
+            </span>
         </div>
         <div class="info">
             <span class="label">Dauer:</span>
@@ -108,5 +123,18 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Beispiel: Verspätung dynamisch steuern
+        const abfahrtDelay = 0; // Minuten
+        const abfahrtDelaySpan = document.querySelector('.info:nth-of-type(1) .delay');
+
+        if (abfahrtDelay > 0) {
+            abfahrtDelaySpan.textContent = `+${abfahrtDelay} Min`;
+            abfahrtDelaySpan.style.display = 'inline';
+        } else {
+            abfahrtDelaySpan.style.display = 'none';
+        }
+    </script>
 </body>
 </html>

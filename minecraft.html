@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Minecraft Item- & Block-Rechner</title>
+<style>
+  body { font-family: sans-serif; background-color: #f5f0ff; color: #2a0055; padding: 20px; }
+  h1 { color: #8000ff; }
+  table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+  th, td { border: 1px solid #8000ff; padding: 8px; text-align: left; }
+  th { background-color: #d1b3ff; }
+  input { width: 60px; }
+  button { margin-top: 10px; padding: 5px 10px; font-size: 1rem; }
+</style>
+</head>
+<body>
+
+<h1>Minecraft Item- & Block-Rechner</h1>
+<p>Wählt die Endprodukte aus und gebt die gewünschte Menge ein:</p>
+
+<table id="endProductsTable">
+  <thead>
+    <tr><th>Endprodukt</th><th>Menge</th></tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<button onclick="calculateMaterials()">Benötigte Rohstoffe berechnen</button>
+
+<h2>Rohstoffe insgesamt:</h2>
+<table id="materialsTable">
+  <thead><tr><th>Rohstoff</th><th>Menge</th></tr></thead>
+  <tbody></tbody>
+</table>
+
+<script>
+// Alle normalen Items und Blöcke (vereinfacht und übersichtlich)
+const recipes = {
+  "Holzbrett": { "Holz": 1 },
+  "Stöcke": { "Holzbrett": 2 },
+  "Steinziegel": { "Stein": 4 },
+  "Steinziegelstufe": { "Steinziegel": 3 },
+  "Steinziegelmauer": { "Steinziegel": 6 },
+  "Fackel": { "Kohle": 1, "Stöcke": 1 },
+  "Kiste": { "Holzbrett": 8 },
+  "Truhe": { "Kiste": 1, "Eisenbarren": 1 },
+  "Lagerfeuer": { "Holzbrett": 3, "Stöcke": 3, "Kohle": 1 },
+  "Eisenofen": { "Stein": 8, "Eisenbarren": 1 },
+  "Schmelzofen": { "Stein": 3, "Eisenbarren": 5 },
+  "Kessel": { "Eisenbarren": 7 },
+  "TNT": { "Sand": 4, "Kohle": 5 },
+  "Eisentür": { "Eisenbarren": 6 },
+  "Buch": { "Papier": 3, "Leder": 1 },
+  "Buchregal": { "Buch": 6, "Holzbrett": 3 },
+  "Verzauberungstisch": { "Diamant": 2, "Buch": 1, "Obsidian": 4 },
+  "Amboss": { "Eisenbarren": 3 },
+  "Bogen": { "Stöcke": 3, "Fäden": 3 },
+  "Schwert (Holz)": { "Holz": 2, "Stöcke": 1 },
+  "Schaufel (Holz)": { "Holz": 1, "Stöcke": 1 },
+  "Axt (Holz)": { "Holz": 3, "Stöcke": 2 },
+  "Schwert (Stein)": { "Stein": 2, "Stöcke": 1 },
+  "Schaufel (Stein)": { "Stein": 1, "Stöcke": 1 },
+  "Axt (Stein)": { "Stein": 3, "Stöcke": 2 },
+  "Schwert (Eisen)": { "Eisenbarren": 2, "Stöcke": 1 },
+  "Schaufel (Eisen)": { "Eisenbarren": 1, "Stöcke": 1 },
+  "Axt (Eisen)": { "Eisenbarren": 3, "Stöcke": 2 },
+  "Schwert (Diamant)": { "Diamant": 2, "Stöcke": 1 },
+  "Schaufel (Diamant)": { "Diamant": 1, "Stöcke": 1 },
+  "Axt (Diamant)": { "Diamant": 3, "Stöcke": 2 },
+  "Schwert (Netherite)": { "Netheritebarren": 2, "Stöcke": 1 },
+  "Schaufel (Netherite)": { "Netheritebarren": 1, "Stöcke": 1 },
+  "Axt (Netherite)": { "Netheritebarren": 3, "Stöcke": 2 },
+  "Netheriteblock": { "Netheritebarren": 9 },
+  "Goldblock": { "Goldbarren": 9 },
+  "Eisenblock": { "Eisenbarren": 9 },
+  "Diamantblock": { "Diamant": 9 },
+  "Lapisblock": { "Lapislazuli": 9 },
+  "Redstoneblock": { "Redstone": 9 },
+  "Kohleblock": { "Kohle": 9 },
+  "Glasblock": { "Sand": 1 }
+};
+
+// Tabelle mit Endprodukten füllen
+const tbody = document.getElementById('endProductsTable').getElementsByTagName('tbody')[0];
+for (const product in recipes) {
+  const row = tbody.insertRow();
+  const nameCell = row.insertCell(0);
+  const qtyCell = row.insertCell(1);
+  nameCell.textContent = product;
+  qtyCell.innerHTML = `<input type="number" min="0" value="0" data-product="${product}">`;
+}
+
+// Berechnung der Rohstoffe
+function calculateMaterials() {
+  const inputs = document.querySelectorAll('#endProductsTable input');
+  const totalMaterials = {};
+
+  inputs.forEach(input => {
+    const product = input.dataset.product;
+    const qty = parseInt(input.value) || 0;
+    if (qty > 0) {
+      const ingredients = recipes[product];
+      for (const mat in ingredients) {
+        if (!totalMaterials[mat]) totalMaterials[mat] = 0;
+        totalMaterials[mat] += ingredients[mat] * qty;
+      }
+    }
+  });
+
+  // Ergebnis-Tabelle füllen
+  const tbodyMaterials = document.getElementById('materialsTable').getElementsByTagName('tbody')[0];
+  tbodyMaterials.innerHTML = "";
+  for (const mat in totalMaterials) {
+    const row = tbodyMaterials.insertRow();
+    row.insertCell(0).textContent = mat;
+    row.insertCell(1).textContent = totalMaterials[mat];
+  }
+}
+</script>
+
+</body>
+</html>

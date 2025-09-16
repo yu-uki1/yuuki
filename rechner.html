@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Zahlensystem-Rechner</title>
+  <title>Universal Zahlensystem-Rechner</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -10,7 +10,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
     }
     .calculator {
       background-color: #fff;
@@ -18,27 +18,29 @@
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       text-align: center;
+      max-width: 400px;
     }
     input, select, button {
       padding: 8px 12px;
       margin: 10px 0;
       font-size: 16px;
     }
-    .result {
+    .results {
       margin-top: 15px;
-      font-weight: bold;
-      font-size: 18px;
+      text-align: left;
+    }
+    .results div {
+      margin: 4px 0;
     }
   </style>
 </head>
 <body>
   <div class="calculator">
-    <h2>Zahlensystem-Rechner</h2>
-    <input type="number" id="decimalInput" placeholder="Gib eine Dezimalzahl ein">
+    <h2>Universal Zahlensystem-Rechner</h2>
+    <input type="text" id="numberInput" placeholder="Zahl eingeben">
     <br>
-    <label>Wähle das Ziel-System (2–16):</label><br>
-    <select id="systemSelect">
-      <!-- Dynamisch alle Basen von 2 bis 16 -->
+    <label>Basis der eingegebenen Zahl (2–16):</label><br>
+    <select id="inputBase">
       <script>
         for(let i=2;i<=16;i++){
           document.write(`<option value="${i}">${i}-er System</option>`);
@@ -46,20 +48,35 @@
       </script>
     </select>
     <br>
-    <button onclick="convertNumber()">Umrechnen</button>
-    <div class="result" id="result"></div>
+    <button onclick="convertAll()">Umrechnen</button>
+    <div class="results" id="results"></div>
   </div>
 
   <script>
-    function convertNumber() {
-      const decimal = parseInt(document.getElementById('decimalInput').value);
-      const system = parseInt(document.getElementById('systemSelect').value);
-      if (isNaN(decimal)) {
-        document.getElementById('result').innerText = "Bitte eine gültige Zahl eingeben!";
+    function convertAll() {
+      const numStr = document.getElementById('numberInput').value.trim();
+      const base = parseInt(document.getElementById('inputBase').value);
+
+      if(!numStr) {
+        document.getElementById('results').innerHTML = "Bitte eine Zahl eingeben!";
         return;
       }
-      const converted = decimal.toString(system).toUpperCase();
-      document.getElementById('result').innerText = `Ergebnis: ${converted}`;
+
+      // Versuche die Zahl in die Dezimalzahl zu konvertieren
+      let decimal;
+      try {
+        decimal = parseInt(numStr, base);
+        if(isNaN(decimal)) throw "Ungültige Zahl für die gewählte Basis";
+      } catch {
+        document.getElementById('results').innerHTML = "Ungültige Zahl für die gewählte Basis!";
+        return;
+      }
+
+      let output = "";
+      for(let i=2; i<=16; i++) {
+        output += `<div>${i}-er System: ${decimal.toString(i).toUpperCase()}</div>`;
+      }
+      document.getElementById('results').innerHTML = output;
     }
   </script>
 </body>

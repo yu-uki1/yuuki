@@ -36,10 +36,14 @@
     <h2>Zahlensystem-Rechner</h2>
     <input type="number" id="decimalInput" placeholder="Gib eine Dezimalzahl ein">
     <br>
+    <label>Wähle das Ziel-System (2–16):</label><br>
     <select id="systemSelect">
-      <option value="2">Binär (2er-System)</option>
-      <option value="8">Oktal (8er-System)</option>
-      <option value="16">Hexadezimal (16er-System)</option>
+      <!-- Dynamisch alle Basen von 2 bis 16 -->
+      <script>
+        for(let i=2;i<=16;i++){
+          document.write(`<option value="${i}">${i}-er System</option>`);
+        }
+      </script>
     </select>
     <br>
     <button onclick="convertNumber()">Umrechnen</button>

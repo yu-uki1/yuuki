@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Zahlensystem-Rechner</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .calculator {
+      background-color: #fff;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    input, select, button {
+      padding: 8px 12px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h2>Zahlensystem-Rechner</h2>
+    <input type="number" id="decimalInput" placeholder="Gib eine Dezimalzahl ein">
+    <br>
+    <select id="systemSelect">
+      <option value="2">Binär (2er-System)</option>
+      <option value="8">Oktal (8er-System)</option>
+      <option value="16">Hexadezimal (16er-System)</option>
+    </select>
+    <br>
+    <button onclick="convertNumber()">Umrechnen</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function convertNumber() {
+      const decimal = parseInt(document.getElementById('decimalInput').value);
+      const system = parseInt(document.getElementById('systemSelect').value);
+      if (isNaN(decimal)) {
+        document.getElementById('result').innerText = "Bitte eine gültige Zahl eingeben!";
+        return;
+      }
+      const converted = decimal.toString(system).toUpperCase();
+      document.getElementById('result').innerText = `Ergebnis: ${converted}`;
+    }
+  </script>
+</body>
+</html>

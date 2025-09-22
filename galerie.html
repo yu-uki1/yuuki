@@ -10,6 +10,7 @@
             background: #f4f4f9; 
             color: #333; 
         }
+
         header { 
             display: flex; 
             justify-content: space-between; 
@@ -54,6 +55,7 @@
             height: 100%;
             opacity: 0;
             transition: opacity 1.5s ease-in-out;
+            object-fit: cover; /* Alle Bilder füllen den Container */
         }
         .slides.active {
             opacity: 1;
@@ -73,7 +75,6 @@
             }
         }
 
-    
     </style>
 </head>
 <body>
@@ -131,20 +132,16 @@
     </script>
 
     <footer style="
-    	box-sizing: border-box;
-    	width: 100%;
-    	text-align: center;
-    	padding: 15px;
-    	background: #eee;
-    	border-top: 2px solid #6200ea;
-    	color: #333;
+        box-sizing: border-box;
+        width: 100%;
+        text-align: center;
+        padding: 15px;
+        background: #eee;
+        border-top: 2px solid #6200ea;
+        color: #333;
         font-size: 14px;
-    	margin-top: 40px;">
-    	&copy; 2025 Yuuki – Alle Rechte vorbehalten.
+        margin-top: 40px;">
+        &copy; 2025 Yuuki – Alle Rechte vorbehalten.
     </footer>
 </body>
 </html>
-
-
-
-

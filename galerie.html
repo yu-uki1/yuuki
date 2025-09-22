@@ -26,6 +26,7 @@
             font-weight: bold;
         }
         header a:hover { text-decoration: underline; }
+
         main { 
             max-width: 800px; 
             margin: 30px auto; 
@@ -35,26 +36,7 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         h1 { color: #6200ea; }
-        .price-section {
-            margin-top: 20px;
-        }
-        .price-section input[type="number"] {
-            width: 60px;
-            padding: 5px;
-            font-size: 16px;
-        }
-        .price-section button {
-            padding: 10px 20px;
-            background-color: #6200ea;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .price-section button:hover {
-            background-color: #4500b5;
-        }
+
         /* Slideshow */
         .slideshow-container {
             position: relative;
@@ -70,7 +52,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-            border-radius: 10px;
             opacity: 0;
             transition: opacity 1.5s ease-in-out;
         }
@@ -78,57 +59,59 @@
             opacity: 1;
             z-index: 1;
         }
-        /* Produktinfos */
-        .product-info {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #fafafa;
-            border-radius: 10px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+
+        /* Fade-in Animation */
+        .fade-in-top {
+            opacity: 0;
+            transform: translateY(-30px);
+            animation: fadeInTop 1s ease forwards;
         }
-        .product-info h2 {
-            color: #6200ea;
-            margin-top: 0;
+        @keyframes fadeInTop {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .product-info ul {
-            list-style: disc inside;
-            padding-left: 0;
+
+        footer {
+            box-sizing: border-box;
+            width: 100%;
+            text-align: center;
+            padding: 15px;
+            background: #eee;
+            border-top: 2px solid #6200ea;
+            color: #333;
+            margin: 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
         }
-		.fade-in-top {
-  	    opacity: 0;
-  	    transform: translateY(-30px); /* startet 30px über der Position */
-            animation: fadeInTop 1s ease forwards; /* forwards = bleibt am Endzustand */
-		}
     </style>
 </head>
 <body>
     <header>
-        <div><strong>Yuuki's Galerie</strong></div>
+        <div><strong class="fade-in-top">Yuuki's Galerie</strong></div>
         <nav>
             <a href="index.html" class="fade-in-top" style="animation-delay: 0.2s;">Home</a>
             <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.4s;">Über den Entwickler</a>
-	    	<a href="projekte.html" class="fade-in-top" style="animation-delay: 0.6s;">Projekte</a>
-			<a href="galerie.html" class="fade-in-top" style="animation-delay: 0.8s;">Galerie</a>
+            <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.6s;">Projekte</a>
+            <a href="galerie.html" class="fade-in-top" style="animation-delay: 0.8s;">Galerie</a>
             <a href="kontakt.html" class="fade-in-top" style="animation-delay: 1.0s;">Kontakt</a>
         </nav>
     </header>
 
     <main>
         <h1 class="fade-in-top" style="animation-delay: 0.2s;">Galerie</h1>
+
         <!-- Slideshow -->
         <div class="slideshow-container">
             <img class="slides active" src="galerie/bild1.jpg" alt="Bild 1">
             <img class="slides" src="galerie/bild2.jpg" alt="Bild 2">
             <img class="slides" src="galerie/bild3.jpg" alt="Bild 3">
         </div>
-
-        
-
     </main>
 
     <script>
-        
-
         // Slideshow
         let slideIndex = 0;
         const slides = document.getElementsByClassName('slides');
@@ -152,21 +135,9 @@
             changeSlide(1);
         }, 5000);
     </script>
-	<footer style="
-		box-sizing: border-box;
-    	width: 100%;
-    	text-align: center;
-    	padding: 15px;
-    	background: #eee;
-    	border-top: 2px solid #6200ea;
-    	color: #eee;
-    	margin: 0;">
-    	&copy; 2025 Yuuki – Alle Rechte vorbehalten.
-	</footer>
+
+    <footer>
+        &copy; 2025 Yuuki – Alle Rechte vorbehalten.
+    </footer>
 </body>
 </html>
-
-
-
-
-

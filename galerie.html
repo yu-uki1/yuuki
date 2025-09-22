@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Streampad kaufen</title>
+    <title>Bildergalerie</title>
     <style>
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
@@ -98,59 +98,31 @@
 </head>
 <body>
     <header>
-        <div><strong>Yuuki's Streampad</strong></div>
+        <div><strong>Yuuki's Galerie</strong></div>
         <nav>
             <a href="index.html">Home</a>
             <a href="ueber.html">Über den Entwickler</a>
-	    <a href="projekte.html">Projekte</a>
+	    	<a href="projekte.html">Projekte</a>
+			<a href="galerie.html">Galerie</a>
             <a href="kontakt.html">Kontakt</a>
         </nav>
     </header>
 
     <main>
-        <h1>Streampad kaufen</h1>
-
-        <div class="price-section">
-            <p>Preis pro Stück: <strong>24,99 €</strong></p>
-            <label for="quantity">Anzahl (max. 20): </label>
-            <input type="number" id="quantity" min="1" max="20" value="1">
-            <p>Gesamtpreis: <strong id="total">24,99 €</strong></p>
-            <button onclick="alert('Danke für Ihren Kauf!')">Kaufen</button>
-			<li>Max. 800 im Jahr</li>
-        </div>
-
+        <h1>Galerie</h1>
         <!-- Slideshow -->
         <div class="slideshow-container">
-            <img class="slides active" src="bilder_streampad/streampad1.jpg" alt="Streampad 1">
-            <img class="slides" src="bilder_streampad/streampad2.jpg" alt="Streampad 2">
-            <img class="slides" src="bilder_streampad/streampad3.jpg" alt="Streampad 3">
+            <img class="slides active" src="galerie/bild1.jpg" alt="Bild 1">
+            <img class="slides" src="galerie/bild2.jpg" alt="Bild 2">
+            <img class="slides" src="galerie/bild3.jpg" alt="Bild 3">
         </div>
 
-        <!-- Produktinfos -->
-        <div class="product-info">
-            <h2>Produktinformationen</h2>
-            <ul>
-                <li>Hochwertiges Streampad für einfache Bedienung</li>
-                <li>PC nötig zur Tastenbelegung</li>
-                <li>Kompatibel mit PC und den meisten Android-Geräten</li>
-                <li>Kompaktes Design, perfekt für Schreibtische</li>
-                <li>Robustes Gehäuse und langlebige Tasten</li>
-            </ul>
-        </div>
+        
 
     </main>
 
     <script>
-        const price = 49.99;
-        const quantityInput = document.getElementById('quantity');
-        const totalDisplay = document.getElementById('total');
-
-        quantityInput.addEventListener('input', () => {
-            let qty = parseInt(quantityInput.value);
-            if (qty > 20) { qty = 20; quantityInput.value = 20; }
-            if (qty < 1) { qty = 1; quantityInput.value = 1; }
-            totalDisplay.textContent = (price * qty).toFixed(2) + ' €';
-        });
+        
 
         // Slideshow
         let slideIndex = 0;
@@ -188,5 +160,6 @@
 	</footer>
 </body>
 </html>
+
 
 

@@ -46,16 +46,17 @@
             margin: 40px auto;
             overflow: hidden;
             border-radius: 10px;
+            background-color: #000; /* Hintergrund für Lücken */
         }
         .slides {
             position: absolute;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            max-height: 100%;
+            width: auto;
             opacity: 0;
             transition: opacity 1.5s ease-in-out;
-            object-fit: cover; /* Alle Bilder füllen den Container */
         }
         .slides.active {
             opacity: 1;
@@ -74,7 +75,6 @@
                 transform: translateY(0);
             }
         }
-
     </style>
 </head>
 <body>

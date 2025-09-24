@@ -5,45 +5,57 @@
   <title>Yuukis Schaltzentrale</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
       background: #111;
       color: #eee;
+      font-family: Arial, sans-serif;
       text-align: center;
     }
-    .device {
-      margin: 20px;
-      padding: 15px;
-      border-radius: 10px;
+    svg {
+      border: 2px solid #eee;
       background: #222;
-      display: inline-block;
-      width: 200px;
+      margin-top: 20px;
     }
-    .on { background: #2d572c; color: #fff; }
-    .off { background: #7a1f1f; color: #fff; }
-    button {
-      margin-top: 10px;
-      padding: 10px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
+    .device {
       cursor: pointer;
+      stroke: white;
+      stroke-width: 2;
+      transition: fill 0.3s;
     }
+    .on { fill: limegreen; }
+    .off { fill: darkred; }
   </style>
 </head>
 <body>
   <h1>⚔️ Edle Yuuki’s Schaltzentrale ⚔️</h1>
+  <p>Klickt auf ein Gerät, um es umzuschalten.</p>
 
-  <div class="device on">
-    <h2>Licht</h2>
-    <p>Status: <span>AN</span></p>
-    <button>Ausschalten</button>
-  </div>
+  <svg width="600" height="400">
+    <!-- Raumumriss -->
+    <rect x="50" y="50" width="500" height="300" fill="none" stroke="white" stroke-width="3"/>
 
-  <div class="device off">
-    <h2>Monitor</h2>
-    <p>Status: <span>AUS</span></p>
-    <button>Einschalten</button>
-  </div>
+    <!-- Gerät: Lampe -->
+    <circle id="lampe" class="device off" cx="300" cy="100" r="20"
+            onclick="toggleDevice('lampe')"/>
+    <text x="280" y="140" fill="white">Lampe</text>
 
+    <!-- Gerät: Monitor -->
+    <rect id="monitor" class="device on" x="450" y="280" width="40" height="40"
+          onclick="toggleDevice('monitor')"/>
+    <text x="440" y="340" fill="white">Monitor</text>
+  </svg>
+
+  <script>
+    function toggleDevice(id) {
+      let el = document.getElementById(id);
+      if (el.classList.contains("on")) {
+        el.classList.remove("on");
+        el.classList.add("off");
+      } else {
+        el.classList.remove("off");
+        el.classList.add("on");
+      }
+      alert(id + " wurde geschaltet!");
+    }
+  </script>
 </body>
 </html>

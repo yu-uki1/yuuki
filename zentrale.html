@@ -40,8 +40,51 @@
     <rect id="monitor1" class="device off" x="600" y="440" width="40" height="30" onclick="toggleDevice('monitor1')"/>
     <rect id="monitor2" class="device off" x="650" y="440" width="40" height="30" onclick="toggleDevice('monitor2')"/>
     <rect id="monitor3" class="device off" x="550" y="440" width="40" height="30" onclick="toggleDevice('monitor3')"/>
+    <!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Schaltzentrale</title>
+  <style>
+    body {
+      background: #111;
+      color: #eee;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    svg {
+      border: none;
+      background: #222;
+      margin-top: 20px;
+    }
+    .device {
+      cursor: pointer;
+      stroke: white;
+      stroke-width: 2;
+      transition: fill 0.3s;
+    }
+    .on { fill: limegreen; }
+    .off { fill: darkred; }
+  </style>
+</head>
+<body>
+
+  <svg width="700" height="500">
+    <!-- Raumumriss (einfacher Strich für Wände) -->
+    <rect x="0" y="0" width="700" height="500" fill="none" stroke="white" stroke-width="2"/>
+
+    <!-- Gerät: Lampe in der Mitte -->
+    <circle id="lampe" class="device off" cx="350" cy="250" r="20"
+            onclick="toggleDevice('lampe')"/>
+    <text x="380" y="280" fill="white">Lampe</text>
+
+    <!-- Drei Monitore in der unteren rechten Ecke -->
+    <rect id="monitor1" class="device off" x="600" y="430" width="40" height="30" onclick="toggleDevice('monitor1')"/>
+    <rect id="monitor2" class="device off" x="650" y="430" width="40" height="30" onclick="toggleDevice('monitor2')"/>
+    <rect id="monitor3" class="device off" x="600" y="470" width="40" height="30" onclick="toggleDevice('monitor3')"/>
+    <rect id="led" class="device off" x="10" y="10" width="5" height="480" onclick="toggleDevice('led')"/>
     
-    <text x="590" y="495" fill="white">Monitore</text>
+    <text x="600" y="505" fill="white">Monitore</text>
   </svg>
 
   <script>
@@ -58,3 +101,5 @@
   </script>
 </body>
 </html>
+    
+    

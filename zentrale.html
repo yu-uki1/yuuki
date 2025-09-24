@@ -55,16 +55,19 @@
   </svg>
 
   <script>
-    function toggleDevice(id) {
-      let el = document.getElementById(id);
-      if (el.classList.contains("on")) {
-        el.classList.remove("on");
-        el.classList.add("off");
-      } else {
-        el.classList.remove("off");
-        el.classList.add("on");
-      }
-    }
+  	function toggleDevice(...ids) { // ...ids erlaubt mehrere IDs
+    	ids.forEach(id => {
+      	let el = document.getElementById(id);
+      	if (!el) return; // falls ein Element nicht existiert
+      	if (el.classList.contains("on")) {
+        	el.classList.remove("on");
+        	el.classList.add("off");
+      	} else {
+        	el.classList.remove("off");
+        	el.classList.add("on");
+      	}
+    	});
+  	}
   </script>
 </body>
 </html>

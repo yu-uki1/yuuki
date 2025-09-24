@@ -55,18 +55,26 @@
   </svg>
 
   <script>
-  	function toggleDevice(...ids) { // ...ids erlaubt mehrere IDs
-    	ids.forEach(id => {
-      	let el = document.getElementById(id);
-      	if (!el) return; // falls ein Element nicht existiert
-      	if (el.classList.contains("on")) {
-        	el.classList.remove("on");
-        	el.classList.add("off");
-      	} else {
-        	el.classList.remove("off");
-        	el.classList.add("on");
-      	}
-    	});
+  	function toggleDevice(id, dependentId = null) {
+    	let el = document.getElementById(id);
+    	if (!el) return;
+
+    	// Prüfen, ob das Gerät von einer Power abhängt
+    	if (dependentId) {
+      	let main = document.getElementById(dependentId);
+      	if (!main) return;
+      	// Wenn Hauptgerät aus ist, darf das abhängige Gerät nicht geschaltet werden
+      	if (!main.classList.contains("on")) return;
+    	}
+
+    	// Gerät umschalten
+    	if (el.classList.contains("on")) {
+      	el.classList.remove("on");
+      	el.classList.add("off");
+    	} else {
+      	el.classList.remove("off");
+      	el.classList.add("on");
+    	}
   	}
   </script>
 </body>

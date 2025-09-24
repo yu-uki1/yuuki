@@ -37,7 +37,7 @@
     <text x="327" y="285" fill="white">Lampe</text>
 
     <!-- Drei Monitore in der unteren rechten Ecke -->
-    <rect id="monitor1" class="device off" x="600" y="440" width="40" height="30" onclick="toggleDevice('monitor1')"/>
+    <rect id="monitor1" class="device off" x="600" y="440" width="40" height="30" data-power="power1" onclick="toggleDevice('monitor1')"/>
     <rect id="monitor2" class="device off" x="650" y="440" width="40" height="30" onclick="toggleDevice('monitor2')"/>
     <rect id="monitor3" class="device off" x="550" y="440" width="40" height="30" onclick="toggleDevice('monitor3')"/>
     <rect id="led" class="device off" x="10" y="10" width="10" height="480" onclick="toggleDevice('led')"/>
@@ -59,24 +59,44 @@
     	let el = document.getElementById(id);
     	if (!el) return;
 
-    	// Prüfen, ob das Gerät von einer Power abhängt
+    	// Wenn es ein Power-Rechteck ist und ein abhängiges Gerät hat
     	if (dependentId) {
-      	let main = document.getElementById(dependentId);
-      	if (!main) return;
-      	// Wenn Hauptgerät aus ist, darf das abhängige Gerät nicht geschaltet werden
-      	if (!main.classList.contains("on")) return;
+      	let dep = document.getElementById(dependentId);
+      	if (!dep) return;
+
+      	// Umschalten des Power-Geräts
+      	if (el.classList.contains("on")) {
+        	el.classList.remove("on");
+        	el.classList.add("off");
+        	// Power aus → abhängiges Gerät aus
+        	dep.classList.remove("on");
+        	dep.classList.add("off");
+      	} else {
+        	el.classList.remove("off");
+        	el.classList.add("on");
+        	// Power an → abhängiges Gerät automatisch an
+        	dep.classList.remove("off");
+        	dep.classList.add("on");
+      	}
+      	return; // fertig für Power-Gerät
     	}
 
-    	// Gerät umschalten
+    	// Normales Umschalten für Geräte ohne Abhängigkeit
     	if (el.classList.contains("on")) {
       	el.classList.remove("on");
       	el.classList.add("off");
     	} else {
+      	// Prüfen, ob Power an ist
+      	let powerId = el.getAttribute("data-power");
+      	if (powerId) {
+        	let power = document.getElementById(powerId);
+        	if (!power || !power.classList.contains("on")) return; // darf nicht angehen
+      	}
       	el.classList.remove("off");
       	el.classList.add("on");
     	}
   	}
-  </script>
+	</script>
 </body>
 </html>
     

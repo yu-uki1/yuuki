@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Yuukis Schaltzentrale</title>
+  <title>Schaltzentrale</title>
   <style>
     body {
       background: #111;
@@ -11,7 +11,7 @@
       text-align: center;
     }
     svg {
-      border: 2px solid #eee;
+      border: none;
       background: #222;
       margin-top: 20px;
     }
@@ -26,22 +26,15 @@
   </style>
 </head>
 <body>
-  <h1>⚔️ Edle Yuuki’s Schaltzentrale ⚔️</h1>
-  <p>Klickt auf ein Gerät, um es umzuschalten.</p>
 
   <svg width="600" height="400">
-    <!-- Raumumriss -->
-    <rect x="50" y="50" width="500" height="300" fill="none" stroke="white" stroke-width="3"/>
+    <!-- Raumumriss (einfacher Strich für Wände) -->
+    <rect x="50" y="50" width="500" height="300" fill="none" stroke="white" stroke-width="2"/>
 
-    <!-- Gerät: Lampe -->
-    <circle id="lampe" class="device off" cx="300" cy="100" r="20"
+    <!-- Gerät: Lampe in der Mitte -->
+    <circle id="lampe" class="device off" cx="300" cy="200" r="20"
             onclick="toggleDevice('lampe')"/>
-    <text x="280" y="140" fill="white">Lampe</text>
-
-    <!-- Gerät: Monitor -->
-    <rect id="monitor" class="device on" x="450" y="280" width="40" height="40"
-          onclick="toggleDevice('monitor')"/>
-    <text x="440" y="340" fill="white">Monitor</text>
+    <text x="280" y="240" fill="white">Lampe</text>
   </svg>
 
   <script>
@@ -54,7 +47,6 @@
         el.classList.remove("off");
         el.classList.add("on");
       }
-      alert(id + " wurde geschaltet!");
     }
   </script>
 </body>

@@ -18,7 +18,8 @@
         color: white;
         padding: 20px;
         text-align: center;
-        font-size: 1.5em;
+        font-size: 2em;
+        font-weight: bold;
     }
 
     main {
@@ -33,16 +34,18 @@
         background: linear-gradient(135deg, #4a90e2, #50e3c2);
         border-radius: 15px;
         color: white;
-        padding: 20px;
+        padding: 30px;
         width: 350px;
         box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        align-items: center;
+        gap: 15px;
     }
 
-    .card h2 {
-        margin: 0;
+    .balance-display {
+        font-size: 3em;
+        font-weight: bold;
     }
 
     .balances {
@@ -50,6 +53,7 @@
         justify-content: space-between;
         align-items: center;
         gap: 10px;
+        width: 100%;
     }
 
     .transfer {
@@ -58,6 +62,7 @@
         padding: 20px;
         width: 350px;
         box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        display: none; /* zunächst verborgen */
     }
 
     label {
@@ -103,10 +108,9 @@
 <main>
     <!-- Kartenansicht -->
     <div class="card">
-        <h2>Hauptkonto</h2>
         <div class="balances">
             <div>
-                <strong>Kontostand:</strong> <span id="balance-display">294,87 €</span>
+                <span class="balance-display" id="balance-display">294,87 €</span>
             </div>
             <div>
                 <label for="currency-select">Anzeige in:</label>
@@ -122,11 +126,14 @@
         </div>
     </div>
 
-    <!-- Überweisung -->
-    <div class="transfer">
+    <!-- Button zum Anzeigen der Überweisungssektion -->
+    <button style="margin-top: 20px;" onclick="toggleTransfer()">Überweisung anzeigen</button>
+
+    <!-- Überweisungssektion -->
+    <div class="transfer" id="transfer-section">
         <h3>Geld überweisen</h3>
         <label for="recipient">Empfänger:</label>
-        <input type="text" id="recipient" placeholder="IBAN">
+        <input type="text" id="recipient" placeholder="Name des Empfängers">
         
         <label for="amount">Betrag (€):</label>
         <input type="number" id="amount" placeholder="0.00">
@@ -192,6 +199,12 @@
         } else {
             document.getElementById('balance-display').innerText = displayValue.toFixed(2) + " " + symbol;
         }
+    }
+
+    // Überweisungssektion anzeigen/verborgen
+    function toggleTransfer() {
+        const section = document.getElementById('transfer-section');
+        section.style.display = section.style.display === 'none' ? 'block' : 'none';
     }
 
     // Initiale Anzeige

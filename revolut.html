@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revolut WebApp Simulation</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f2f5f7;
+        color: #333;
+    }
+
+    header {
+        background-color: #4a90e2;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-size: 1.5em;
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .card {
+        background: linear-gradient(135deg, #4a90e2, #50e3c2);
+        border-radius: 15px;
+        color: white;
+        padding: 20px;
+        width: 350px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .card h2 {
+        margin: 0;
+    }
+
+    .balances {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .transfer, .exchange {
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        width: 350px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    label {
+        display: block;
+        margin-top: 10px;
+    }
+
+    input, select, button {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #357abd;
+    }
+
+    h3 {
+        margin-top: 0;
+    }
+
+    ul {
+        padding-left: 20px;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    Revolut WebApp Simulation
+</header>
+
+<main>
+    <!-- Kartenansicht -->
+    <div class="card">
+        <h2>Hauptkonto</h2>
+        <div class="balances">
+            <div>
+                <strong>EUR:</strong> <span id="balance-eur">294,87 €</span>
+            </div>
+            <div>
+                <strong>USD:</strong> <span id="balance-usd">315,51 $</span>
+            </div>
+            <div>
+                <strong>JPY:</strong> <span id="balance-jpy">42.735 ¥</span>
+            </div>
+        </div>
+        <div>
+            <strong>IBAN:</strong> DE12 3456 7890 1234 5678 90
+        </div>
+    </div>
+
+    <!-- Überweisung -->
+    <div class="transfer">
+        <h3>Geld überweisen</h3>
+        <label for="recipient">Empfänger:</label>
+        <input type="text" id="recipient" placeholder="Name des Empfängers">
+        
+        <label for="amount">Betrag (€):</label>
+        <input type="number" id="amount" placeholder="0.00">
+
+        <button onclick="makeTransfer()">Überweisen</button>
+
+        <div class="transaction-log" id="transaction-log">
+            <h3>Letzte Transaktionen</h3>
+            <ul id="transactions"></ul>
+        </div>
+    </div>
+
+    <!-- Währungsumrechnung -->
+    <div class="exchange">
+        <h3>Währungsumrechnung</h3>
+        <label for="from-currency">Von:</label>
+        <select id="from-currency">
+            <option value="EUR">EUR</option>
+            <option value="USD">USD</option>
+            <option value="JPY">JPY</option>
+        </select>
+
+        <label for="to-currency">Nach:</label>
+        <select id="to-currency">
+            <option value="EUR">EUR</option>
+            <option value="USD">USD</option>
+            <option value="JPY">JPY</option>
+        </select>
+
+        <label for="exchange-amount">Betrag:</label>
+        <input type="number" id="exchange-amount" placeholder="0.00">
+
+        <button onclick="exchangeCurrency()">Umrechnen</button>
+
+        <p id="exchange-result"></p>
+    </div>
+</main>
+
+<script>
+    // Startguthaben
+    let balanceEUR = 294.87;
+    let balanceUSD = 315.51;
+    let balanceJPY = 42735;
+
+    // Wechselkurse
+    const rates = {
+        "EUR": { "USD": 1.07, "JPY": 145 },
+        "USD": { "EUR": 1/1.07, "JPY": 145/1.07 },
+        "JPY": { "EUR": 1/145, "USD": 1.07/145 }
+    };
+
+    // Überweisung in EUR
+    function makeTransfer() {
+        const recipient = document.getElementById('recipient').value;
+        const amount = parseFloat(document.getElementById('amount').value);
+
+        if (!recipient || isNaN(amount) || amount <= 0) {
+            alert('Bitte gültige Empfänger- und Betragseingaben machen!');
+            return;
+        }
+
+        if (amount > balanceEUR) {
+            alert('Unzureichender Kontostand!');
+            return;
+        }
+
+        balanceEUR -= amount;
+        balanceUSD -= amount * rates["EUR"]["USD"];
+        balanceJPY -= amount * rates["EUR"]["JPY"];
+
+        updateBalances();
+
+        const li = document.createElement('li');
+        li.textContent = `Überweisung von ${amount.toFixed(2)} € an ${recipient}`;
+        document.getElementById('transactions').appendChild(li);
+
+        document.getElementById('recipient').value = '';
+        document.getElementById('amount').value = '';
+    }
+
+    // Währungsumrechnung zwischen EUR, USD, JPY
+    function exchangeCurrency() {
+        const from = document.getElementById('from-currency').value;
+        const to = document.getElementById('to-currency').value;
+        const amount = parseFloat(document.getElementById('exchange-amount').value);
+
+        if (isNaN(amount) || amount <= 0) {
+            alert('Bitte einen gültigen Betrag eingeben!');
+            return;
+        }
+
+        let fromBalance = getBalance(from);
+        if (amount > fromBalance) {
+            alert('Unzureichender Kontostand!');
+            return;
+        }
+
+        const rate = rates[from][to];
+        const result = amount * rate;
+
+        // Update Salden
+        setBalance(from, fromBalance - amount);
+        setBalance(to, getBalance(to) + result);
+
+        updateBalances();
+
+        document.getElementById('exchange-result').innerText = `Erhalten: ${result.toFixed(2)} ${to}`;
+        document.getElementById('exchange-amount').value = '';
+    }
+
+    // Hilfsfunktionen für Salden
+    function getBalance(currency) {
+        if(currency === "EUR") return balanceEUR;
+        if(currency === "USD") return balanceUSD;
+        if(currency === "JPY") return balanceJPY;
+    }
+
+    function setBalance(currency, value) {
+        if(currency === "EUR") balanceEUR = value;
+        if(currency === "USD") balanceUSD = value;
+        if(currency === "JPY") balanceJPY = value;
+    }
+
+    function updateBalances() {
+        document.getElementById('balance-eur').innerText = balanceEUR.toFixed(2) + ' €';
+        document.getElementById('balance-usd').innerText = balanceUSD.toFixed(2) + ' $';
+        document.getElementById('balance-jpy').innerText = balanceJPY.toFixed(0) + ' ¥';
+    }
+
+    updateBalances();
+</script>
+
+</body>
+</html>

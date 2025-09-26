@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Revolut</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Inter', sans-serif;
         margin: 0;
         padding: 0;
         background-color: #f2f5f7;
@@ -20,6 +21,7 @@
         text-align: center;
         font-size: 2em;
         font-weight: bold;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
 
     main {
@@ -41,11 +43,21 @@
         flex-direction: column;
         align-items: center;
         gap: 15px;
+        position: relative;
     }
 
     .balance-display {
         font-size: 3em;
         font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.5s ease;
+    }
+
+    .balance-display::before {
+        content: "💰";
+        font-size: 0.8em;
     }
 
     .balances {
@@ -63,31 +75,44 @@
         width: 350px;
         box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         display: none; /* zunächst verborgen */
+        border-top: 2px solid #4a90e2;
     }
 
     label {
         display: block;
         margin-top: 10px;
+        font-weight: 600;
     }
 
     input, select, button {
         width: 100%;
-        padding: 8px;
+        padding: 10px;
         margin-top: 5px;
-        border-radius: 5px;
+        border-radius: 8px;
         border: 1px solid #ccc;
         box-sizing: border-box;
+        font-size: 1em;
+    }
+
+    input:focus, select:focus {
+        border-color: #4a90e2;
+        box-shadow: 0 0 5px rgba(74,144,226,0.5);
+        outline: none;
     }
 
     button {
-        background-color: #4a90e2;
+        background: linear-gradient(135deg, #4a90e2, #50e3c2);
         color: white;
         border: none;
         cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        margin-top: 15px;
     }
 
     button:hover {
-        background-color: #357abd;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
 
     h3 {
@@ -96,6 +121,31 @@
 
     ul {
         padding-left: 20px;
+        max-height: 150px;
+        overflow-y: auto;
+    }
+
+    li {
+        margin-bottom: 5px;
+    }
+
+    .transaction-log li {
+        color: #333;
+    }
+
+    .transaction-log li.sent {
+        color: #e74c3c;
+    }
+
+    .transaction-log li.received {
+        color: #2ecc71;
+    }
+
+    .section-separator {
+        height: 1px;
+        background-color: #ccc;
+        width: 100%;
+        margin: 15px 0;
     }
 </style>
 </head>
@@ -121,6 +171,7 @@
                 </select>
             </div>
         </div>
+        <div class="section-separator"></div>
         <div>
             <strong>IBAN:</strong> DE12 3456 7890 1234 5678 90
         </div>
@@ -132,8 +183,8 @@
     <!-- Überweisungssektion -->
     <div class="transfer" id="transfer-section">
         <h3>Geld überweisen</h3>
-        <label for="recipient">Empfänger:</label>
-        <input type="text" id="recipient" placeholder="Name des Empfängers">
+        <label for="recipient-iban">Empfänger-IBAN:</label>
+        <input type="text" id="recipient-iban" placeholder="DE12 3456 7890 1234 5678 90">
         
         <label for="amount">Betrag (€):</label>
         <input type="number" id="amount" placeholder="0.00">
@@ -148,23 +199,20 @@
 </main>
 
 <script>
-    // Startguthaben in Euro
     let balanceEUR = 294.87;
 
-    // Feste Wechselkurse für Anzeige
     const rates = {
         "EUR": 1,
         "USD": 1.07,
         "JPY": 145
     };
 
-    // Überweisung in Euro
     function makeTransfer() {
-        const recipient = document.getElementById('recipient').value;
+        const recipientIban = document.getElementById('recipient-iban').value;
         const amount = parseFloat(document.getElementById('amount').value);
 
-        if (!recipient || isNaN(amount) || amount <= 0) {
-            alert('Bitte gültige Empfänger- und Betragseingaben machen!');
+        if (!recipientIban || isNaN(amount) || amount <= 0) {
+            alert('Bitte gültige IBAN- und Betragseingaben machen!');
             return;
         }
 
@@ -173,41 +221,60 @@
             return;
         }
 
+        // Animation für Kontostand
+        const display = document.getElementById('balance-display');
+        const oldValue = balanceEUR;
         balanceEUR -= amount;
-        updateDisplayBalance();
+        const newValue = balanceEUR;
+        animateBalance(display, oldValue, newValue, document.getElementById('currency-select').value);
 
         const li = document.createElement('li');
-        li.textContent = `Überweisung von ${amount.toFixed(2)} € an ${recipient}`;
+        li.textContent = `Überweisung von ${amount.toFixed(2)} € an IBAN: ${recipientIban}`;
+        li.classList.add('sent');
         document.getElementById('transactions').appendChild(li);
 
-        document.getElementById('recipient').value = '';
+        document.getElementById('recipient-iban').value = '';
         document.getElementById('amount').value = '';
     }
 
-    // Anzeige des Kontostandes in ausgewählter Währung
     function updateDisplayBalance() {
         const selected = document.getElementById('currency-select').value;
-        let displayValue = balanceEUR * rates[selected];
+        const displayValue = balanceEUR * rates[selected];
         let symbol = "";
 
         if (selected === "EUR") symbol = "€";
         else if (selected === "USD") symbol = "$";
         else if (selected === "JPY") symbol = "¥";
 
-        if (selected === "JPY") {
-            document.getElementById('balance-display').innerText = displayValue.toFixed(0) + " " + symbol;
-        } else {
-            document.getElementById('balance-display').innerText = displayValue.toFixed(2) + " " + symbol;
-        }
+        const display = document.getElementById('balance-display');
+        if (selected === "JPY") display.innerText = displayValue.toFixed(0) + " " + symbol;
+        else display.innerText = displayValue.toFixed(2) + " " + symbol;
     }
 
-    // Überweisungssektion anzeigen/verborgen
     function toggleTransfer() {
         const section = document.getElementById('transfer-section');
         section.style.display = section.style.display === 'none' ? 'block' : 'none';
     }
 
-    // Initiale Anzeige
+    // Sanfte Animation für Kontostand
+    function animateBalance(element, start, end, currency) {
+        const symbol = currency === "EUR" ? "€" : currency === "USD" ? "$" : "¥";
+        const decimals = currency === "JPY" ? 0 : 2;
+        const duration = 500;
+        const frameRate = 30;
+        const frames = duration / (1000 / frameRate);
+        let currentFrame = 0;
+        const increment = (end - start) / frames;
+
+        const interval = setInterval(() => {
+            currentFrame++;
+            const value = start + increment * currentFrame;
+            if (currency === "JPY") element.innerText = (value * rates[currency]).toFixed(0) + " " + symbol;
+            else element.innerText = (value * rates[currency]).toFixed(2) + " " + symbol;
+            if (currentFrame >= frames) clearInterval(interval);
+        }, 1000 / frameRate);
+    }
+
     updateDisplayBalance();
 </script>
 

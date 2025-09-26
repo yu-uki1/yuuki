@@ -48,9 +48,11 @@
     .balances {
         display: flex;
         justify-content: space-between;
+        align-items: center;
+        gap: 10px;
     }
 
-    .transfer, .exchange {
+    .transfer {
         background-color: white;
         border-radius: 10px;
         padding: 20px;
@@ -104,13 +106,15 @@
         <h2>Hauptkonto</h2>
         <div class="balances">
             <div>
-                <strong>EUR:</strong> <span id="balance-eur">294,87 €</span>
+                <strong>Kontostand:</strong> <span id="balance-display">294,87 €</span>
             </div>
             <div>
-                <strong>USD:</strong> <span id="balance-usd">315,51 $</span>
-            </div>
-            <div>
-                <strong>JPY:</strong> <span id="balance-jpy">42.735 ¥</span>
+                <label for="currency-select">Anzeige in:</label>
+                <select id="currency-select" onchange="updateDisplayBalance()">
+                    <option value="EUR">EUR</option>
+                    <option value="USD">USD</option>
+                    <option value="JPY">JPY</option>
+                </select>
             </div>
         </div>
         <div>
@@ -134,47 +138,20 @@
             <ul id="transactions"></ul>
         </div>
     </div>
-
-    <!-- Währungsumrechnung -->
-    <div class="exchange">
-        <h3>Währungsumrechnung</h3>
-        <label for="from-currency">Von:</label>
-        <select id="from-currency">
-            <option value="EUR">EUR</option>
-            <option value="USD">USD</option>
-            <option value="JPY">JPY</option>
-        </select>
-
-        <label for="to-currency">Nach:</label>
-        <select id="to-currency">
-            <option value="EUR">EUR</option>
-            <option value="USD">USD</option>
-            <option value="JPY">JPY</option>
-        </select>
-
-        <label for="exchange-amount">Betrag:</label>
-        <input type="number" id="exchange-amount" placeholder="0.00">
-
-        <button onclick="exchangeCurrency()">Umrechnen</button>
-
-        <p id="exchange-result"></p>
-    </div>
 </main>
 
 <script>
-    // Startguthaben
+    // Startguthaben in Euro
     let balanceEUR = 294.87;
-    let balanceUSD = 315.51;
-    let balanceJPY = 42735;
 
-    // Wechselkurse
+    // Feste Wechselkurse für Anzeige
     const rates = {
-        "EUR": { "USD": 1.07, "JPY": 145 },
-        "USD": { "EUR": 1/1.07, "JPY": 145/1.07 },
-        "JPY": { "EUR": 1/145, "USD": 1.07/145 }
+        "EUR": 1,
+        "USD": 1.07,
+        "JPY": 145
     };
 
-    // Überweisung in EUR
+    // Überweisung in Euro
     function makeTransfer() {
         const recipient = document.getElementById('recipient').value;
         const amount = parseFloat(document.getElementById('amount').value);
@@ -190,10 +167,7 @@
         }
 
         balanceEUR -= amount;
-        balanceUSD -= amount * rates["EUR"]["USD"];
-        balanceJPY -= amount * rates["EUR"]["JPY"];
-
-        updateBalances();
+        updateDisplayBalance();
 
         const li = document.createElement('li');
         li.textContent = `Überweisung von ${amount.toFixed(2)} € an ${recipient}`;
@@ -203,56 +177,25 @@
         document.getElementById('amount').value = '';
     }
 
-    // Währungsumrechnung zwischen EUR, USD, JPY
-    function exchangeCurrency() {
-        const from = document.getElementById('from-currency').value;
-        const to = document.getElementById('to-currency').value;
-        const amount = parseFloat(document.getElementById('exchange-amount').value);
+    // Anzeige des Kontostandes in ausgewählter Währung
+    function updateDisplayBalance() {
+        const selected = document.getElementById('currency-select').value;
+        let displayValue = balanceEUR * rates[selected];
+        let symbol = "";
 
-        if (isNaN(amount) || amount <= 0) {
-            alert('Bitte einen gültigen Betrag eingeben!');
-            return;
+        if (selected === "EUR") symbol = "€";
+        else if (selected === "USD") symbol = "$";
+        else if (selected === "JPY") symbol = "¥";
+
+        if (selected === "JPY") {
+            document.getElementById('balance-display').innerText = displayValue.toFixed(0) + " " + symbol;
+        } else {
+            document.getElementById('balance-display').innerText = displayValue.toFixed(2) + " " + symbol;
         }
-
-        let fromBalance = getBalance(from);
-        if (amount > fromBalance) {
-            alert('Unzureichender Kontostand!');
-            return;
-        }
-
-        const rate = rates[from][to];
-        const result = amount * rate;
-
-        // Update Salden
-        setBalance(from, fromBalance - amount);
-        setBalance(to, getBalance(to) + result);
-
-        updateBalances();
-
-        document.getElementById('exchange-result').innerText = `Erhalten: ${result.toFixed(2)} ${to}`;
-        document.getElementById('exchange-amount').value = '';
     }
 
-    // Hilfsfunktionen für Salden
-    function getBalance(currency) {
-        if(currency === "EUR") return balanceEUR;
-        if(currency === "USD") return balanceUSD;
-        if(currency === "JPY") return balanceJPY;
-    }
-
-    function setBalance(currency, value) {
-        if(currency === "EUR") balanceEUR = value;
-        if(currency === "USD") balanceUSD = value;
-        if(currency === "JPY") balanceJPY = value;
-    }
-
-    function updateBalances() {
-        document.getElementById('balance-eur').innerText = balanceEUR.toFixed(2) + ' €';
-        document.getElementById('balance-usd').innerText = balanceUSD.toFixed(2) + ' $';
-        document.getElementById('balance-jpy').innerText = balanceJPY.toFixed(0) + ' ¥';
-    }
-
-    updateBalances();
+    // Initiale Anzeige
+    updateDisplayBalance();
 </script>
 
 </body>

@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Edler Chatbot mit Key-Eingabe</title>
+<title>Edler Chatbot Debug</title>
 <style>
 body{font-family:Arial;background:#111;color:#fff;display:flex;justify-content:center;align-items:center;height:100vh;margin:0}
 #login,#chat{width:400px;background:#222;padding:15px;border-radius:10px;display:none;flex-direction:column}
@@ -10,7 +10,7 @@ body{font-family:Arial;background:#111;color:#fff;display:flex;justify-content:c
 #messages{flex:1;overflow-y:auto;margin-bottom:10px;height:300px}
 .message{padding:8px;margin:5px 0;border-radius:8px;max-width:80%}
 .user{background:#4a90e2;margin-left:auto;text-align:right}
-.bot{background:#7b1fa2;margin-right:auto;text-align:left}
+.bot{background:#7b1fa2;margin-right:auto;text-align:left;white-space:pre-wrap}
 #input{display:flex;gap:5px}
 input,button{padding:8px;border-radius:5px;border:none}
 button{cursor:pointer;background:#4a90e2;color:white}
@@ -42,7 +42,13 @@ const textInput = document.getElementById('text');
 const sendBtn = document.getElementById('send');
 const startBtn = document.getElementById('start');
 
-function addMsg(t,cls){const d=document.createElement('div');d.className='message '+cls;d.textContent=t;messages.appendChild(d);messages.scrollTop=messages.scrollHeight;}
+function addMsg(t,cls){
+  const d=document.createElement('div');
+  d.className='message '+cls;
+  d.textContent=t;
+  messages.appendChild(d);
+  messages.scrollTop=messages.scrollHeight;
+}
 
 startBtn.onclick = () => {
   const k = document.getElementById('key').value.trim();
@@ -62,15 +68,20 @@ async function sendMsg(){
   try{
     const resp = await fetch('https://api.openai.com/v1/chat/completions',{
       method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':`Bearer ${API_KEY}`},
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${API_KEY}`
+      },
       body: JSON.stringify({
         model:"gpt-3.5-turbo",
         messages:[{role:"user",content:msg}]
       })
     });
     const data = await resp.json();
+    console.log(data); // Zeigt alles in der Browser-Konsole
+
     const botMsgs = document.querySelectorAll('.bot');
-    botMsgs[botMsgs.length-1].textContent = data.choices?.[0]?.message?.content || 'Keine Antwort.';
+    botMsgs[botMsgs.length-1].textContent = JSON.stringify(data, null, 2); // Gibt alles aus
   } catch(e){
     const botMsgs = document.querySelectorAll('.bot');
     botMsgs[botMsgs.length-1].textContent = 'Fehler bei der Anfrage.';

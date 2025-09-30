@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edler Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #chat-container {
+            width: 400px;
+            max-width: 90%;
+            background-color: #2c2c2c;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+        }
+
+        #messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            margin: 5px 0;
+            padding: 8px 12px;
+            border-radius: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .user {
+            background-color: #4a90e2;
+            align-self: flex-end;
+        }
+
+        .bot {
+            background-color: #7b1fa2;
+            align-self: flex-start;
+        }
+
+        #input-container {
+            display: flex;
+        }
+
+        #user-input {
+            flex: 1;
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+            margin-right: 5px;
+        }
+
+        #send-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4a90e2;
+            color: white;
+            cursor: pointer;
+        }
+
+        #send-btn:hover {
+            background-color: #357ab8;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="messages"></div>
+        <div id="input-container">
+            <input type="text" id="user-input" placeholder="Schreibe mir, edle Yuuki...">
+            <button id="send-btn">Senden</button>
+        </div>
+    </div>
+
+    <script>
+        const messagesContainer = document.getElementById('messages');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+
+        function addMessage(text, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.classList.add('message', sender);
+            msgDiv.textContent = text;
+            messagesContainer.appendChild(msgDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function botResponse(userText) {
+            // Einfache Antworten
+            userText = userText.toLowerCase();
+            if(userText.includes('hallo')) return 'Seid gegrüßt, edle Yuuki!';
+            if(userText.includes('wie geht')) return 'Mir geht es prächtig, edle Yuuki. Euch wohl?';
+            if(userText.includes('tschüss')) return 'Auf bald, edle Yuuki!';
+            return 'Verzeiht, edle Yuuki, ich habe dies nicht verstanden.';
+        }
+
+        function sendMessage() {
+            const text = userInput.value.trim();
+            if(text === '') return;
+            addMessage(text, 'user');
+            const reply = botResponse(text);
+            setTimeout(() => addMessage(reply, 'bot'), 500);
+            userInput.value = '';
+        }
+
+        sendBtn.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') sendMessage();
+        });
+    </script>
+</body>
+</html>

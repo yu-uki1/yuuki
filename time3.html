@@ -1,0 +1,102 @@
+<!doctype html>
+
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Trinäruhr</title>
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#0f1720;
+      --muted:#6b7280;
+      --color-0:#000000; /* schwarz */
+      --color-1:#ffffff; /* weiß */
+      --color-2:#8b5cf6; /* lila */
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#071018);color:#e6eef8}
+    .wrap{max-width:920px;margin:32px auto;padding:24px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:12px;box-shadow:0 6px 30px rgba(2,6,23,0.7)}
+    h1{margin:0 0 18px;font-size:20px;font-weight:600}
+    p.lead{margin:0 0 18px;color:var(--muted)}
+    .row{display:flex;align-items:center;gap:16px;padding:10px 6px;border-radius:10px}
+    .label{width:120px;flex:0 0 120px;font-size:14px;color:var(--muted)}
+    .trits{display:flex;gap:8px;align-items:center}
+    .trit{width:18px;height:28px;border-radius:6px;background:var(--color-0);box-shadow:inset 0 -3px 6px rgba(0,0,0,0.6)}
+    .trit.val1{background:var(--color-1)}
+    .trit.val2{background:var(--color-2)}
+    @media (max-width:700px){.label{width:96px;font-size:13px}.trit{width:14px;height:24px}}
+  </style>
+</head>
+<body>
+  <div class="wrap" role="main">
+    <h1>Trinäruhr</h1>
+    <p class="lead">Trinär ist komisch</p><div id="clock"></div>
+
+  </div>  <script>
+    // Trit-Längen (Basis 3)
+    const layout = [
+      {key:'Jahr', trits:9},      // 3^9 = 19683 > 9999
+      {key:'Monat', trits:3},     // 3^3 = 27 > 12
+      {key:'Tag', trits:4},       // 3^4 = 81 > 31
+      {key:'Stunde', trits:4},    // 3^4 = 81 > 23
+      {key:'Minute', trits:4},    // 3^4 = 81 > 59
+      {key:'Sekunde', trits:4},   // 3^4 = 81 > 59
+      {key:'Millisek.', trits:7}  // 3^7 = 2187 > 999
+    ];
+
+    const clock = document.getElementById('clock');
+    layout.forEach(sec => {
+      const row = document.createElement('div'); row.className='row';
+      const label = document.createElement('div'); label.className='label'; label.textContent=sec.key;
+      const tritsDiv = document.createElement('div'); tritsDiv.className='trits'; tritsDiv.dataset.trits = sec.trits;
+      for(let i=0;i<sec.trits;i++){
+        const t = document.createElement('div'); t.className='trit';
+        t.dataset.pos = sec.trits - 1 - i; // höchster Trit links
+        tritsDiv.appendChild(t);
+      }
+      row.appendChild(label); row.appendChild(tritsDiv);
+      clock.appendChild(row);
+    });
+
+    function numberToTrits(n, trits){
+      const arr = new Array(trits).fill(0);
+      let val = n;
+      for(let i=0;i<trits;i++){
+        arr[i] = val % 3;
+        val = Math.floor(val/3);
+      }
+      return arr; // little-endian
+    }
+
+    function update(){
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth()+1;
+      const day = now.getDate();
+      const hour = now.getHours();
+      const minute = now.getMinutes();
+      const second = now.getSeconds();
+      const ms = now.getMilliseconds();
+
+      const values = [year, month, day, hour, minute, second, ms];
+
+      const rows = clock.querySelectorAll('.trits');
+      rows.forEach((tritsDiv, idx)=>{
+        const tritsCount = Number(tritsDiv.dataset.trits);
+        const val = values[idx];
+        const trits = numberToTrits(val, tritsCount);
+        tritsDiv.querySelectorAll('.trit').forEach(tEl=>{
+          const pos = Number(tEl.dataset.pos);
+          const tritVal = trits[pos] || 0;
+          tEl.className = 'trit';
+          if(tritVal===1) tEl.classList.add('val1');
+          else if(tritVal===2) tEl.classList.add('val2');
+        });
+      });
+    }
+
+    function tick(){ update(); requestAnimationFrame(tick); }
+    tick();
+  </script></body>
+</html>

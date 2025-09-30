@@ -101,10 +101,16 @@
         function botResponse(userText) {
             // Einfache Antworten
             userText = userText.toLowerCase();
-            if(userText.includes('hallo','hi','moin','hey')) return 'Seid gegrüßt, edle Yuuki!';
-            if(userText.includes('wie geht')) return 'Mir geht es prächtig, edle Yuuki. Euch wohl?';
-            if(userText.includes('tschüss')) return 'Auf bald, edle Yuuki!';
-            return 'Verzeiht, edle Yuuki, ich habe dies nicht verstanden.';
+            if(userText.includes('hallo')) return 'Guten Tag';
+            if(userText.includes('hi')) return 'Hi';
+            if(userText.includes('moin')) return 'Schönen guten Tag';
+            if(userText.includes('hey')) return 'Hi';
+            if(userText.includes('wie geht')) return 'Mir geht es super. Dir auch?';
+            if(userText.includes('tschüss')) return 'Auf Wiedersehen!';
+            if(userText.includes('kill')) return 'Wie kann ich dir dabei helfen?';
+            if(userText.includes('gut')) return 'Das ist schön!';
+            if(userText.includes('musst')) return 'Ich muss gar nichts, ich bin nur ein Chatbot';
+            return 'Es tut mir Leid, ich habe dich nicht verstanden';
         }
 
         function sendMessage() {

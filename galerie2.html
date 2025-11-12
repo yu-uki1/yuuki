@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Bildergalerie</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            background: #f4f4f9; 
+            color: #333; 
+        }
+
+        header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background-color: #6200ea; 
+            padding: 15px 30px; 
+            color: white; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        header a { 
+            color: white; 
+            text-decoration: none; 
+            margin: 0 15px; 
+            font-weight: bold;
+        }
+        header a:hover { text-decoration: underline; }
+
+        main { 
+            max-width: 800px; 
+            margin: 30px auto; 
+            padding: 20px; 
+            background: white; 
+            border-radius: 10px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 { color: #6200ea; }
+
+        /* Scroll-Fade Bilder */
+        .gallery img {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            display: block;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .gallery img.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Fade-in Animation für Header */
+        .fade-in-top {
+            opacity: 0;
+            transform: translateY(-30px);
+            animation: fadeInTop 1s ease forwards;
+        }
+        @keyframes fadeInTop {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        footer {
+            box-sizing: border-box;
+            width: 100%;
+            text-align: center;
+            padding: 15px;
+            background: #eee;
+            border-top: 2px solid #6200ea;
+            color: #333;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div><strong class="fade-in-top">Yuuki's Galerie</strong></div>
+        <nav>
+            <a href="index.html" class="fade-in-top" style="animation-delay: 0.2s;">Home</a>
+            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.4s;">Über den Entwickler</a>
+            <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.6s;">Projekte</a>
+            <a href="galerie.html" class="fade-in-top" style="animation-delay: 0.8s;">Galerie</a>
+            <a href="kontakt.html" class="fade-in-top" style="animation-delay: 1.0s;">Kontakt</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1 class="fade-in-top" style="animation-delay: 0.2s;">Galerie</h1>
+
+        <div class="gallery">
+            <img class="scroll-fade" src="bild1.png" alt="Bild 1">
+            <img class="scroll-fade" src="bild2.jpg" alt="Bild 2">
+            <img class="scroll-fade" src="bild3.jpg" alt="Bild 3">
+            <img class="scroll-fade" src="bild4.jpg" alt="Bild 4">
+            <img class="scroll-fade" src="bild5.jpg" alt="Bild 5">
+            <img class="scroll-fade" src="bild6.jpg" alt="Bild 6">
+            <img class="scroll-fade" src="bild7.jpg" alt="Bild 7">
+            <img class="scroll-fade" src="bild8.jpg" alt="Bild 8">
+            <img class="scroll-fade" src="bild9.jpg" alt="Bild 9">
+            <img class="scroll-fade" src="bild10.jpg" alt="Bild 10">
+        </div>
+    </main>
+
+    <script>
+        const images = document.querySelectorAll('.scroll-fade');
+
+        function checkVisibility() {
+            const windowHeight = window.innerHeight;
+            images.forEach(img => {
+                const rect = img.getBoundingClientRect();
+                if(rect.top < windowHeight - 100) { // 100px vor Erreichen des Bildes
+                    img.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkVisibility);
+        window.addEventListener('load', checkVisibility);
+    </script>
+
+    <footer>
+        &copy; 2025 Yuuki – Alle Rechte vorbehalten.
+    </footer>
+</body>
+</html>

@@ -38,32 +38,23 @@
         }
         h1 { color: #6200ea; }
 
-        /* Slideshow */
-        .slideshow-container {
-            position: relative;
-            max-width: 100%;
-            height: 400px;
-            margin: 40px auto;
-            overflow: hidden;
-            border-radius: 10px;
-            background-color: #000; /* Hintergrund für Lücken */
-        }
-        .slides {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            max-height: 100%;
-            width: auto;
+        /* Scroll-Fade Bilder */
+        .gallery img {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            display: block;
             opacity: 0;
-            transition: opacity 1.5s ease-in-out;
-        }
-        .slides.active {
-            opacity: 1;
-            z-index: 1;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
         }
 
-        /* Fade-in Animation */
+        .gallery img.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Fade-in Animation für Header */
         .fade-in-top {
             opacity: 0;
             transform: translateY(-30px);
@@ -74,6 +65,18 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        footer {
+            box-sizing: border-box;
+            width: 100%;
+            text-align: center;
+            padding: 15px;
+            background: #eee;
+            border-top: 2px solid #6200ea;
+            color: #333;
+            font-size: 14px;
+            margin-top: 40px;
         }
     </style>
 </head>
@@ -92,60 +95,43 @@
     <main>
         <h1 class="fade-in-top" style="animation-delay: 0.2s;">Galerie</h1>
 
-        <!-- Slideshow -->
-        <div class="slideshow-container">
-            <img class="slides active" src="bild1.png" alt="Bild 1">
-            <img class="slides" src="bild2.jpg" alt="Bild 2">
-            <img class="slides" src="bild3.jpg" alt="Bild 3">
-            <img class="slides" src="bild4.jpg" alt="Bild 4">
-            <img class="slides" src="bild5.jpg" alt="Bild 5">
-            <img class="slides" src="bild6.jpg" alt="Bild 6">
-            <img class="slides" src="bild7.jpg" alt="Bild 7">
-            <img class="slides" src="bild8.jpg" alt="Bild 8">
-            <img class="slides" src="bild9.jpg" alt="Bild 9">
-            <img class="slides" src="bild10.jpg" alt="Bild 10">
+        <div class="gallery">
+            <img class="scroll-fade" src="bild1.png" alt="Bild 1">
+            <img class="scroll-fade" src="bild2.jpg" alt="Bild 2">
+            <img class="scroll-fade" src="bild3.jpg" alt="Bild 3">
+            <img class="scroll-fade" src="bild4.jpg" alt="Bild 4">
+            <img class="scroll-fade" src="bild5.jpg" alt="Bild 5">
+            <img class="scroll-fade" src="bild6.jpg" alt="Bild 6">
+            <img class="scroll-fade" src="bild7.jpg" alt="Bild 7">
+            <img class="scroll-fade" src="bild8.jpg" alt="Bild 8">
+            <img class="scroll-fade" src="bild9.jpg" alt="Bild 9">
+            <img class="scroll-fade" src="bild10.jpg" alt="Bild 10">
         </div>
     </main>
 
     <script>
-        // Slideshow
-        let slideIndex = 0;
-        const slides = document.getElementsByClassName('slides');
+        const images = document.querySelectorAll('.scroll-fade');
 
-        function showSlide(n) {
-            if (n >= slides.length) slideIndex = 0;
-            if (n < 0) slideIndex = slides.length - 1;
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].classList.remove('active');
-            }
-            slides[slideIndex].classList.add('active');
+        function checkVisibility() {
+            const windowHeight = window.innerHeight;
+            images.forEach(img => {
+                const rect = img.getBoundingClientRect();
+                if(rect.top < windowHeight - 100) { // 100px vor Erreichen des Bildes
+                    img.classList.add('visible');
+                }
+            });
         }
 
-        function changeSlide(n) {
-            slideIndex += n;
-            showSlide(slideIndex);
-        }
-
-        // Automatisches Wechseln alle 5 Sekunden
-        setInterval(() => {
-            changeSlide(1);
-        }, 5000);
+        window.addEventListener('scroll', checkVisibility);
+        window.addEventListener('load', checkVisibility);
     </script>
 
-    <footer style="
-        box-sizing: border-box;
-        width: 100%;
-        text-align: center;
-        padding: 15px;
-        background: #eee;
-        border-top: 2px solid #6200ea;
-        color: #333;
-        font-size: 14px;
-        margin-top: 40px;">
+    <footer>
         &copy; 2025 Yuuki – Alle Rechte vorbehalten.
     </footer>
 </body>
 </html>
+
 
 
 

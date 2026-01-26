@@ -78,6 +78,7 @@
             const d = document.getElementById('disclaimer');
             d.style.display = (d.style.display === 'block') ? 'none' : 'block';
         }
+		document.getElementById("year").textContent = new Date().getFullYear();
     </script>
 </head>
 <body>
@@ -120,12 +121,13 @@
     	color: #333;
 		font-size: 14px;
     	margin-top: 40px;">
-    	&copy; 2026 Yuuki – Alle Rechte vorbehalten.
+    	&copy; <span id="year"></span> Yuuki – Alle Rechte vorbehalten.
 	</footer>
 
 
 </body>
 </html>
+
 
 
 

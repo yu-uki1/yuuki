@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Mein Setup</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            background: #f4f4f9; 
+            color: #333; 
+        }
+        header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background-color: #FF69B4; 
+            padding: 15px 30px; 
+            color: white; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        header a { 
+            color: white; 
+            text-decoration: none; 
+            margin: 0 15px; 
+            font-weight: bold;
+        }
+        header a:hover { text-decoration: underline; }
+        main { 
+            max-width: 800px; 
+            margin: 30px auto; 
+            padding: 20px; 
+        }
+        h1 { color: #FF69B4; }
+        .button-container { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+            margin-top: 20px;
+        }
+        .btn { 
+            padding: 12px 25px; 
+            background-color: #FF69B4; 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 1em; 
+            cursor: pointer; 
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover { background-color: #FF007F; }
+        #disclaimer { 
+            display: none; 
+            background: white; 
+            padding: 20px; 
+            border-radius: 10px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+            margin-top: 20px;
+        }
+		.fade-in-top {
+  	    opacity: 0;
+  	    transform: translateY(-30px); /* startet 30px über der Position */
+            animation: fadeInTop 1s ease forwards; /* forwards = bleibt am Endzustand */
+	}
+
+	    @keyframes fadeInTop {
+  	to {
+    	    opacity: 1;
+            transform: translateY(0);
+            }
+    	}
+
+    </style>
+    <script>
+        function toggleDisclaimer() {
+            const d = document.getElementById('disclaimer');
+            d.style.display = (d.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div><strong class="fade-in-top">Mein Setup</strong></div>
+        <nav>
+            <a href="index.html" class="fade-in-top" style="animation-delay: 0.2s;">Home</a>
+            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.4s;">Über den Entwickler</a>
+	        <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.6s;">Projekte</a>
+			<a href="galerie.html" class="fade-in-top" style="animation-delay: 0.8s;">Galerie</a>
+            <a href="kontakt.html" class="fade-in-top" style="animation-delay: 1.0s;">Kontakt</a>
+        </nav>
+    </header>
+
+    <main>
+		<p>&nbsp;</p>
+		<p class="fade-in-top" style="animation-delay: 0.4s;">Gerät: Lenovo IdeaPad Flex5 14ITL05</p>
+		<p class="fade-in-top" style="animation-delay: 0.4s;">Monitore: VSeven L270V0, DYON Live24 Pro</p>
+    <p class="fade-in-top" style="animation-delay: 0.4s;">Maus: Logitech G305 Lightspeed</p>
+    <p class="fade-in-top" style="animation-delay: 0.4s;">Tastatur: Logitech K480</p>
+    <p class="fade-in-top" style="animation-delay: 0.4s;">Zeichenpad: One by Wacom S CTL-472</p>
+    <p class="fade-in-top" style="animation-delay: 0.4s;">Mikrofon: NJSJ ME6S</p>
+    <p class="fade-in-top" style="animation-delay: 0.4s;">Betriebssystem: Win11 / Fedora 43</p>
+		<p>&nbsp;</p>
+		<p class="fade-in-top" style="animation-delay: 0.45s; font-family: 'Courier New', Courier, monospace;">Geplante Anschaffungen</p>
+		<p class="fade-in-top" style="animation-delay: 0.6s; font-family: 'Courier New', Courier, monospace;">Xiaomi 15 Ultra</p>
+		
+        
+    </main>
+	<footer style="
+    	box-sizing: border-box;
+    	width: 100%;
+    	text-align: center;
+    	padding: 15px;
+    	background: #eee;
+    	border-top: 2px solid #FF69B4;
+    	color: #333;
+		font-size: 14px;
+    	margin-top: 40px;">
+    	&copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ and HTML)
+	</footer>
+
+
+</body>
+</html>

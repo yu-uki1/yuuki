@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Kaufanfrage - DarkSystems P1</title>
+    <style>
+        /* Dein bestehendes Design */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            background: #f4f4f9; 
+            color: #333; 
+        }
+        header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background-color: #FF69B4; 
+            padding: 15px 30px; 
+            color: white; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        header a { 
+            color: white; 
+            text-decoration: none; 
+            margin: 0 15px; 
+            font-weight: bold;
+        }
+        header a:hover { text-decoration: underline; }
+        
+        main { 
+            max-width: 900px; 
+            margin: 30px auto; 
+            padding: 20px; 
+        }
+
+        /* Spezifisches Design für das Auto */
+        .car-card {
+            background: #000; /* Schwarz, passend zum Bildhintergrund */
+            color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+        .car-image {
+            width: 100%;
+            display: block;
+        }
+        .car-details {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            background: #111;
+        }
+
+        /* Formular Design */
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 { color: #FF69B4; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        .btn-senden {
+            width: 100%;
+            padding: 15px;
+            background-color: #FF69B4;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-senden:hover { background-color: #FF007F; }
+
+        /* Deine Animationen */
+        .fade-in-top {
+            opacity: 0;
+            transform: translateY(-30px);
+            animation: fadeInTop 1s ease forwards;
+        }
+        @keyframes fadeInTop {
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div><strong class="fade-in-top">Yuuki's Website</strong></div>
+        <nav>
+            <a href="index.html" class="fade-in-top" style="animation-delay: 0.2s;">Home</a>
+            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.4s;">Über</a>
+            <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.6s;">Projekte</a>
+            <a href="kontakt.html" class="fade-in-top" style="animation-delay: 1.0s;">Kontakt</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1 class="fade-in-top">Kaufanfrage: DarkSystems P1</h1>
+        
+        <div class="car-card fade-in-top" style="animation-delay: 0.3s;">
+            <img src="DEIN_BILD_NAME.jpg" alt="DarkSystems P1" class="car-image">
+            <div class="car-details">
+                <div><strong>Leistung:</strong> 1200 PS</div>
+                <div><strong>Gewicht:</strong> 837 Kg</div>
+                <div><strong>0-100 km/h:</strong> 1,8s</div>
+                <div><strong>Top Speed:</strong> 380 km/h</div>
+                <div style="color: #00f2ff; font-weight: bold;">Preis: 2.300.000€</div>
+            </div>
+        </div>
+
+        <div class="form-container fade-in-top" style="animation-delay: 0.5s;">
+            <h3>Interesse geweckt?</h3>
+            <p>Senden Sie uns eine unverbindliche Anfrage für den DarkSystems P1.</p>
+            
+            <form action="mailto:deine-email@beispiel.de" method="post" enctype="text/plain">
+                <div class="input-group">
+                    <label>Name</label>
+                    <input type="text" name="Name" placeholder="Ihr vollständiger Name" required>
+                </div>
+                <div class="input-group">
+                    <label>E-Mail</label>
+                    <input type="email" name="Email" placeholder="ihre@mail.de" required>
+                </div>
+                <div class="input-group">
+                    <label>Nachricht / Sonderwünsche</label>
+                    <textarea name="Nachricht" rows="4" placeholder="Haben Sie spezielle Konfigurationswünsche?"></textarea>
+                </div>
+                <button type="submit" class="btn-senden">ANFRAGE SENDEN</button>
+            </form>
+        </div>
+    </main>
+
+    <footer style="text-align: center; padding: 15px; background: #eee; border-top: 2px solid #FF69B4; margin-top: 40px;">
+        &copy; 2026 Yuuki – DarkSystems Group Partner
+    </footer>
+
+</body>
+</html>

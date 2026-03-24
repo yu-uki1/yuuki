@@ -2,9 +2,8 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Kaufanfrage - DarkSystems P1</title>
+    <title>Anfrage - DarkSystems P1</title>
     <style>
-        /* Dein bestehendes Design */
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
@@ -15,7 +14,7 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            background-color: #525252; 
+            background-color: #FF69B4; 
             padding: 15px 30px; 
             color: white; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -30,63 +29,68 @@
         
         main { 
             max-width: 900px; 
-            margin: 30px auto; 
+            margin: 40px auto; 
             padding: 20px; 
         }
 
-        /* Spezifisches Design für das Auto */
-        .car-card {
-            background: #000; /* Schwarz, passend zum Bildhintergrund */
-            color: white;
-            border-radius: 15px;
+        h1, h2 { color: #FF69B4; }
+
+        /* Plakat-Integration */
+        .poster-container {
+            width: 100%;
+            background: #000;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
         }
-        .car-image {
+        .poster-container img {
             width: 100%;
             display: block;
         }
-        .car-details {
-            padding: 20px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            background: #111;
-        }
 
-        /* Formular Design */
-        .form-container {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        /* Formular Design (passend zu deiner Kontaktseite) */
+        form { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-        h1 { color: #525252; }
-        .input-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+        form label { display: block; margin: 15px 0 5px 0; font-weight: bold; }
+        form input, form textarea { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #ccc; 
+            border-radius: 8px; 
+            font-size: 1em; 
             box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
-        .btn-senden {
+        form input:focus, form textarea:focus { 
+            border-color: #FF69B4; 
+            box-shadow: 0 0 8px rgba(255,105,180,0.3); 
+            outline: none; 
+        }
+        form button { 
+            margin-top: 25px; 
+            padding: 14px 30px; 
+            background-color: #FF69B4; 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 1em; 
+            cursor: pointer; 
+            transition: background-color 0.3s, transform 0.2s;
             width: 100%;
-            padding: 15px;
-            background-color: #525252;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
             font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
         }
-        .btn-senden:hover { background-color: #FF007F; }
+        form button:hover { 
+            background-color: #FF007F; 
+            transform: translateY(-2px);
+        }
+        small { color: #666; display: block; margin-top: 5px; }
 
-        /* Deine Animationen */
+        /* Animationen */
         .fade-in-top {
             opacity: 0;
             transform: translateY(-30px);
@@ -100,53 +104,46 @@
 <body>
 
     <header>
-        <div><strong class="fade-in-top">Yuuki's Website</strong></div>
+        <div><strong class="fade-in-top">Yuuki</strong></div>
         <nav>
             <a href="index.html" class="fade-in-top" style="animation-delay: 0.2s;">Home</a>
-            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.4s;">Über</a>
+            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.4s;">Über den Entwickler</a>
             <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.6s;">Projekte</a>
+            <a href="galerie.html" class="fade-in-top" style="animation-delay: 0.8s;">Galerie</a>
             <a href="kontakt.html" class="fade-in-top" style="animation-delay: 1.0s;">Kontakt</a>
         </nav>
     </header>
 
     <main>
         <h1 class="fade-in-top">Kaufanfrage: DarkSystems P1</h1>
-        
-        <div class="car-card fade-in-top" style="animation-delay: 0.3s;">
-            <img src="DEIN_BILD_NAME.jpg" alt="DarkSystems P1" class="car-image">
-            <div class="car-details">
-                <div><strong>Leistung:</strong> 1200 PS</div>
-                <div><strong>Gewicht:</strong> 837 Kg</div>
-                <div><strong>0-100 km/h:</strong> 1,8s</div>
-                <div><strong>Top Speed:</strong> 380 km/h</div>
-                <div style="color: #00f2ff; font-weight: bold;">Preis: 2.300.000€</div>
-            </div>
+
+        <div class="poster-container fade-in-top" style="animation-delay: 0.3s;">
+            <img src="Screenshot 2026-03-24 103802.jpg" alt="DarkSystems P1 Plakat">
         </div>
 
-        <div class="form-container fade-in-top" style="animation-delay: 0.5s;">
-            <h3>Interesse geweckt?</h3>
-            <p>Senden Sie uns eine unverbindliche Anfrage für den DarkSystems P1.</p>
+        <h2 class="fade-in-top" style="animation-delay: 0.5s;">Senden Sie Ihre Anfrage</h2>
+        
+        <form action="mailto:yuuki.akano.hefenbrock@gmail.com" method="post" enctype="text/plain">
             
-            <form action="mailto:deine-email@beispiel.de" method="post" enctype="text/plain">
-                <div class="input-group">
-                    <label>Name</label>
-                    <input type="text" name="Name" placeholder="Ihr vollständiger Name" required>
-                </div>
-                <div class="input-group">
-                    <label>E-Mail</label>
-                    <input type="email" name="Email" placeholder="ihre@mail.de" required>
-                </div>
-                <div class="input-group">
-                    <label>Nachricht / Sonderwünsche</label>
-                    <textarea name="Nachricht" rows="4" placeholder="Haben Sie spezielle Konfigurationswünsche?"></textarea>
-                </div>
-                <button type="submit" class="btn-senden">ANFRAGE SENDEN</button>
-            </form>
-        </div>
+            <label for="car" class="fade-in-top" style="animation-delay: 0.6s;">Modell:</label>
+            <input type="text" id="car" name="modell" value="DarkSystems P1" readonly>
+
+            <label for="name" class="fade-in-top" style="animation-delay: 0.7s;">Ihr Name:</label>
+            <input type="text" id="name" name="name" placeholder="Vor- und Nachname" required>
+
+            <label for="email" class="fade-in-top" style="animation-delay: 0.8s;">Ihre E-Mail-Adresse:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message" class="fade-in-top" style="animation-delay: 0.9s;">Nachricht (Optionale Wünsche):</label>
+            <textarea id="message" name="nachricht" rows="5" placeholder="Haben Sie Fragen zur Ausstattung?"></textarea>
+            <small class="fade-in-top" style="animation-delay: 1.0s;">Hinweis: Emojis werden in der Mail-App oft nicht korrekt übernommen.</small>
+
+            <button type="submit" class="fade-in-top" style="animation-delay: 1.1s;">Anfrage via Gmail senden</button>
+        </form>
     </main>
 
-    <footer style="text-align: center; padding: 15px; background: #eee; border-top: 2px solid #525252; margin-top: 40px;">
-        &copy; 2026 Yuuki – DarkSystems Group Partner
+    <footer style="box-sizing: border-box; width: 100%; text-align: center; padding: 15px; background: #eee; border-top: 2px solid #FF69B4; color: #333; font-size: 14px; margin-top: 40px;">
+        &copy; 2026 Yuuki – Alle Rechte vorbehalten.
     </footer>
 
 </body>

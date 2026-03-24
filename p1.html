@@ -10,6 +10,7 @@
             background: #f4f4f9; 
             color: #333; 
         }
+
         header { 
             display: flex; 
             justify-content: space-between; 
@@ -26,30 +27,38 @@
             font-weight: bold;
         }
         header a:hover { text-decoration: underline; }
-        
+
         main { 
-            max-width: 900px; 
-            margin: 40px auto; 
+            max-width: 800px; 
+            margin: 30px auto; 
             padding: 20px; 
         }
 
         h1, h2 { color: #FF69B4; }
 
-        /* Plakat-Integration */
-        .poster-container {
-            width: 100%;
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            margin-bottom: 40px;
-        }
+        /* Direktes Fade-In für das Plakat */
         .poster-container img {
             width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin-bottom: 40px;
             display: block;
+            
+            /* Animation direkt beim Laden */
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInSimple 1.2s ease forwards;
+            animation-delay: 0.3s;
         }
 
-        /* Formular Design (passend zu deiner Kontaktseite) */
+        @keyframes fadeInSimple {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Formular Design */
         form { 
             background: white; 
             padding: 30px; 
@@ -64,7 +73,6 @@
             border-radius: 8px; 
             font-size: 1em; 
             box-sizing: border-box;
-            transition: border-color 0.3s, box-shadow 0.3s;
         }
         form input:focus, form textarea:focus { 
             border-color: #FF69B4; 
@@ -78,19 +86,18 @@
             color: white; 
             border: none; 
             border-radius: 8px; 
-            font-size: 1em; 
+            font-size: 1.1em; 
+            font-weight: bold;
             cursor: pointer; 
             transition: background-color 0.3s, transform 0.2s;
             width: 100%;
-            font-weight: bold;
         }
         form button:hover { 
             background-color: #FF007F; 
             transform: translateY(-2px);
         }
-        small { color: #666; display: block; margin-top: 5px; }
 
-        /* Animationen */
+        /* Deine Standard-Animation für Texte */
         .fade-in-top {
             opacity: 0;
             transform: translateY(-30px);
@@ -98,6 +105,16 @@
         }
         @keyframes fadeInTop {
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #eee;
+            border-top: 2px solid #FF69B4;
+            color: #333;
+            font-size: 14px;
+            margin-top: 40px;
         }
     </style>
 </head>
@@ -107,7 +124,7 @@
         <div><strong class="fade-in-top">Yuuki</strong></div>
         <nav>
             <a href="index.html" class="fade-in-top" style="animation-delay: 0.2s;">Home</a>
-            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.4s;">Über den Entwickler</a>
+            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.4s;">Über</a>
             <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.6s;">Projekte</a>
             <a href="galerie.html" class="fade-in-top" style="animation-delay: 0.8s;">Galerie</a>
             <a href="kontakt.html" class="fade-in-top" style="animation-delay: 1.0s;">Kontakt</a>
@@ -117,33 +134,31 @@
     <main>
         <h1 class="fade-in-top">Kaufanfrage: DarkSystems P1</h1>
 
-        <div class="poster-container fade-in-top" style="animation-delay: 0.3s;">
+        <div class="poster-container">
             <img src="Screenshot 2026-03-24 103802.jpg" alt="DarkSystems P1 Plakat">
         </div>
 
-        <h2 class="fade-in-top" style="animation-delay: 0.5s;">Senden Sie Ihre Anfrage</h2>
+        <h2 class="fade-in-top" style="animation-delay: 0.5s;">Senden Sie uns eine Nachricht</h2>
         
-        <form action="mailto:yuuki.akano.hefenbrock@gmail.com" method="post" enctype="text/plain">
-            
-            <label for="car" class="fade-in-top" style="animation-delay: 0.6s;">Modell:</label>
+        <form action="mailto:yuuki.akano.hefenbrock@gmail.com" method="post" enctype="text/plain" class="fade-in-top" style="animation-delay: 0.6s;">
+            <label for="car">Interessiert an:</label>
             <input type="text" id="car" name="modell" value="DarkSystems P1" readonly>
 
-            <label for="name" class="fade-in-top" style="animation-delay: 0.7s;">Ihr Name:</label>
-            <input type="text" id="name" name="name" placeholder="Vor- und Nachname" required>
+            <label for="name">Ihr Name:</label>
+            <input type="text" id="name" name="name" required>
 
-            <label for="email" class="fade-in-top" style="animation-delay: 0.8s;">Ihre E-Mail-Adresse:</label>
+            <label for="email">Ihre E-Mail-Adresse:</label>
             <input type="email" id="email" name="email" required>
 
-            <label for="message" class="fade-in-top" style="animation-delay: 0.9s;">Nachricht (Optionale Wünsche):</label>
-            <textarea id="message" name="nachricht" rows="5" placeholder="Haben Sie Fragen zur Ausstattung?"></textarea>
-            <small class="fade-in-top" style="animation-delay: 1.0s;">Hinweis: Emojis werden in der Mail-App oft nicht korrekt übernommen.</small>
+            <label for="message">Nachricht:</label>
+            <textarea id="message" name="nachricht" rows="5" placeholder="Ihre Anfrage..."></textarea>
 
-            <button type="submit" class="fade-in-top" style="animation-delay: 1.1s;">Anfrage via Gmail senden</button>
+            <button type="submit">Anfrage via Gmail senden</button>
         </form>
     </main>
 
-    <footer style="box-sizing: border-box; width: 100%; text-align: center; padding: 15px; background: #eee; border-top: 2px solid #FF69B4; color: #333; font-size: 14px; margin-top: 40px;">
-        &copy; 2026 Yuuki – Alle Rechte vorbehalten.
+    <footer>
+        &copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ and HTML)
     </footer>
 
 </body>

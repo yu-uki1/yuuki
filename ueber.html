@@ -45,7 +45,41 @@
 
     h1 { color: #FF69B4; }
 
-    /* ✨ Eure Animation bleibt unangetastet */
+    /* 🍔 Burger */
+    .menu-toggle {
+        display: none;
+        font-size: 26px;
+        cursor: pointer;
+    }
+
+    /* 📱 Mobile */
+    @media (max-width: 768px) {
+
+        .menu-toggle {
+            display: block;
+        }
+
+        nav {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        nav.active {
+            display: flex;
+        }
+
+        header {
+            flex-wrap: wrap;
+        }
+
+        header a {
+            margin: 10px 0;
+        }
+    }
+
+    /* ✨ Animation bleibt */
     .fade-in-top {
         opacity: 0;
         transform: translateY(-30px);
@@ -58,31 +92,13 @@
             transform: translateY(0);
         }
     }
-
-    /* 📱 NUR Mobile-Anpassung */
-    @media (max-width: 768px) {
-
-        header {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        nav {
-            flex-wrap: wrap;
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        header a {
-            margin: 5px 10px 5px 0;
-            display: inline-block;
-        }
-
-        main {
-            margin: 15px;
-        }
-    }
 </style>
+
+<script>
+function toggleMenu() {
+    document.getElementById("nav").classList.toggle("active");
+}
+</script>
 
 </head>
 
@@ -91,7 +107,9 @@
 <header>
     <div><strong>Yuuki</strong></div>
 
-    <nav>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+    <nav id="nav">
         <a href="index.html">Home</a>
         <a href="ueber.html">Über den Entwickler</a>
         <a href="projekte.html">Projekte</a>
@@ -103,7 +121,7 @@
 <main>
     <h1 class="fade-in-top">Über den Entwickler</h1>
 
-    <!-- 🌸 ORIGINAL TEXT UNVERÄNDERT -->
+    <!-- 🌸 Euer ORIGINAL TEXT -->
     <p class="fade-in-top" style="animation-delay: 0.6s;">
         Ich bin Jan-Luca Hefenbrock, bekannt als Yuuki Akano, <span id="age"></span> Jahre alt; leidenschaftlicher Tüftler und Fotograf.
     </p>
@@ -150,8 +168,3 @@
 
 </body>
 </html> 
-
-
-
-
-

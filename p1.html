@@ -114,17 +114,37 @@
             cursor: pointer; 
             display: flex; 
             align-items: center; 
+            justify-content: space-between;
             gap: 12px; 
             margin-bottom: 10px;
         }
 
         .option-item:last-child { margin-bottom: 0; }
 
+        .option-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .price-info {
+            color: #888;
+            font-size: 0.85em;
+        }
+
         .option-item input[type="radio"], .option-item input[type="checkbox"] {
             width: 18px;
             height: 18px;
             accent-color: #525252;
             cursor: pointer;
+        }
+
+        input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            text-align: center;
         }
 
         form input[type="text"], form input[type="email"] { 
@@ -136,14 +156,21 @@
             font-family: inherit;
         }
 
-        form input:focus { 
-            border-color: #525252; 
-            box-shadow: 0 0 8px rgba(82, 82, 82, 0.2); 
-            outline: none; 
+        /* 💰 Preis Anzeige */
+        .total-price-container {
+            background: #333;
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 30px 0;
+            font-size: 1.6em;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         form button { 
-            margin-top: 20px; 
+            margin-top: 10px; 
             padding: 16px 30px; 
             background-color: #525252; 
             color: white; 
@@ -162,7 +189,6 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        /* 📜 Disclaimer Styling */
         .legal-disclaimer {
             background: white;
             padding: 25px;
@@ -203,11 +229,11 @@
         <div><strong class="fade-in-top">DarkSystems P1</strong></div>
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
         <nav id="nav">
-            <a href="index.html" class="fade-in-top" style="animation-delay: 0.1s;">Home</a>
-            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.2s;">Über</a>
-            <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.3s;">Projekte</a>
-            <a href="galerie.html" class="fade-in-top" style="animation-delay: 0.4s;">Galerie</a>
-            <a href="kontakt.html" class="fade-in-top" style="animation-delay: 0.5s;">Kontakt</a>
+            <a href="index.html">Home</a>
+            <a href="ueber.html">Über</a>
+            <a href="projekte.html">Projekte</a>
+            <a href="galerie.html">Galerie</a>
+            <a href="kontakt.html">Kontakt</a>
         </nav>
     </header>
 
@@ -219,30 +245,36 @@
         </div>
 
         <div class="specs-grid">
-            <div class="spec-box fade-in-top" style="animation-delay: 0.6s;"><strong>Preis</strong><span class="spec-value">2.300.000 €</span></div>
+            <div class="spec-box fade-in-top" style="animation-delay: 0.6s;"><strong>Basispreis</strong><span class="spec-value">2.300.000 €</span></div>
             <div class="spec-box fade-in-top" style="animation-delay: 0.7s;"><strong>Leistung</strong><span class="spec-value">1200 PS</span></div>
             <div class="spec-box fade-in-top" style="animation-delay: 0.8s;"><strong>Gewicht</strong><span class="spec-value">837 Kg</span></div>
             <div class="spec-box fade-in-top" style="animation-delay: 0.9s;"><strong>Beschleunigung 0-100</strong><span class="spec-value">1,8s</span></div>
+            <div class="spec-box fade-in-top" style="animation-delay: 1.0s;"><strong>Standard Ausrüstung</strong><span class="spec-value">Full Carbon</span></div>
         </div>
 
-        <form action="mailto:yuuki.akano.hefenbrock@gmail.com" method="post" enctype="text/plain" class="fade-in-top" style="animation-delay: 1s;">
+        <form id="configForm" action="mailto:yuuki.akano.hefenbrock@gmail.com" method="post" enctype="text/plain" class="fade-in-top" style="animation-delay: 1s;">
             
             <div class="form-section">
                 <h2>1. Exterieur & Finish</h2>
                 <label>Lackierung / Finish:</label>
                 <div class="options-group">
-                    <label class="option-item"><input type="radio" name="Finish" value="Sichtcarbon Glanz" checked> Sichtcarbon Glanz</label>
-                    <label class="option-item"><input type="radio" name="Finish" value="Sichtcarbon Matt"> Sichtcarbon Matt</label>
-                    <label class="option-item"><input type="radio" name="Finish" value="Raw Carbon"> Raw Carbon (-2kg)</label>
-                    <label class="option-item"><input type="radio" name="Finish" value="Pink"> Pink Metallic</label>
-                    <label class="option-item"><input type="radio" name="Finish" value="DarkSystems Lila"> DarkSystems Lila</label>
-                    <label class="option-item"><input type="radio" name="Finish" value="Black"> Agressive Black</label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Finish" value="Carbon Glanz" checked onchange="calculatePrice()"> Sichtcarbon Glanz</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Finish" value="Carbon Matt" onchange="calculatePrice()"> Sichtcarbon Matt</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Finish" value="Raw Carbon" onchange="calculatePrice()"> Raw Carbon (-2kg)</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Finish" value="Pink" onchange="calculatePrice()"> Pink Metallic</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Finish" value="Lila" onchange="calculatePrice()"> DarkSystems Lila</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Finish" value="Black" onchange="calculatePrice()"> Agressive Black</div></label>
                 </div>
 
                 <label>Felgen:</label>
                 <div class="options-group">
-                    <label class="option-item"><input type="radio" name="Felgen" value="Magnesium Schmiedefelgen" checked> Magnesium Schmiedefelgen</label>
-                    <label class="option-item"><input type="radio" name="Felgen" value="Aero Carbon-Wheels"> Aero Carbon-Wheels</label>
+                    <label class="option-item">
+                        <div class="option-content"><input type="radio" name="Felgen" value="Magnesium" checked onchange="calculatePrice()"> Magnesium Schmiedefelgen</div>
+                    </label>
+                    <label class="option-item">
+                        <div class="option-content"><input type="radio" name="Felgen" value="Carbon" onchange="calculatePrice()"> Aero Carbon-Wheels</div>
+                        <span class="price-info">+ 990 €</span>
+                    </label>
                 </div>
             </div>
 
@@ -250,58 +282,89 @@
                 <h2>2. Cockpit-Konfiguration</h2>
                 <label>Sitze:</label>
                 <div class="options-group">
-                    <label class="option-item"><input type="radio" name="Sitze" value="Carbon Schalensitz" checked> Carbon Schalensitz (Ultralight)</label>
-                    <label class="option-item"><input type="radio" name="Sitze" value="Ledersitz"> Komfort-Ledersitz (+23kg)</label>
+                    <label class="option-item">
+                        <div class="option-content"><input type="radio" name="Sitze" value="Schale" checked onchange="calculatePrice()"> Carbon Schalensitz (Ultralight)</div>
+                    </label>
+                    <label class="option-item">
+                        <div class="option-content"><input type="radio" name="Sitze" value="Leder" onchange="calculatePrice()"> Komfort-Ledersitz (+23kg)</div>
+                        <span class="price-info">- 320 €</span>
+                    </label>
                 </div>
 
-                <label>Sicherheitsgurte (6-Punkt):</label>
+                <label>Gurte (6-Punkt):</label>
                 <div class="options-group">
-                    <label class="option-item"><input type="radio" name="Gurt" value="Schwarz" checked> Schwarz</label>
-                    <label class="option-item"><input type="radio" name="Gurt" value="Lila"> Lila (Signature)</label>
-                    <label class="option-item"><input type="radio" name="Gurt" value="Pink"> Pink</label>
-                    <label class="option-item"><input type="radio" name="Gurt" value="Grün"> Grün</label>
-                    <label class="option-item"><input type="radio" name="Gurt" value="Orange"> Orange</label>
-                    <label class="option-item"><input type="radio" name="Gurt" value="Rot"> Rot</label>
-                    <label class="option-item"><input type="radio" name="Gurt" value="Weiß"> Weiß</label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Gurt" value="Schwarz" checked onchange="calculatePrice()"> Schwarz</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Gurt" value="Lila" onchange="calculatePrice()"> Lila (Signature)</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Gurt" value="Pink" onchange="calculatePrice()"> Pink</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Gurt" value="Rot" onchange="calculatePrice()"> Rot</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Gurt" value="Gelb" onchange="calculatePrice()"> Gelb</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Gurt" value="Grün" onchange="calculatePrice()"> Grün</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Gurt" value="Orange" onchange="calculatePrice()"> Orange</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Gurt" value="Türkis" onchange="calculatePrice()"> Weiß</div></label>
                 </div>
             </div>
 
             <div class="form-section">
                 <h2>3. Performance & Upgrades</h2>
                 <div class="options-group">
-                    <label class="option-item"><input type="checkbox" name="Telemetrie" value="Ja"> DarkSystems Telemetrie-Paket</label>
-                    <label class="option-item"><input type="checkbox" name="TitanAuspuff" value="Ja"> Titan-Sportabgasanlage</label>
-                    <label class="option-item"><input type="checkbox" name="Cockpit Kamera" value="Ja"> Cockpit Kamera</label>
-                    <label class="option-item"><input type="checkbox" name="Reifensatz Racing" value="Ja"> Reifensatz (4 Reifen "Racing")</label>
-                    <label class="option-item"><input type="checkbox" name="Reifensatz Regen" value="Ja"> Reifensatz (4 Reifen "Regen")</label>
+                    <label class="option-item">
+                        <div class="option-content"><input type="checkbox" id="telemetrie" name="Telemetrie" onchange="calculatePrice()"> DarkSystems Telemetriepaket</div>
+                        <span class="price-info">+ 7500 €</span>
+                    </label>
+                    <label class="option-item">
+                        <div class="option-content"><input type="checkbox" id="auspuff" name="TitanAuspuff" onchange="calculatePrice()"> Titan Sportabgasanlage</div>
+                        <span class="price-info">+ 350 €</span>
+                    </label>
+                    <label class="option-item">
+                        <div class="option-content"><input type="checkbox" id="kamera" name="CockpitKamera" onchange="calculatePrice()"> Cockpit Kamera</div>
+                        <span class="price-info">+ 1200 €</span>
+                    </label>
                 </div>
+
+                <label>Zusätzliche Reifensätze (je 12.500 €):</label>
+                <div class="options-group">
+                    <div class="option-item">
+                        <span>Anzahl Reifensätze (Racing):</span>
+                        <input type="number" id="reifenAnzahl" name="ReifenAnzahl" value="0" min="0" oninput="calculatePrice()">
+                    </div>
+                </div>
+                <div class="options-group">
+                    <div class="option-item">
+                        <span>Anzahl Reifensätze (Regen):</span>
+                        <input type="number" id="reifenAnzahl2" name="ReifenAnzahl2" value="0" min="0" oninput="calculatePrice()">
+                    </div>
+                </div>
+            </div>
+
+            <div class="total-price-container">
+                Gesamtpreis: <span id="displayPrice">2.300.000</span> €
             </div>
 
             <div class="form-section">
                 <h2>4. Ihre Daten</h2>
-                <input type="text" name="name" required placeholder="Ihr Name" style="margin-bottom: 15px;">
-                <input type="email" name="email" required placeholder="Ihre E-Mail-Adresse">
+                <input type="text" name="name" required placeholder="Name" style="margin-bottom: 15px;">
+                <input type="text" name="nachname" required placeholder="Nachname" style="margin-bottom: 15px;">
+                <input type="text" name="strasse" required placeholder="Strasse" style="margin-bottom: 15px;">
+                <input type="text" name="hausnummer" required placeholder="Hausnummer" style="margin-bottom: 15px;">
+                <input type="text" name="plz" required placeholder="Postleitzahl" style="margin-bottom: 15px;">
+                <input type="text" name="stadt" required placeholder="Stadt" style="margin-bottom: 15px;">
+                <input type="email" name="email" required placeholder="E-Mail-Adresse" style="margin-bottom: 15px;">
+                <input type="text" name="tel" required placeholder="Telefonnummer" style="margin-bottom: 15px;">
             </div>
 
-            <button type="submit">Konfiguration & Anfrage senden</button>
+            <button type="submit">Konfiguration anfragen</button>
         </form>
 
-        <section class="legal-disclaimer fade-in-top" style="animation-delay: 1.2s;">
+        <section class="legal-disclaimer">
             <h3>Rechtlicher Hinweis & Haftungsausschluss</h3>
             <p>
-                <strong>1. Fiktiver Charakter des Inhalts:</strong> 
-                Bei der auf dieser Webseite präsentierten Marke „DarkSystems“ sowie dem Fahrzeugmodell „P1“ handelt es sich um rein fiktive Konzepte zu Demonstrations- und Designzwecken. Weder die Marke noch das beschriebene Fahrzeug existieren physisch oder stehen zum Verkauf. Alle technischen Spezifikationen sind frei erfunden.
+                <strong>1. Fiktiver Charakter:</strong> Bei der Marke „DarkSystems“ sowie dem Fahrzeugmodell „P1“ handelt es sich um rein fiktive Konzepte. Nichts davon existiert physisch.
             </p>
             <p>
-                <strong>2. Kein verbindliches Angebot:</strong> 
-                Diese Webseite stellt kein rechtsverbindliches Angebot im Sinne des BGB dar. Das Absenden einer Anfrage führt nicht zu einem Kaufvertrag. Es erfolgt keine Lieferung von Waren oder Dienstleistungen.
+                <strong>2. Kein Angebot:</strong> Dies stellt kein rechtsverbindliches Angebot dar. Das Absenden führt zu keinem Kaufvertrag.
             </p>
             <p>
-                <strong>3. Urheberrecht & Haftung:</strong> 
-                Sämtliche grafischen Darstellungen sind geistiges Eigentum des Seitenbetreibers. Der Betreiber haftet nicht für Missverständnisse aus einer fehlerhaften Interpretation dieser Webseite als reales Verkaufsangebot.
-            </p>
-            <p style="font-style: italic; border-top: 1px solid #eee; padding-top: 10px; margin-top: 10px; font-size: 11px;">
-                Zweck dieser Seite: Portfolio-Präsentation und Demonstration von Webentwicklungs-Fähigkeiten.
+                <strong>3. Portfolio-Zweck:</strong> Zweck dieser Seite ist die Demonstration von Webentwicklungs-Fähigkeiten.
             </p>
         </section>
     </main>
@@ -310,6 +373,39 @@
 
     <script>
         function toggleMenu() { document.getElementById("nav").classList.toggle("active"); }
+
+        function calculatePrice() {
+            const basis = 2300000;
+            let extra = 0;
+
+            // Felgen Check
+            const felgen = document.querySelector('input[name="Felgen"]:checked').value;
+            if (felgen === "Carbon") extra += 990;
+
+            // Sitze Check
+            const sitze = document.querySelector('input[name="Sitze"]:checked').value;
+            if (sitze === "Leder") extra -= 320;
+
+            // Checkboxen
+            if (document.getElementById('telemetrie').checked) extra += 7500;
+            if (document.getElementById('auspuff').checked) extra += 350;
+            if (document.getElementById('kamera').checked) extra += 1200;
+
+            // Reifen Menge
+            const reifenMenge = parseInt(document.getElementById('reifenAnzahl').value) || 0;
+            extra += (reifenMenge * 12500);
+            const reifenMenge2 = parseInt(document.getElementById('reifenAnzahl2').value) || 0;
+            extra += (reifenMenge2 * 12500);
+
+            // Gesamtsumme
+            const total = basis + extra;
+            
+            // Formatierung mit Punkten
+            document.getElementById('displayPrice').innerText = total.toLocaleString('de-DE');
+        }
+
+        // Initial beim Laden aufrufen
+        window.onload = calculatePrice;
     </script>
 </body>
 </html>

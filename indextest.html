@@ -4,14 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Yuuki's Website</title>
+<title>Über den Entwickler</title>
 
 <style>
+    /* 🔥 FIX gegen weiße Ränder */
+    * {
+        box-sizing: border-box;
+    }
+
     body { 
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
         margin: 0; 
         background: #f4f4f9; 
         color: #333; 
+        overflow-x: hidden;
     }
 
     header { 
@@ -22,6 +28,7 @@
         padding: 15px 30px; 
         color: white; 
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        width: 100%;
     }
 
     header a { 
@@ -33,14 +40,14 @@
 
     header a:hover { text-decoration: underline; }
 
-    nav {
-        display: flex;
-    }
-
     main { 
         max-width: 800px; 
         margin: 30px auto; 
         padding: 20px; 
+        background: white; 
+        border-radius: 10px; 
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        width: 100%;
     }
 
     h1 { color: #FF69B4; }
@@ -57,62 +64,14 @@
             transform: translateY(0);
         }
     }
-
-    /* BURGER BUTTON */
-    .menu-toggle {
-        display: none;
-        font-size: 24px;
-        cursor: pointer;
-        user-select: none;
-    }
-
-    /* MOBILE */
-    @media (max-width: 768px) {
-
-        header {
-            flex-wrap: wrap;
-        }
-
-        .menu-toggle {
-            display: block;
-        }
-
-        nav {
-            display: none;
-            flex-direction: column;
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        nav.active {
-            display: flex;
-        }
-
-        header a {
-            margin: 10px 0;
-            padding: 8px 0;
-        }
-    }
 </style>
-
-<script>
-function toggleMenu() {
-    const nav = document.getElementById("nav");
-    nav.classList.toggle("active");
-}
-</script>
-
 </head>
 
 <body>
 
 <header>
-    <div><strong class="fade-in-top">Yuuki's Website</strong></div>
-
-    <!-- Burger Button -->
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-
-    <nav id="nav">
+    <div><strong class="fade-in-top" style="animation-delay: 0.2s;">Yuuki</strong></div>
+    <nav>
         <a href="index.html" class="fade-in-top" style="animation-delay: 0.2s;">Home</a>
         <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.4s;">Über den Entwickler</a>
         <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.6s;">Projekte</a>
@@ -122,25 +81,36 @@ function toggleMenu() {
 </header>
 
 <main>
-    <h1 class="fade-in-top" style="animation-delay: 0.3s;">
-        Willkommen zu Yuuki's Website
-    </h1>
+    <h1 class="fade-in-top" style="animation-delay: 0.2s;">Über den Entwickler</h1>
 
-    <p class="fade-in-top" style="animation-delay: 0.4s;">
-        Willkommen auf meiner Website. Hier findet ihr fast alles über mich. Darunter meine Projekte und Fotografien.
+    <p class="fade-in-top" style="animation-delay: 0.4s;">Hallo und willkommen!</p>
+
+    <p class="fade-in-top" style="animation-delay: 0.6s;">
+        Ich bin Jan-Luca Hefenbrock, bekannt als Yuuki Akano, 
+        <span id="age"></span> Jahre alt; leidenschaftlicher Tüftler und Fotograf.
     </p>
 
-    <p class="fade-in-top" style="animation-delay: 0.4s;">
-        Viel Spaß beim Erkunden 😊
+    <p class="fade-in-top" style="animation-delay: 0.8s;">
+        Seit Jahren fasziniert mich alles rund um Technik, Programmierung und kreative Projekte – vom Basteln am Raspberry Pi bis hin zu eigenen Webprojekten.
     </p>
 
-    <p class="fade-in-top" style="animation-delay: 0.45s; font-family: 'Courier New', Courier, monospace;">
-        Letzte Aktualisierung:
+    <p class="fade-in-top" style="animation-delay: 1.0s;">
+        Doch auch durch die Linse meiner Kamera entdecke ich die Welt neu: Fotografie bedeutet für mich, besondere Momente einzufangen und sie in Bildern festzuhalten, die Geschichten erzählen.
+    </p> 
+
+    <p class="fade-in-top" style="animation-delay: 1.2s;">
+        Für mich geht es dabei immer darum, Neues auszuprobieren, zu lernen und meine Ideen mit anderen zu teilen.
     </p>
 
-    <p class="fade-in-top" style="animation-delay: 0.6s; font-family: 'Courier New', Courier, monospace;">
-        29.01.2026: Farbänderung zu Pink
+    <p class="fade-in-top" style="animation-delay: 1.4s;">
+        Schaut Euch um, entdeckt meine Projekte und Fotografien. Vielleicht findet Ihr selbst Inspiration, eigene Ideen umzusetzen.
     </p>
+
+    <p class="fade-in-top" style="animation-delay: 1.6s;">
+        Denn genau das treibt mich an: die Freude daran, Dinge zu erschaffen, die begeistern.
+    </p>
+
+    <a href="setup.html" class="fade-in-top" style="animation-delay: 1.0s;">Mein Setup</a>
 </main>
 
 <footer style="
@@ -149,11 +119,29 @@ function toggleMenu() {
     padding: 15px;
     background: #eee;
     border-top: 2px solid #FF69B4;
-    font-size: 14px;
+    color: #333;
+    font-size: 11px;
     margin-top: 40px;">
     
-    &copy; 2026 Yuuki – Alle Rechte vorbehalten.
+    &copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ und HTML)
 </footer>
 
+<script>
+    // Geburtsdatum (1. Juli 2008)
+    const birthDate = new Date(2008, 6, 1);
+    const today = new Date();
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const hasHadBirthday =
+        today.getMonth() > birthDate.getMonth() ||
+        (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+
+    if (!hasHadBirthday) {
+        age--;
+    }
+
+    document.getElementById("age").textContent = age;
+</script>
+
 </body>
-</html>
+</html> 

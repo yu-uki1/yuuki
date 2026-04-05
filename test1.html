@@ -295,7 +295,11 @@
                     <label class="option-item"><div class="option-content"><input type="radio" name="Gurt" value="Schwarz" checked onchange="calculatePrice()"> Schwarz</div></label>
                     <label class="option-item"><div class="option-content"><input type="radio" name="Gurt" value="Lila" onchange="calculatePrice()"> Lila (Signature)</div></label>
                     <label class="option-item"><div class="option-content"><input type="radio" name="Gurt" value="Pink" onchange="calculatePrice()"> Pink</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Gurt" value="Rot" onchange="calculatePrice()"> Rot</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Gurt" value="Gelb" onchange="calculatePrice()"> Gelb</div></label>
                     <label class="option-item"><div class="option-content"><input type="radio" name="Gurt" value="Grün" onchange="calculatePrice()"> Grün</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Gurt" value="Orange" onchange="calculatePrice()"> Orange</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Gurt" value="Türkis" onchange="calculatePrice()"> Weiß</div></label>
                 </div>
             </div>
 
@@ -304,19 +308,19 @@
                 <div class="options-group">
                     <label class="option-item">
                         <div class="option-content"><input type="checkbox" id="telemetrie" name="Telemetrie" onchange="calculatePrice()"> DarkSystems Telemetriepaket</div>
-                        <span class="price-info">+ 750 €</span>
+                        <span class="price-info">+ 7500 €</span>
                     </label>
                     <label class="option-item">
                         <div class="option-content"><input type="checkbox" id="auspuff" name="TitanAuspuff" onchange="calculatePrice()"> Titan Sportabgasanlage</div>
-                        <span class="price-info">+ 120 €</span>
+                        <span class="price-info">+ 350 €</span>
                     </label>
                     <label class="option-item">
                         <div class="option-content"><input type="checkbox" id="kamera" name="CockpitKamera" onchange="calculatePrice()"> Cockpit Kamera</div>
-                        <span class="price-info">+ 120 €</span>
+                        <span class="price-info">+ 1200 €</span>
                     </label>
                 </div>
 
-                <label>Zusätzliche Reifensätze (je 8.500 €):</label>
+                <label>Zusätzliche Reifensätze (je 12.500 €):</label>
                 <div class="options-group">
                     <div class="option-item">
                         <span>Anzahl Reifensätze (Racing):</span>
@@ -376,15 +380,15 @@
             if (sitze === "Leder") extra -= 320;
 
             // Checkboxen
-            if (document.getElementById('telemetrie').checked) extra += 750;
-            if (document.getElementById('auspuff').checked) extra += 120;
-            if (document.getElementById('kamera').checked) extra += 120;
+            if (document.getElementById('telemetrie').checked) extra += 7500;
+            if (document.getElementById('auspuff').checked) extra += 350;
+            if (document.getElementById('kamera').checked) extra += 1200;
 
             // Reifen Menge
             const reifenMenge = parseInt(document.getElementById('reifenAnzahl').value) || 0;
-            extra += (reifenMenge * 8500);
+            extra += (reifenMenge * 12500);
             const reifenMenge2 = parseInt(document.getElementById('reifenAnzahl2').value) || 0;
-            extra += (reifenMenge2 * 8500);
+            extra += (reifenMenge2 * 12500);
 
             // Gesamtsumme
             const total = basis + extra;

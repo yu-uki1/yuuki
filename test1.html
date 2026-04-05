@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yuuki's Kontakt</title>
+    <title>Konfigurator - DarkSystems P1</title>
     <style>
         /* 🔥 Globales Setup */
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
@@ -22,79 +20,134 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            background-color: #FF69B4; 
+            background-color: #333; 
             padding: 15px 30px; 
             color: white; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             width: 100%;
         }
 
-        header a { 
-            color: white; 
-            text-decoration: none; 
-            margin: 0 15px; 
-            font-weight: bold;
-        }
-
+        header a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; }
         header a:hover { text-decoration: underline; }
 
-        nav {
-            display: flex;
-        }
+        nav { display: flex; }
 
-        /* 🍔 Burger Menu */
-        .menu-toggle {
-            display: none;
-            font-size: 26px;
-            cursor: pointer;
-            user-select: none;
-        }
+        .menu-toggle { display: none; font-size: 26px; cursor: pointer; user-select: none; }
 
         @media (max-width: 768px) {
             header { flex-wrap: wrap; }
             .menu-toggle { display: block; }
-            nav {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                margin-top: 10px;
-            }
+            nav { display: none; flex-direction: column; width: 100%; margin-top: 10px; }
             nav.active { display: flex; }
             header a { margin: 10px 0; padding: 8px 0; }
         }
 
-        main { 
-            max-width: 800px; 
-            margin: 40px auto; 
-            padding: 20px; 
-            width: calc(100% - 20px);
+        main { max-width: 900px; margin: 30px auto; padding: 20px; width: 100%; }
+
+        h1, h2 { color: #525252; text-align: center; }
+        h1 { margin-bottom: 30px; }
+
+        .poster-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin-bottom: 40px;
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInSimple 1.2s ease forwards;
+            animation-delay: 0.3s;
         }
 
-        h1, h2 { color: #FF69B4; }
+        @keyframes fadeInSimple { to { opacity: 1; transform: translateY(0); } }
 
-        .contact-info { 
-            background: white; 
-            padding: 25px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
-            margin-bottom: 35px;
+        /* 📊 Spec-Grid */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
         }
 
-        .contact-info p { margin: 15px 0; font-size: 1.1em; }
-        .contact-info a { color: #FF69B4; text-decoration: none; font-weight: bold; }
-        .contact-info a:hover { text-decoration: underline; }
+        .spec-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 4px solid #525252;
+        }
 
-        /* 📝 Formular Styling */
+        .spec-box strong { display: block; color: #525252; margin-bottom: 8px; text-transform: uppercase; font-size: 0.9em; }
+        .spec-box .spec-value { font-size: 1.2em; font-weight: bold; color: #333; }
+
+        /* 📝 Formular Design */
         form { 
             background: white; 
-            padding: 30px; 
+            padding: 40px; 
             border-radius: 12px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
         }
 
-        form label { display: block; margin: 15px 0 5px 0; font-weight: bold; }
+        .form-section {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+        }
 
-        form input, form textarea { 
+        .form-section:last-of-type { border-bottom: none; }
+
+        form label { display: block; margin: 15px 0 10px 0; font-weight: bold; }
+
+        /* Graue Options-Boxen */
+        .options-group {
+            background: #f9f9f9; 
+            padding: 15px; 
+            border-radius: 8px; 
+            border: 1px solid #eee;
+            margin-bottom: 15px;
+        }
+
+        .option-item {
+            font-weight: normal; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between;
+            gap: 12px; 
+            margin-bottom: 10px;
+        }
+
+        .option-item:last-child { margin-bottom: 0; }
+
+        .option-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .price-info {
+            color: #888;
+            font-size: 0.85em;
+        }
+
+        .option-item input[type="radio"], .option-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #525252;
+            cursor: pointer;
+        }
+
+        input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        form input[type="text"], form input[type="email"] { 
             width: 100%; 
             padding: 12px; 
             border: 1px solid #ccc; 
@@ -103,117 +156,238 @@
             font-family: inherit;
         }
 
-        form input:focus, form textarea:focus { 
-            border-color: #FF69B4; 
-            box-shadow: 0 0 8px rgba(255, 105, 180, 0.3); 
-            outline: none; 
+        /* 💰 Preis Anzeige */
+        .total-price-container {
+            background: #333;
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 30px 0;
+            font-size: 1.6em;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         form button { 
-            margin-top: 25px; 
-            padding: 14px 30px; 
-            background-color: #FF69B4; 
+            margin-top: 10px; 
+            padding: 16px 30px; 
+            background-color: #525252; 
             color: white; 
             border: none; 
             border-radius: 8px; 
-            font-size: 1em; 
+            font-size: 1.1em; 
             font-weight: bold;
             cursor: pointer; 
-            width: 100%; /* Mobil besser bedienbar */
-            transition: background-color 0.3s, transform 0.2s;
+            transition: all 0.3s;
+            width: 100%;
         }
 
         form button:hover { 
             background-color: #FF007F; 
             transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        small { color: #666; display: block; margin-top: 5px; line-height: 1.4; }
-
-        /* ✨ Animationen */
-        .fade-in-top {
-            opacity: 0;
-            transform: translateY(-20px);
-            animation: fadeInTop 0.8s ease forwards;
+        .legal-disclaimer {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.6;
+            text-align: justify;
+            margin-top: 20px;
         }
 
-        @keyframes fadeInTop {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .legal-disclaimer h3 {
+            font-size: 14px;
+            color: #333;
+            margin-top: 0;
+            text-transform: uppercase;
         }
+
+        .fade-in-top { opacity: 0; transform: translateY(-30px); animation: fadeInTop 1s ease forwards; }
+        @keyframes fadeInTop { to { opacity: 1; transform: translateY(0); } }
 
         footer {
             width: 100%;
             text-align: center;
             padding: 20px;
             background: #eee;
-            border-top: 2px solid #FF69B4;
+            border-top: 2px solid #525252;
             color: #333;
-            font-size: 13px;
-            margin-top: 50px;
+            font-size: 12px;
+            margin-top: 60px;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div><strong class="fade-in-top">Yuuki</strong></div>
-        
+        <div><strong class="fade-in-top">DarkSystems P1</strong></div>
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-
         <nav id="nav">
-            <a href="index.html" class="fade-in-top" style="animation-delay: 0.1s;">Home</a>
-            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.2s;">Über den Entwickler</a>
-            <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.3s;">Projekte</a>
-            <a href="galerie.html" class="fade-in-top" style="animation-delay: 0.4s;">Galerie</a>
-            <a href="kontakt.html" class="fade-in-top" style="animation-delay: 0.5s;">Kontakt</a>
+            <a href="index.html">Home</a>
+            <a href="ueber.html">Über</a>
+            <a href="projekte.html">Projekte</a>
+            <a href="galerie.html">Galerie</a>
+            <a href="kontakt.html">Kontakt</a>
         </nav>
     </header>
 
     <main>
-        <h1 class="fade-in-top" style="animation-delay: 0.2s;">Kontakt</h1>
+        <h1 class="fade-in-top">Konfigurator: DarkSystems P1</h1>
 
-        <div class="contact-info fade-in-top" style="animation-delay: 0.4s;">
-            <p><strong>Telefon:</strong> +49 176 46674886</p>
-            <p><strong>E-Mail:</strong> <a href="mailto:yuuki.akano.hefenbrock@gmail.com">yuuki.akano.hefenbrock@gmail.com</a></p>
-            <p><strong>TikTok:</strong> <a href="https://www.tiktok.com/@yuukiakano" target="_blank">@yuukiakano</a></p>
-            <p><strong>Instagram:</strong> <a href="https://www.instagram.com/akanoyuuki" target="_blank">@akanoyuuki</a></p>
+        <div class="poster-container">
+            <img src="Screenshot 2026-03-24 103802.png" alt="DarkSystems P1 Plakat">
         </div>
 
-        <h2 class="fade-in-top" style="animation-delay: 0.6s;">Nachricht senden</h2>
-        
-        <form action="mailto:yuuki.akano.hefenbrock@gmail.com" method="post" enctype="text/plain" class="fade-in-top" style="animation-delay: 0.8s;">
-            <label for="name">Ihr Name:</label>
-            <input type="text" id="name" name="name" required placeholder="Dein Name">
+        <div class="specs-grid">
+            <div class="spec-box fade-in-top" style="animation-delay: 0.6s;"><strong>Basispreis</strong><span class="spec-value">2.300.000 €</span></div>
+            <div class="spec-box fade-in-top" style="animation-delay: 0.7s;"><strong>Leistung</strong><span class="spec-value">1200 PS</span></div>
+            <div class="spec-box fade-in-top" style="animation-delay: 0.8s;"><strong>Gewicht</strong><span class="spec-value">837 Kg</span></div>
+            <div class="spec-box fade-in-top" style="animation-delay: 0.9s;"><strong>Beschleunigung</strong><span class="spec-value">0-100 in 1,8s</span></div>
+        </div>
 
-            <label for="email">Ihre E-Mail-Adresse:</label>
-            <input type="email" id="email" name="email" required placeholder="beispiel@mail.de">
+        <form id="configForm" action="mailto:yuuki.akano.hefenbrock@gmail.com" method="post" enctype="text/plain" class="fade-in-top" style="animation-delay: 1s;">
+            
+            <div class="form-section">
+                <h2>1. Exterieur & Finish</h2>
+                <label>Lackierung / Finish:</label>
+                <div class="options-group">
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Finish" value="Carbon Glanz" checked onchange="calculatePrice()"> Sichtcarbon Glanz</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Finish" value="Carbon Matt" onchange="calculatePrice()"> Sichtcarbon Matt</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Finish" value="Raw Carbon" onchange="calculatePrice()"> Raw Carbon (-2kg)</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Finish" value="Pink" onchange="calculatePrice()"> Pink Metallic</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Finish" value="Lila" onchange="calculatePrice()"> DarkSystems Lila</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Finish" value="Black" onchange="calculatePrice()"> Agressive Black</div></label>
+                </div>
 
-            <label for="age">Ihr Alter:</label>
-            <input type="number" id="age" name="age" min="13" max="120" required>
-            <small>Mindestalter: 13 Jahre.</small>
+                <label>Felgen:</label>
+                <div class="options-group">
+                    <label class="option-item">
+                        <div class="option-content"><input type="radio" name="Felgen" value="Magnesium" checked onchange="calculatePrice()"> Magnesium Schmiedefelgen</div>
+                    </label>
+                    <label class="option-item">
+                        <div class="option-content"><input type="radio" name="Felgen" value="Carbon" onchange="calculatePrice()"> Aero Carbon-Wheels</div>
+                        <span class="price-info">+ 990 €</span>
+                    </label>
+                </div>
+            </div>
 
-            <label for="message">Nachricht:</label>
-            <textarea id="message" name="message" rows="5" required placeholder="Was möchtest du mir schreiben?"></textarea>
-            <small>⚠️ Bitte keine Emojis verwenden (werden oft nicht übertragen).</small>
+            <div class="form-section">
+                <h2>2. Cockpit-Konfiguration</h2>
+                <label>Sitze:</label>
+                <div class="options-group">
+                    <label class="option-item">
+                        <div class="option-content"><input type="radio" name="Sitze" value="Schale" checked onchange="calculatePrice()"> Carbon Schalensitz (Ultralight)</div>
+                    </label>
+                    <label class="option-item">
+                        <div class="option-content"><input type="radio" name="Sitze" value="Leder" onchange="calculatePrice()"> Komfort-Ledersitz (+23kg)</div>
+                        <span class="price-info">- 320 €</span>
+                    </label>
+                </div>
 
-            <button type="submit">Absenden (Mail-App öffnen)</button>
+                <label>Gurte (6-Punkt):</label>
+                <div class="options-group">
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Gurt" value="Schwarz" checked onchange="calculatePrice()"> Schwarz</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Gurt" value="Lila" onchange="calculatePrice()"> Lila (Signature)</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Gurt" value="Pink" onchange="calculatePrice()"> Pink</div></label>
+                    <label class="option-item"><div class="option-content"><input type="radio" name="Gurt" value="Grün" onchange="calculatePrice()"> Grün</div></label>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>3. Performance & Upgrades</h2>
+                <div class="options-group">
+                    <label class="option-item">
+                        <div class="option-content"><input type="checkbox" id="telemetrie" name="Telemetrie" onchange="calculatePrice()"> DarkSystems Telemetriepaket</div>
+                        <span class="price-info">+ 750 €</span>
+                    </label>
+                    <label class="option-item">
+                        <div class="option-content"><input type="checkbox" id="auspuff" name="TitanAuspuff" onchange="calculatePrice()"> Titan Sportabgasanlage</div>
+                        <span class="price-info">+ 120 €</span>
+                    </label>
+                    <label class="option-item">
+                        <div class="option-content"><input type="checkbox" id="kamera" name="CockpitKamera" onchange="calculatePrice()"> Cockpit Kamera</div>
+                        <span class="price-info">+ 120 €</span>
+                    </label>
+                </div>
+
+                <label>Zusätzliche Reifensätze (je 8.500 €):</label>
+                <div class="options-group">
+                    <div class="option-item">
+                        <span>Anzahl Reifensätze (Racing/Regen):</span>
+                        <input type="number" id="reifenAnzahl" name="ReifenAnzahl" value="0" min="0" oninput="calculatePrice()">
+                    </div>
+                </div>
+            </div>
+
+            <div class="total-price-container">
+                Gesamtpreis: <span id="displayPrice">2.300.000</span> €
+            </div>
+
+            <div class="form-section">
+                <h2>4. Ihre Daten</h2>
+                <input type="text" name="name" required placeholder="Ihr Name" style="margin-bottom: 15px;">
+                <input type="email" name="email" required placeholder="Ihre E-Mail-Adresse">
+            </div>
+
+            <button type="submit">Konfiguration anfragen</button>
         </form>
+
+        <section class="legal-disclaimer">
+            <h3>Rechtlicher Hinweis & Haftungsausschluss</h3>
+            <p>
+                <strong>1. Fiktiver Charakter:</strong> Bei der Marke „DarkSystems“ sowie dem Fahrzeugmodell „P1“ handelt es sich um rein fiktive Konzepte. Nichts davon existiert physisch.
+            </p>
+            <p>
+                <strong>2. Kein Angebot:</strong> Dies stellt kein rechtsverbindliches Angebot dar. Das Absenden führt zu keinem Kaufvertrag.
+            </p>
+            <p>
+                <strong>3. Portfolio-Zweck:</strong> Zweck dieser Seite ist die Demonstration von Webentwicklungs-Fähigkeiten.
+            </p>
+        </section>
     </main>
 
-    <footer>
-        &copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ and HTML)
-    </footer>
+    <footer>&copy; 2026 Yuuki – Alle Rechte vorbehalten.</footer>
 
     <script>
-        function toggleMenu() {
-            const nav = document.getElementById("nav");
-            nav.classList.toggle("active");
-        }
-    </script>
+        function toggleMenu() { document.getElementById("nav").classList.toggle("active"); }
 
+        function calculatePrice() {
+            const basis = 2300000;
+            let extra = 0;
+
+            // Felgen Check
+            const felgen = document.querySelector('input[name="Felgen"]:checked').value;
+            if (felgen === "Carbon") extra += 990;
+
+            // Sitze Check
+            const sitze = document.querySelector('input[name="Sitze"]:checked').value;
+            if (sitze === "Leder") extra -= 320;
+
+            // Checkboxen
+            if (document.getElementById('telemetrie').checked) extra += 750;
+            if (document.getElementById('auspuff').checked) extra += 120;
+            if (document.getElementById('kamera').checked) extra += 120;
+
+            // Reifen Menge
+            const reifenMenge = parseInt(document.getElementById('reifenAnzahl').value) || 0;
+            extra += (reifenMenge * 8500);
+
+            // Gesamtsumme
+            const total = basis + extra;
+            
+            // Formatierung mit Punkten
+            document.getElementById('displayPrice').innerText = total.toLocaleString('de-DE');
+        }
+
+        // Initial beim Laden aufrufen
+        window.onload = calculatePrice;
+    </script>
 </body>
 </html>
  

@@ -98,9 +98,36 @@
 
         .form-section:last-of-type { border-bottom: none; }
 
-        form label { display: block; margin: 15px 0 8px 0; font-weight: bold; }
+        form label { display: block; margin: 15px 0 10px 0; font-weight: bold; }
 
-        form input[type="text"], form input[type="email"], form select { 
+        /* Graue Options-Boxen */
+        .options-group {
+            background: #f9f9f9; 
+            padding: 15px; 
+            border-radius: 8px; 
+            border: 1px solid #eee;
+            margin-bottom: 15px;
+        }
+
+        .option-item {
+            font-weight: normal; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            margin-bottom: 10px;
+        }
+
+        .option-item:last-child { margin-bottom: 0; }
+
+        .option-item input[type="radio"], .option-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #525252;
+            cursor: pointer;
+        }
+
+        form input[type="text"], form input[type="email"] { 
             width: 100%; 
             padding: 12px; 
             border: 1px solid #ccc; 
@@ -109,23 +136,14 @@
             font-family: inherit;
         }
 
-        form input:focus, form select:focus { 
+        form input:focus { 
             border-color: #525252; 
             box-shadow: 0 0 8px rgba(82, 82, 82, 0.2); 
             outline: none; 
         }
 
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: normal;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
         form button { 
-            margin-top: 10px; 
+            margin-top: 20px; 
             padding: 16px 30px; 
             background-color: #525252; 
             color: white; 
@@ -144,6 +162,7 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
+        /* 📜 Disclaimer Styling */
         .legal-disclaimer {
             background: white;
             padding: 25px;
@@ -153,6 +172,14 @@
             color: #555;
             line-height: 1.6;
             text-align: justify;
+            margin-top: 20px;
+        }
+
+        .legal-disclaimer h3 {
+            font-size: 14px;
+            color: #333;
+            margin-top: 0;
+            text-transform: uppercase;
         }
 
         .fade-in-top { opacity: 0; transform: translateY(-30px); animation: fadeInTop 1s ease forwards; }
@@ -201,56 +228,48 @@
         <form action="mailto:yuuki.akano.hefenbrock@gmail.com" method="post" enctype="text/plain" class="fade-in-top" style="animation-delay: 1s;">
             
             <div class="form-section">
-                <h2>1. Exterieur & Design</h2>
-                <label for="finish">Exterieur-Finish:</label>
-                <select id="finish" name="Finish">
-                    <option value="Sichtcarbon Glanz">Sichtcarbon Glanz (Standard)</option>
-                    <option value="Sichtcarbon Matt">Sichtcarbon Matt</option>
-                    <option value="Akano Pink">Akano Pink Metallic</option>
-                    <option value="DarkSystems Grey">DarkSystems Grey Satin</option>
-                    <option value="Raw Carbon">Raw Carbon (Unlackiert, -2kg)</option>
-                </select>
-
-                <label for="wheels">Felgen-Optionen:</label>
-                <select id="wheels" name="Felgen">
-                    <option value="Magnesium Schmiedefelgen">Magnesium Schmiedefelgen (Ultraleicht)</option>
-                    <option value="Akano Carbon-Wheels">Akano Aero Carbon-Wheels</option>
-                </select>
-            </div>
-
-            <div class="form-section">
-                <h2>2. Cockpit</h2>
-                <label>Sitz-Konfiguration:</label>
-                <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
-                    <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                        <input type="radio" name="Sitze" value="Carbon Schalensitz" checked style="accent-color: #525252;"> Carbon Schalensitz (Ultraleicht)
-                    </label>
-                    <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center; gap: 10px;">
-                        <input type="radio" name="Sitze" value="Ledersitz" style="accent-color: #525252;"> Komfort-Ledersitz (+23kg)
-                    </label>
+                <h2>1. Exterieur & Finish</h2>
+                <label>Lackierung / Finish:</label>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="Finish" value="Sichtcarbon Glanz" checked> Sichtcarbon Glanz</label>
+                    <label class="option-item"><input type="radio" name="Finish" value="Sichtcarbon Matt"> Sichtcarbon Matt</label>
+                    <label class="option-item"><input type="radio" name="Finish" value="Akano Pink"> Akano Pink Metallic</label>
+                    <label class="option-item"><input type="radio" name="Finish" value="DarkSystems Grey"> DarkSystems Grey Satin</label>
+                    <label class="option-item"><input type="radio" name="Finish" value="Raw Carbon"> Raw Carbon (-2kg)</label>
                 </div>
 
-                <label for="gurt">Sicherheitsgurte (6-Punkt):</label>
-                <select id="gurt" name="Gurtfarbe">
-                    <option value="Schwarz">Schwarz</option>
-                    <option value="Lila">Lila (DarkSystems Signature)</option>
-                    <option value="Pink">Pink (Yuuki Edition)</option>
-                    <option value="Neon Grün">Neon Grün</option>
-                    <option value="Orange">Orange</option>
-                </select>
+                <label>Felgen:</label>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="Felgen" value="Magnesium Schmiedefelgen" checked> Magnesium Schmiedefelgen</label>
+                    <label class="option-item"><input type="radio" name="Felgen" value="Akano Aero Carbon-Wheels"> Akano Aero Carbon-Wheels</label>
+                </div>
             </div>
 
             <div class="form-section">
-                <h2>3. Performance & Technik</h2>
-                <label class="checkbox-container">
-                    <input type="checkbox" name="LiftSystem" value="Ja" style="accent-color: #525252;"> Hydraulisches Lift-System für die Front (Garagen-Modus)
-                </label>
-                <label class="checkbox-container">
-                    <input type="checkbox" name="Telemetrie" value="Ja" style="accent-color: #525252;"> DarkSystems Telemetrie (Rundenzeiten-Rekorder)
-                </label>
-                <label class="checkbox-container">
-                    <input type="checkbox" name="TitanAuspuff" value="Ja" style="accent-color: #525252;"> Titan-Sportabgasanlage (Lautstärken-Optimiert)
-                </label>
+                <h2>2. Cockpit-Konfiguration</h2>
+                <label>Sitze:</label>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="Sitze" value="Carbon Schalensitz" checked> Carbon Schalensitz (Ultraleicht)</label>
+                    <label class="option-item"><input type="radio" name="Sitze" value="Ledersitz"> Komfort-Ledersitz (+23kg)</label>
+                </div>
+
+                <label>Sicherheitsgurte (6-Punkt):</label>
+                <div class="options-group">
+                    <label class="option-item"><input type="radio" name="Gurt" value="Schwarz" checked> Schwarz</label>
+                    <label class="option-item"><input type="radio" name="Gurt" value="Lila"> Lila (Signature)</label>
+                    <label class="option-item"><input type="radio" name="Gurt" value="Pink"> Pink (Yuuki Edition)</label>
+                    <label class="option-item"><input type="radio" name="Gurt" value="Neon Grün"> Neon Grün</label>
+                    <label class="option-item"><input type="radio" name="Gurt" value="Orange"> Orange</label>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>3. Performance & Upgrades</h2>
+                <div class="options-group">
+                    <label class="option-item"><input type="checkbox" name="LiftSystem" value="Ja"> Front-Lift-System</label>
+                    <label class="option-item"><input type="checkbox" name="Telemetrie" value="Ja"> DarkSystems Telemetrie-Paket</label>
+                    <label class="option-item"><input type="checkbox" name="TitanAuspuff" value="Ja"> Titan-Sportabgasanlage</label>
+                </div>
             </div>
 
             <div class="form-section">
@@ -259,12 +278,26 @@
                 <input type="email" name="email" required placeholder="Ihre E-Mail-Adresse">
             </div>
 
-            <button type="submit">Konfiguration & Kaufanfrage senden</button>
+            <button type="submit">Konfiguration & Anfrage senden</button>
         </form>
 
         <section class="legal-disclaimer fade-in-top" style="animation-delay: 1.2s;">
-            <h3>Rechtlicher Hinweis</h3>
-            <p><strong>Fiktives Projekt:</strong> Dies ist eine Portfolio-Arbeit. Das Fahrzeug existiert nicht. Das Absenden der Anfrage stellt kein echtes Kaufangebot dar.</p>
+            <h3>Rechtlicher Hinweis & Haftungsausschluss</h3>
+            <p>
+                <strong>1. Fiktiver Charakter des Inhalts:</strong> 
+                Bei der auf dieser Webseite präsentierten Marke „DarkSystems“ sowie dem Fahrzeugmodell „P1“ handelt es sich um rein fiktive Konzepte zu Demonstrations- und Designzwecken. Weder die Marke noch das beschriebene Fahrzeug existieren physisch oder stehen zum Verkauf. Alle technischen Spezifikationen sind frei erfunden.
+            </p>
+            <p>
+                <strong>2. Kein verbindliches Angebot:</strong> 
+                Diese Webseite stellt kein rechtsverbindliches Angebot im Sinne des BGB dar. Das Absenden einer Anfrage führt nicht zu einem Kaufvertrag. Es erfolgt keine Lieferung von Waren oder Dienstleistungen.
+            </p>
+            <p>
+                <strong>3. Urheberrecht & Haftung:</strong> 
+                Sämtliche grafischen Darstellungen sind geistiges Eigentum des Seitenbetreibers. Der Betreiber haftet nicht für Missverständnisse aus einer fehlerhaften Interpretation dieser Webseite als reales Verkaufsangebot.
+            </p>
+            <p style="font-style: italic; border-top: 1px solid #eee; padding-top: 10px; margin-top: 10px; font-size: 11px;">
+                Zweck dieser Seite: Portfolio-Präsentation und Demonstration von Webentwicklungs-Fähigkeiten.
+            </p>
         </section>
     </main>
 
@@ -275,3 +308,4 @@
     </script>
 </body>
 </html>
+ 

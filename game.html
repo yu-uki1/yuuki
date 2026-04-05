@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minigame - Yuuki's Website</title>
+    <style>
+        /* Übernahme deines Website-Designs */
+        * { box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            background: #f4f4f9; 
+            color: #333; 
+            overflow-x: hidden; 
+        }
+        header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            background-color: #FF69B4; padding: 15px 30px; color: white; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); width: 100%;
+        }
+        header a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; }
+        nav { display: flex; }
+        main { max-width: 800px; margin: 30px auto; padding: 20px; width: 100%; text-align: center; }
+        h1 { color: #FF69B4; }
+
+        /* Spiel-spezifisches Styling */
+        #game-wrapper {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 2px solid #FF69B4;
+        }
+        canvas { 
+            background: #fffafa; /* Ganz leichtes Pinkweiß */
+            border: 2px solid #FF69B4;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            cursor: crosshair;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #FF69B4;
+            margin-bottom: 10px;
+        }
+        .btn-restart {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #FF69B4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            display: none;
+        }
+
+        /* Mobile Burger Menu Logik */
+        .menu-toggle { display: none; font-size: 24px; cursor: pointer; }
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            nav { display: none; flex-direction: column; width: 100%; }
+            nav.active { display: flex; }
+            header { flex-wrap: wrap; }
+            header a { margin: 10px 0; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div><strong>Yuuki's Website</strong></div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <nav id="nav">
+        <a href="index.html">Home</a>
+        <a href="ueber.html">Über den Entwickler</a>
+        <a href="projekte.html">Projekte</a>
+        <a href="galerie.html">Galerie</a>
+        <a href="kontakt.html">Kontakt</a>
+    </nav>
+</header>
+
+<main>
+    <h1>Yuuki's Catch-Quest</h1>
+    <p>Sammle die grünen Punkte und weiche den roten Hindernissen aus!</p>
+
+    <div id="game-wrapper">
+        <div class="stats">
+            <span>Punkte: <span id="score">0</span></span>
+            <span>Leben: <span id="lives">3</span></span>
+        </div>
+        <canvas id="gameCanvas" width="600" height="400"></canvas>
+        <button class="btn-restart" id="restartBtn" onclick="location.reload()">Nochmal spielen</button>
+    </div>
+</main>
+
+<footer style="width: 100%; text-align: center; padding: 15px; background: #eee; border-top: 2px solid #FF69B4; font-size: 14px; margin-top: 40px;">
+    &copy; 2026 Yuuki – Alle Rechte vorbehalten.
+</footer>
+
+<script>
+    function toggleMenu() { document.getElementById("nav").classList.toggle("active"); }
+
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    const scoreDisplay = document.getElementById("score");
+    const livesDisplay = document.getElementById("lives");
+    const restartBtn = document.getElementById("restartBtn");
+
+    let score = 0;
+    let lives = 3;
+    let gameActive = true;
+
+    const player = { x: 300, y: 350, size: 25, speed: 6, color: "#FF69B4" }; // Dein Pink
+    const goal = { x: 100, y: 100, size: 15, color: "#2ecc71" };
+    const obstacles = [];
+
+    const keys = {};
+    window.addEventListener("keydown", e => keys[e.key] = true);
+    window.addEventListener("keyup", e => keys[e.key] = false);
+
+    function spawnObstacle() {
+        if (obstacles.length < 6) {
+            obstacles.push({
+                x: Math.random() * canvas.width,
+                y: -30,
+                size: 20,
+                speed: 2 + Math.random() * 3
+            });
+        }
+    }
+
+    function update() {
+        if (!gameActive) return;
+
+        // Steuerung
+        if ((keys["ArrowLeft"] || keys["a"]) && player.x > 0) player.x -= player.speed;
+        if ((keys["ArrowRight"] || keys["d"]) && player.x < canvas.width - player.size) player.x += player.speed;
+        if ((keys["ArrowUp"] || keys["w"]) && player.y > 0) player.y -= player.speed;
+        if ((keys["ArrowDown"] || keys["s"]) && player.y < canvas.height - player.size) player.y += player.speed;
+
+        // Ziel-Kollision
+        if (player.x < goal.x + goal.size && player.x + player.size > goal.x &&
+            player.y < goal.y + goal.size && player.y + player.size > goal.y) {
+            score += 10;
+            scoreDisplay.innerText = score;
+            goal.x = Math.random() * (canvas.width - goal.size);
+            goal.y = Math.random() * (canvas.height - goal.size);
+            spawnObstacle();
+        }
+
+        // Hindernisse
+        obstacles.forEach((obs, index) => {
+            obs.y += obs.speed;
+            if (obs.y > canvas.height) {
+                obs.y = -30;
+                obs.x = Math.random() * canvas.width;
+            }
+
+            // Kollision Hindernis
+            if (player.x < obs.x + obs.size && player.x + player.size > obs.x &&
+                player.y < obs.y + obs.size && player.y + player.size > obs.y) {
+                lives--;
+                livesDisplay.innerText = lives;
+                obstacles.splice(index, 1);
+                if (lives <= 0) {
+                    gameActive = false;
+                    restartBtn.style.display = "inline-block";
+                }
+            }
+        });
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (!gameActive) {
+            ctx.fillStyle = "#FF69B4";
+            ctx.font = "30px Segoe UI";
+            ctx.fillText("GAME OVER", 210, 200);
+            return;
+        }
+
+        // Spieler (Ein kleines Quadrat in deiner Header-Farbe)
+        ctx.fillStyle = player.color;
+        ctx.fillRect(player.x, player.y, player.size, player.size);
+
+        // Ziel
+        ctx.fillStyle = goal.color;
+        ctx.beginPath();
+        ctx.arc(goal.x + goal.size/2, goal.y + goal.size/2, goal.size/2, 0, Math.PI*2);
+        ctx.fill();
+
+        // Hindernisse
+        ctx.fillStyle = "#e74c3c";
+        obstacles.forEach(obs => {
+            ctx.fillRect(obs.x, obs.y, obs.size, obs.size);
+        });
+
+        update();
+        requestAnimationFrame(draw);
+    }
+
+    spawnObstacle();
+    draw();
+</script>
+
+</body>
+</html>

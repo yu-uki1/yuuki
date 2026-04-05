@@ -28,7 +28,6 @@
         padding: 15px 30px; 
         color: white; 
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        width: 100%;
     }
 
     header a { 
@@ -39,6 +38,10 @@
     }
 
     header a:hover { text-decoration: underline; }
+
+    nav {
+        display: flex;
+    }
 
     main { 
         max-width: 800px; 
@@ -64,14 +67,61 @@
             transform: translateY(0);
         }
     }
+
+    /* 🍔 BURGER */
+    .menu-toggle {
+        display: none;
+        font-size: 24px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    /* 📱 MOBILE */
+    @media (max-width: 768px) {
+
+        .menu-toggle {
+            display: block;
+        }
+
+        nav {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        nav.active {
+            display: flex;
+        }
+
+        header {
+            flex-wrap: wrap;
+        }
+
+        header a {
+            margin: 10px 0;
+        }
+    }
 </style>
+
+<script>
+function toggleMenu() {
+    const nav = document.getElementById("nav");
+    nav.classList.toggle("active");
+}
+</script>
+
 </head>
 
 <body>
 
 <header>
     <div><strong class="fade-in-top" style="animation-delay: 0.2s;">Yuuki</strong></div>
-    <nav>
+
+    <!-- 🍔 Burger Button -->
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+    <nav id="nav">
         <a href="index.html" class="fade-in-top" style="animation-delay: 0.2s;">Home</a>
         <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.4s;">Über den Entwickler</a>
         <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.6s;">Projekte</a>
@@ -86,8 +136,7 @@
     <p class="fade-in-top" style="animation-delay: 0.4s;">Hallo und willkommen!</p>
 
     <p class="fade-in-top" style="animation-delay: 0.6s;">
-        Ich bin Jan-Luca Hefenbrock, bekannt als Yuuki Akano, 
-        <span id="age"></span> Jahre alt; leidenschaftlicher Tüftler und Fotograf.
+        Ich bin Jan-Luca Hefenbrock, bekannt als Yuuki Akano, <span id="age"></span> Jahre alt; leidenschaftlicher Tüftler und Fotograf.
     </p>
 
     <p class="fade-in-top" style="animation-delay: 0.8s;">
@@ -95,22 +144,10 @@
     </p>
 
     <p class="fade-in-top" style="animation-delay: 1.0s;">
-        Doch auch durch die Linse meiner Kamera entdecke ich die Welt neu: Fotografie bedeutet für mich, besondere Momente einzufangen und sie in Bildern festzuhalten, die Geschichten erzählen.
+        Doch auch durch die Linse meiner Kamera entdecke ich die Welt neu.
     </p> 
 
-    <p class="fade-in-top" style="animation-delay: 1.2s;">
-        Für mich geht es dabei immer darum, Neues auszuprobieren, zu lernen und meine Ideen mit anderen zu teilen.
-    </p>
-
-    <p class="fade-in-top" style="animation-delay: 1.4s;">
-        Schaut Euch um, entdeckt meine Projekte und Fotografien. Vielleicht findet Ihr selbst Inspiration, eigene Ideen umzusetzen.
-    </p>
-
-    <p class="fade-in-top" style="animation-delay: 1.6s;">
-        Denn genau das treibt mich an: die Freude daran, Dinge zu erschaffen, die begeistern.
-    </p>
-
-    <a href="setup.html" class="fade-in-top" style="animation-delay: 1.0s;">Mein Setup</a>
+    <a href="setup.html" class="fade-in-top" style="animation-delay: 1.2s;">Mein Setup</a>
 </main>
 
 <footer style="
@@ -119,15 +156,14 @@
     padding: 15px;
     background: #eee;
     border-top: 2px solid #FF69B4;
-    color: #333;
     font-size: 11px;
     margin-top: 40px;">
     
-    &copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ und HTML)
+    &copy; 2026 Yuuki – Alle Rechte vorbehalten.
 </footer>
 
 <script>
-    // Geburtsdatum (1. Juli 2008)
+    // Alter berechnen
     const birthDate = new Date(2008, 6, 1);
     const today = new Date();
 

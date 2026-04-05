@@ -2,14 +2,22 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Yuuki's Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuuki's Minigame</title>
     <style>
+        /* 🔥 Globales Setup für Stabilität */
+        * {
+            box-sizing: border-box;
+        }
+
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
             background: #f4f4f9; 
             color: #333; 
+            overflow-x: hidden;
         }
+
         header { 
             display: flex; 
             justify-content: space-between; 
@@ -18,104 +26,172 @@
             padding: 15px 30px; 
             color: white; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            width: 100%;
         }
+
         header a { 
             color: white; 
             text-decoration: none; 
             margin: 0 15px; 
             font-weight: bold;
         }
+
         header a:hover { text-decoration: underline; }
+
+        nav {
+            display: flex;
+        }
+
+        /* 🍔 Burger Menu */
+        .menu-toggle {
+            display: none;
+            font-size: 26px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-wrap: wrap; }
+            .menu-toggle { display: block; }
+            nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 10px;
+            }
+            nav.active { display: flex; }
+            header a { margin: 10px 0; padding: 8px 0; }
+        }
+
         main { 
             max-width: 800px; 
-            margin: 30px auto; 
-            padding: 20px; 
+            margin: 40px auto; 
+            padding: 30px 20px; 
+            background: white; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+            width: calc(100% - 40px);
         }
-        h1 { color: #FF69B4; }
-        .button-container { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 15px; 
-            margin-top: 20px;
+
+        h1 { color: #FF69B4; margin-bottom: 10px; }
+
+        .game-info {
+            line-height: 1.6;
+            margin-bottom: 30px;
         }
-        .btn { 
-            padding: 12px 25px; 
+
+        /* 📦 Download Bereich */
+        .download-box {
+            background: #fff0f6;
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px dashed #FF69B4;
+            margin: 20px 0;
+        }
+
+        .btn-download { 
+            padding: 15px 35px; 
             background-color: #FF69B4; 
             color: white; 
             border: none; 
             border-radius: 8px; 
-            font-size: 1em; 
+            font-size: 1.1em; 
+            font-weight: bold;
             cursor: pointer; 
             text-align: center;
             text-decoration: none;
             display: inline-block;
+            transition: background 0.3s, transform 0.2s;
         }
-        .btn:hover { background-color: #FF007F; }
-        #disclaimer { 
-            display: none; 
-            background: white; 
-            padding: 20px; 
-            border-radius: 10px; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+
+        .btn-download:hover { 
+            background-color: #FF007F; 
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4);
+        }
+
+        .note {
+            font-size: 0.9em;
+            color: #777;
+            font-style: italic;
             margin-top: 20px;
         }
-		.fade-in-top {
-  	    opacity: 0;
-  	    transform: translateY(-30px); /* startet 30px über der Position */
-            animation: fadeInTop 1s ease forwards; /* forwards = bleibt am Endzustand */
-	}
 
-	    @keyframes fadeInTop {
-  	to {
-    	    opacity: 1;
-            transform: translateY(0);
-            }
-    	}
-
-    </style>
-    <script>
-        function toggleDisclaimer() {
-            const d = document.getElementById('disclaimer');
-            d.style.display = (d.style.display === 'block') ? 'none' : 'block';
+        /* ✨ Animationen */
+        .fade-in-top {
+            opacity: 0;
+            transform: translateY(-25px);
+            animation: fadeInTop 0.8s ease forwards;
         }
-    </script>
+
+        @keyframes fadeInTop {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            background: #eee;
+            border-top: 2px solid #FF69B4;
+            color: #333;
+            font-size: 13px;
+            margin-top: 50px;
+        }
+    </style>
 </head>
 <body>
+
     <header>
-        <div><strong class="fade-in-top">Minigame</strong></div>
-        <nav>
-            <a href="index.html" class="fade-in-top" style="animation-delay: 0.2s;">Home</a>
-            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.4s;">Über den Entwickler</a>
-	        <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.6s;">Projekte</a>
-			<a href="galerie.html" class="fade-in-top" style="animation-delay: 0.8s;">Galerie</a>
-            <a href="kontakt.html" class="fade-in-top" style="animation-delay: 1.0s;">Kontakt</a>
+        <div><strong class="fade-in-top">Yuuki's Minigame</strong></div>
+        
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+        <nav id="nav">
+            <a href="index.html" class="fade-in-top" style="animation-delay: 0.1s;">Home</a>
+            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.2s;">Über den Entwickler</a>
+            <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.3s;">Projekte</a>
+            <a href="galerie.html" class="fade-in-top" style="animation-delay: 0.4s;">Galerie</a>
+            <a href="kontakt.html" class="fade-in-top" style="animation-delay: 0.5s;">Kontakt</a>
         </nav>
     </header>
 
-    <main>
-		<p>&nbsp;</p>
-		<p class="fade-in-top" style="animation-delay: 0.4s;">Dies ist mein Minigame.</p>
-		<p class="fade-in-top" style="animation-delay: 0.4s;">Im folgenden könnt ihr euch alle Spieldateien als Zip herunterladen</p>
-		<div class="button-container fade-in-top" style="animation-delay:0.5s;"><a href="Pixelgame.zip" class="btn" download>Download .zip</a></div>
-		<p>&nbsp;</p>
-		<p class="fade-in-top" style="animation-delay: 0.45s;">Zum ausführen startet die Pixelgame.py Datei</p>
-		<p class="fade-in-top" style="animation-delay: 0.6s;">Don't judge me, weil ich habe noch nie vorher ein Spiel versucht zu erstellen. Und bedenkt, dass es noch lange nicht fertig ist.</p>
-		
+    <main class="fade-in-top" style="animation-delay: 0.3s;">
+        <h1>Pixelgame</h1>
         
-    </main>
-	<footer style="
-    	box-sizing: border-box;
-    	width: 100%;
-    	text-align: center;
-    	padding: 15px;
-    	background: #eee;
-    	border-top: 2px solid #FF69B4;
-    	color: #333;
-		font-size: 14px;
-    	margin-top: 40px;">
-    	&copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ and HTML)
-	</footer>
+        <div class="game-info">
+            <p>Dies ist mein allererstes Minigame – ein echtes Herzensprojekt!</p>
+            <p>Du kannst dir hier alle Spieldateien herunterladen und die Welt erkunden.</p>
+        </div>
 
+        <div class="download-box fade-in-top" style="animation-delay: 0.5s;">
+            <a href="Pixelgame.zip" class="btn-download" download>🎮 Download .zip</a>
+            <p style="margin-top: 15px; font-weight: bold; font-size: 0.95em;">
+                Start-Datei: <code style="background: #eee; padding: 2px 5px; border-radius: 4px;">Pixelgame.py</code>
+            </p>
+        </div>
+
+        <p class="note fade-in-top" style="animation-delay: 0.7s;">
+            Ein kleiner Hinweis: Dies ist mein erster Versuch in der Spieleentwicklung. <br>
+            Es ist noch lange nicht fertig, aber ich freue mich über jeden, der es ausprobiert!
+        </p>
+    </main>
+
+    <footer>
+        &copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ and HTML)
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById("nav");
+            nav.classList.toggle("active");
+        }
+    </script>
 
 </body>
 </html>
+ 

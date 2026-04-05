@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anfrage - DarkSystems P1</title>
+    <title>Konfigurator - DarkSystems P1</title>
     <style>
         /* 🔥 Globales Setup */
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
@@ -29,51 +27,26 @@
             width: 100%;
         }
 
-        header a { 
-            color: white; 
-            text-decoration: none; 
-            margin: 0 15px; 
-            font-weight: bold;
-        }
-
+        header a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; }
         header a:hover { text-decoration: underline; }
 
-        nav {
-            display: flex;
-        }
+        nav { display: flex; }
 
-        /* 🍔 Burger Menu */
-        .menu-toggle {
-            display: none;
-            font-size: 26px;
-            cursor: pointer;
-            user-select: none;
-        }
+        .menu-toggle { display: none; font-size: 26px; cursor: pointer; user-select: none; }
 
         @media (max-width: 768px) {
             header { flex-wrap: wrap; }
             .menu-toggle { display: block; }
-            nav {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                margin-top: 10px;
-            }
+            nav { display: none; flex-direction: column; width: 100%; margin-top: 10px; }
             nav.active { display: flex; }
             header a { margin: 10px 0; padding: 8px 0; }
         }
 
-        main { 
-            max-width: 900px; 
-            margin: 30px auto; 
-            padding: 20px; 
-            width: 100%;
-        }
+        main { max-width: 900px; margin: 30px auto; padding: 20px; width: 100%; }
 
         h1, h2 { color: #525252; text-align: center; }
         h1 { margin-bottom: 30px; }
 
-        /* 🏎️ Plakat Design */
         .poster-container img {
             width: 100%;
             height: auto;
@@ -87,12 +60,7 @@
             animation-delay: 0.3s;
         }
 
-        @keyframes fadeInSimple {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        @keyframes fadeInSimple { to { opacity: 1; transform: translateY(0); } }
 
         /* 📊 Spec-Grid */
         .specs-grid {
@@ -108,36 +76,31 @@
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             border-left: 4px solid #525252;
-            text-align: left;
         }
 
-        .spec-box strong {
-            display: block;
-            color: #525252;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            font-size: 0.9em;
-            letter-spacing: 1px;
-        }
-
-        .spec-box .spec-value {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #333;
-        }
+        .spec-box strong { display: block; color: #525252; margin-bottom: 8px; text-transform: uppercase; font-size: 0.9em; }
+        .spec-box .spec-value { font-size: 1.2em; font-weight: bold; color: #333; }
 
         /* 📝 Formular Design */
         form { 
             background: white; 
-            padding: 30px; 
+            padding: 40px; 
             border-radius: 12px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             margin-bottom: 40px;
         }
 
-        form label { display: block; margin: 15px 0 5px 0; font-weight: bold; text-align: left; }
+        .form-section {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+        }
 
-        form input, form select { 
+        .form-section:last-of-type { border-bottom: none; }
+
+        form label { display: block; margin: 15px 0 8px 0; font-weight: bold; }
+
+        form input[type="text"], form input[type="email"], form select { 
             width: 100%; 
             padding: 12px; 
             border: 1px solid #ccc; 
@@ -152,9 +115,18 @@
             outline: none; 
         }
 
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: normal;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
         form button { 
-            margin-top: 25px; 
-            padding: 14px 30px; 
+            margin-top: 10px; 
+            padding: 16px 30px; 
             background-color: #525252; 
             color: white; 
             border: none; 
@@ -172,7 +144,6 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        /* 📜 Disclaimer Section */
         .legal-disclaimer {
             background: white;
             padding: 25px;
@@ -182,27 +153,10 @@
             color: #555;
             line-height: 1.6;
             text-align: justify;
-            margin-top: 20px;
         }
 
-        .legal-disclaimer h3 {
-            font-size: 14px;
-            color: #333;
-            margin-top: 0;
-            text-transform: uppercase;
-            text-align: left;
-        }
-
-        /* ✨ Animationen */
-        .fade-in-top {
-            opacity: 0;
-            transform: translateY(-30px);
-            animation: fadeInTop 1s ease forwards;
-        }
-
-        @keyframes fadeInTop {
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .fade-in-top { opacity: 0; transform: translateY(-30px); animation: fadeInTop 1s ease forwards; }
+        @keyframes fadeInTop { to { opacity: 1; transform: translateY(0); } }
 
         footer {
             width: 100%;
@@ -213,7 +167,6 @@
             color: #333;
             font-size: 12px;
             margin-top: 60px;
-            line-height: 1.4;
         }
     </style>
 </head>
@@ -221,9 +174,7 @@
 
     <header>
         <div><strong class="fade-in-top">DarkSystems P1</strong></div>
-        
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-
         <nav id="nav">
             <a href="index.html" class="fade-in-top" style="animation-delay: 0.1s;">Home</a>
             <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.2s;">Über</a>
@@ -234,98 +185,93 @@
     </header>
 
     <main>
-        <h1 class="fade-in-top">Kaufanfrage: DarkSystems P1</h1>
+        <h1 class="fade-in-top">Konfigurator: DarkSystems P1</h1>
 
         <div class="poster-container">
             <img src="Screenshot 2026-03-24 103802.png" alt="DarkSystems P1 Plakat">
         </div>
 
-        <h2 class="fade-in-top" style="animation-delay: 0.5s;">Technische Daten & Preis</h2>
         <div class="specs-grid">
             <div class="spec-box fade-in-top" style="animation-delay: 0.6s;"><strong>Preis</strong><span class="spec-value">2.300.000 €</span></div>
             <div class="spec-box fade-in-top" style="animation-delay: 0.7s;"><strong>Leistung</strong><span class="spec-value">1200 PS</span></div>
             <div class="spec-box fade-in-top" style="animation-delay: 0.8s;"><strong>Gewicht</strong><span class="spec-value">837 Kg</span></div>
-            <div class="spec-box fade-in-top" style="animation-delay: 0.9s;"><strong>Chassis</strong><span class="spec-value">Fully Carbon</span></div>
-            <div class="spec-box fade-in-top" style="animation-delay: 1.0s;"><strong>Höchstgeschwindigkeit</strong><span class="spec-value">380 KM/H</span></div>
-            <div class="spec-box fade-in-top" style="animation-delay: 1.1s;"><strong>Beschleunigung (0-100)</strong><span class="spec-value">1,8 s</span></div>
+            <div class="spec-box fade-in-top" style="animation-delay: 0.9s;"><strong>Beschleunigung</strong><span class="spec-value">0-100 in 1,8s</span></div>
         </div>
 
-        <h2 class="fade-in-top" style="animation-delay: 1.2s;">Konfiguriere deinen P1</h2>
-        
-        <form action="mailto:yuuki.akano.hefenbrock@gmail.com" method="post" enctype="text/plain" class="fade-in-top" style="animation-delay: 1.3s;">
-            <label for="car">Gewähltes Modell:</label>
-            <input type="text" id="car" name="modell" value="DarkSystems P1" readonly style="background-color: #f0f0f0; color: #666; margin-bottom: 20px;">
+        <form action="mailto:yuuki.akano.hefenbrock@gmail.com" method="post" enctype="text/plain" class="fade-in-top" style="animation-delay: 1s;">
+            
+            <div class="form-section">
+                <h2>1. Exterieur & Design</h2>
+                <label for="finish">Exterieur-Finish:</label>
+                <select id="finish" name="Finish">
+                    <option value="Sichtcarbon Glanz">Sichtcarbon Glanz (Standard)</option>
+                    <option value="Sichtcarbon Matt">Sichtcarbon Matt</option>
+                    <option value="Akano Pink">Akano Pink Metallic</option>
+                    <option value="DarkSystems Grey">DarkSystems Grey Satin</option>
+                    <option value="Raw Carbon">Raw Carbon (Unlackiert, -2kg)</option>
+                </select>
 
-            <label style="margin-bottom: 10px; display: block;">Sitz-Option wählen:</label>
-            <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eee; margin-bottom: 20px;">
-                <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-                    <input type="radio" name="Sitze" value="Carbon Schalensitz" checked style="width: 18px; height: 18px; accent-color: #525252;"> 
-                    <span><strong>Carbon Schalensitz</strong> (Ultraleicht, Serie)</span>
+                <label for="wheels">Felgen-Optionen:</label>
+                <select id="wheels" name="Felgen">
+                    <option value="Magnesium Schmiedefelgen">Magnesium Schmiedefelgen (Ultraleicht)</option>
+                    <option value="Akano Carbon-Wheels">Akano Aero Carbon-Wheels</option>
+                </select>
+            </div>
+
+            <div class="form-section">
+                <h2>2. Cockpit</h2>
+                <label>Sitz-Konfiguration:</label>
+                <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
+                    <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <input type="radio" name="Sitze" value="Carbon Schalensitz" checked style="accent-color: #525252;"> Carbon Schalensitz (Ultraleicht)
+                    </label>
+                    <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center; gap: 10px;">
+                        <input type="radio" name="Sitze" value="Ledersitz" style="accent-color: #525252;"> Komfort-Ledersitz (+23kg)
+                    </label>
+                </div>
+
+                <label for="gurt">Sicherheitsgurte (6-Punkt):</label>
+                <select id="gurt" name="Gurtfarbe">
+                    <option value="Schwarz">Schwarz</option>
+                    <option value="Lila">Lila (DarkSystems Signature)</option>
+                    <option value="Pink">Pink (Yuuki Edition)</option>
+                    <option value="Neon Grün">Neon Grün</option>
+                    <option value="Orange">Orange</option>
+                </select>
+            </div>
+
+            <div class="form-section">
+                <h2>3. Performance & Technik</h2>
+                <label class="checkbox-container">
+                    <input type="checkbox" name="LiftSystem" value="Ja" style="accent-color: #525252;"> Hydraulisches Lift-System für die Front (Garagen-Modus)
                 </label>
-                <label style="font-weight: normal; cursor: pointer; display: flex; align-items: center; gap: 12px;">
-                    <input type="radio" name="Sitze" value="Ledersitz" style="width: 18px; height: 18px; accent-color: #525252;"> 
-                    <span><strong>Komfort-Ledersitz</strong> (Nappa-Leder, +23Kg)</span>
+                <label class="checkbox-container">
+                    <input type="checkbox" name="Telemetrie" value="Ja" style="accent-color: #525252;"> DarkSystems Telemetrie (Rundenzeiten-Rekorder)
+                </label>
+                <label class="checkbox-container">
+                    <input type="checkbox" name="TitanAuspuff" value="Ja" style="accent-color: #525252;"> Titan-Sportabgasanlage (Lautstärken-Optimiert)
                 </label>
             </div>
 
-            <label for="gurt">Farbe der Sicherheitsgurte (6-Punkt-Gurt):</label>
-            <select id="gurt" name="Gurtfarbe" style="margin-bottom: 25px;">
-                <option value="Schwarz">Schwarz (Standard)</option>
-                <option value="Lila">Lila (DarkSystems Signature)</option>
-                <option value="Weiß">Weiß</option>
-                <option value="Orange">Orange</option>
-                <option value="Neon Grün">Neon Grün</option>
-                <option value="Pink">Pink (Yuuki Edition)</option>
-                <option value="Blau">Blau</option>
-                <option value="Rot">Rot</option>
-                <option value="Gelb">Gelb</option>
-            </select>
+            <div class="form-section">
+                <h2>4. Ihre Daten</h2>
+                <input type="text" name="name" required placeholder="Ihr Name" style="margin-bottom: 15px;">
+                <input type="email" name="email" required placeholder="Ihre E-Mail-Adresse">
+            </div>
 
-            <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 25px;">
-
-            <label for="name">Ihr Name:</label>
-            <input type="text" id="name" name="name" required placeholder="Vor- und Nachname" style="margin-bottom: 20px;">
-
-            <label for="email">Ihre E-Mail-Adresse:</label>
-            <input type="email" id="email" name="email" required placeholder="beispiel@mail.de" style="margin-bottom: 10px;">
-
-            <button type="submit">Konfiguration & Anfrage senden</button>
+            <button type="submit">Konfiguration & Kaufanfrage senden</button>
         </form>
 
-        <section class="legal-disclaimer fade-in-top" style="animation-delay: 1.5s;">
-            <h3>Rechtlicher Hinweis & Haftungsausschluss</h3>
-            
-            <p>
-                <strong>1. Fiktiver Charakter des Inhalts:</strong> 
-                Bei der auf dieser Webseite präsentierten Marke „DarkSystems“ sowie dem Fahrzeugmodell „P1“ handelt es sich um rein fiktive Konzepte zu Demonstrations- und Designzwecken. Weder die Marke noch das beschriebene Fahrzeug existieren physisch oder stehen zum Verkauf. Alle technischen Spezifikationen sind frei erfunden.
-            </p>
-
-            <p>
-                <strong>2. Kein verbindliches Angebot:</strong> 
-                Diese Webseite stellt kein rechtsverbindliches Angebot im Sinne des BGB dar. Das Absenden einer Anfrage führt nicht zu einem Kaufvertrag. Es erfolgt keine Lieferung von Waren.
-            </p>
-
-            <p>
-                <strong>3. Urheberrecht & Haftung:</strong> 
-                Sämtliche grafischen Darstellungen sind geistiges Eigentum des Seitenbetreibers. Der Betreiber haftet nicht für Missverständnisse aus einer fehlerhaften Interpretation dieser Webseite als reales Verkaufsangebot.
-            </p>
-
-            <p style="font-style: italic; border-top: 1px solid #eee; padding-top: 10px; margin-top: 10px; font-size: 11px;">
-                Zweck dieser Seite: Portfolio-Präsentation und Demonstration von Webentwicklungs-Fähigkeiten.
-            </p>
+        <section class="legal-disclaimer fade-in-top" style="animation-delay: 1.2s;">
+            <h3>Rechtlicher Hinweis</h3>
+            <p><strong>Fiktives Projekt:</strong> Dies ist eine Portfolio-Arbeit. Das Fahrzeug existiert nicht. Das Absenden der Anfrage stellt kein echtes Kaufangebot dar.</p>
         </section>
     </main>
 
-    <footer>
-        &copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ and HTML)
-    </footer>
+    <footer>&copy; 2026 Yuuki – Alle Rechte vorbehalten.</footer>
 
     <script>
-        function toggleMenu() {
-            const nav = document.getElementById("nav");
-            nav.classList.toggle("active");
-        }
+        function toggleMenu() { document.getElementById("nav").classList.toggle("active"); }
     </script>
-
 </body>
 </html>

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yuuki's Projekte</title>
+    <title>Yuuki's Kontakt</title>
     <style>
-        /* 🔥 Grund-Setup für Stabilität */
+        /* 🔥 Globales Setup */
         * {
             box-sizing: border-box;
         }
@@ -42,16 +42,7 @@
             display: flex;
         }
 
-        main { 
-            max-width: 1100px; 
-            margin: 30px auto; 
-            padding: 20px; 
-            width: 100%;
-        }
-
-        h1 { color: #FF69B4; }
-
-        /* 📱 Mobile Navigation (Burger) */
+        /* 🍔 Burger Menu */
         .menu-toggle {
             display: none;
             font-size: 26px;
@@ -69,74 +60,80 @@
                 margin-top: 10px;
             }
             nav.active { display: flex; }
-            header a { margin: 10px 0; padding: 5px 0; }
+            header a { margin: 10px 0; padding: 8px 0; }
         }
 
-        /* 📦 Projekt-Grid */
-        .project-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
+        main { 
+            max-width: 800px; 
+            margin: 40px auto; 
+            padding: 20px; 
+            width: calc(100% - 20px);
         }
 
-        .project-card {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: flex;
-            flex-direction: column;
+        h1, h2 { color: #FF69B4; }
+
+        .contact-info { 
+            background: white; 
+            padding: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+            margin-bottom: 35px;
         }
 
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        .contact-info p { margin: 15px 0; font-size: 1.1em; }
+        .contact-info a { color: #FF69B4; text-decoration: none; font-weight: bold; }
+        .contact-info a:hover { text-decoration: underline; }
+
+        /* 📝 Formular Styling */
+        form { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        .project-info {
-            padding: 20px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        form label { display: block; margin: 15px 0 5px 0; font-weight: bold; }
+
+        form input, form textarea { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #ccc; 
+            border-radius: 8px; 
+            font-size: 1em; 
+            font-family: inherit;
         }
 
-        .project-info h2 {
-            margin: 0 0 10px 0;
-            font-size: 1.4rem;
-            color: #FF69B4;
+        form input:focus, form textarea:focus { 
+            border-color: #FF69B4; 
+            box-shadow: 0 0 8px rgba(255, 105, 180, 0.3); 
+            outline: none; 
         }
 
-        .project-info p {
-            margin: 0 0 20px 0;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: #555;
-        }
-
-        .btn-link {
-            display: inline-block;
-            padding: 10px 15px;
-            background-color: #FF69B4;
-            color: white !important;
-            border-radius: 6px;
-            text-decoration: none;
+        form button { 
+            margin-top: 25px; 
+            padding: 14px 30px; 
+            background-color: #FF69B4; 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 1em; 
             font-weight: bold;
-            text-align: center;
-            transition: background 0.3s;
+            cursor: pointer; 
+            width: 100%; /* Mobil besser bedienbar */
+            transition: background-color 0.3s, transform 0.2s;
         }
 
-        .btn-link:hover {
-            background-color: #FF007F;
-            text-decoration: none !important;
+        form button:hover { 
+            background-color: #FF007F; 
+            transform: translateY(-2px);
         }
+
+        small { color: #666; display: block; margin-top: 5px; line-height: 1.4; }
 
         /* ✨ Animationen */
         .fade-in-top {
             opacity: 0;
-            transform: translateY(-30px);
+            transform: translateY(-20px);
             animation: fadeInTop 0.8s ease forwards;
         }
 
@@ -146,12 +143,23 @@
                 transform: translateY(0);
             }
         }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            background: #eee;
+            border-top: 2px solid #FF69B4;
+            color: #333;
+            font-size: 13px;
+            margin-top: 50px;
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <div><strong class="fade-in-top">Yuuki's Projekte</strong></div>
+        <div><strong class="fade-in-top">Yuuki</strong></div>
         
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
@@ -165,82 +173,37 @@
     </header>
 
     <main>
-        <h1 class="fade-in-top" style="animation-delay: 0.3s;">Meine Projekte</h1>
-        
-        <div class="project-container">
-            
-            <div class="project-card fade-in-top" style="animation-delay: 0.5s;">
-                <div class="project-info">
-                    <div>
-                        <h2>Wecker</h2>
-                        <p>Ich brauchte einen Wecker, aber wollte mir keinen für 5€ kaufen. Ich hatte alle passenden Teile da: TM1637-Displays und ein RTC-Modul.</p>
-                    </div>
-                    <a href="empty.html" class="btn-link">Ansehen</a>
-                </div>
-            </div>
+        <h1 class="fade-in-top" style="animation-delay: 0.2s;">Kontakt</h1>
 
-            <div class="project-card fade-in-top" style="animation-delay: 0.6s;">
-                <div class="project-info">
-                    <div>
-                        <h2>Streampad</h2>
-                        <p>Ein DIY Streamdeck, viel günstiger als das Original. Ohne Displays, aber mit einer komplett selbst entwickelten App zur Tastenbelegung.</p>
-                    </div>
-                    <a href="empty.html" class="btn-link">Ansehen</a>
-                </div>
-            </div>
-
-            <div class="project-card fade-in-top" style="animation-delay: 0.7s;">
-                <div class="project-info">
-                    <div>
-                        <h2>Eigenes Spiel</h2>
-                        <p>Ein 2D Open World Spiel (1500x1500px). Mit Truhen, Items, Inventar und einem kompletten Lebens-/Mana-System.</p>
-                    </div>
-                    <a href="minigame.html" class="btn-link">Spielen</a>
-                </div>
-            </div>
-
-            <div class="project-card fade-in-top" style="animation-delay: 0.8s;">
-                <div class="project-info">
-                    <div>
-                        <h2>Konzept-Smartphone</h2>
-                        <p>Das ALVION X10 Pro – ein komplettes Design- und Hardware-Konzept meiner imaginären Firma ALVION.</p>
-                    </div>
-                    <a href="concept-phone.html" class="btn-link">Details</a>
-                </div>
-            </div>
-
-            <div class="project-card fade-in-top" style="animation-delay: 0.9s;">
-                <div class="project-info">
-                    <div>
-                        <h2>Browser-App</h2>
-                        <p>Ein selbst erstellter Browser für privates Surfen, optimiert als Inkognito-Lösung.</p>
-                    </div>
-                    <a href="empty.html" class="btn-link">Öffnen</a>
-                </div>
-            </div>
-
-            <div class="project-card fade-in-top" style="animation-delay: 1.0s;">
-                <div class="project-info">
-                    <div>
-                        <h2>Aufgabenmanager</h2>
-                        <p>Ein Tool, um den Überblick über alle anstehenden Aufgaben zu behalten und sich rechtzeitig informieren zu lassen.</p>
-                    </div>
-                    <a href="aufgabenmanager.html" class="btn-link">Zum Manager</a>
-                </div>
-            </div>
-
+        <div class="contact-info fade-in-top" style="animation-delay: 0.4s;">
+            <p><strong>Telefon:</strong> +49 176 46674886</p>
+            <p><strong>E-Mail:</strong> <a href="mailto:yuuki.akano.hefenbrock@gmail.com">yuuki.akano.hefenbrock@gmail.com</a></p>
+            <p><strong>TikTok:</strong> <a href="https://www.tiktok.com/@yuukiakano" target="_blank">@yuukiakano</a></p>
+            <p><strong>Instagram:</strong> <a href="https://www.instagram.com/akanoyuuki" target="_blank">@akanoyuuki</a></p>
         </div>
+
+        <h2 class="fade-in-top" style="animation-delay: 0.6s;">Nachricht senden</h2>
+        
+        <form action="mailto:yuuki.akano.hefenbrock@gmail.com" method="post" enctype="text/plain" class="fade-in-top" style="animation-delay: 0.8s;">
+            <label for="name">Ihr Name:</label>
+            <input type="text" id="name" name="name" required placeholder="Dein Name">
+
+            <label for="email">Ihre E-Mail-Adresse:</label>
+            <input type="email" id="email" name="email" required placeholder="beispiel@mail.de">
+
+            <label for="age">Ihr Alter:</label>
+            <input type="number" id="age" name="age" min="13" max="120" required>
+            <small>Mindestalter: 13 Jahre.</small>
+
+            <label for="message">Nachricht:</label>
+            <textarea id="message" name="message" rows="5" required placeholder="Was möchtest du mir schreiben?"></textarea>
+            <small>⚠️ Bitte keine Emojis verwenden (werden oft nicht übertragen).</small>
+
+            <button type="submit">Absenden (Mail-App öffnen)</button>
+        </form>
     </main>
 
-    <footer style="
-        width: 100%;
-        text-align: center;
-        padding: 20px;
-        background: #eee;
-        border-top: 2px solid #FF69B4;
-        color: #333;
-        font-size: 13px;
-        margin-top: 50px;">
+    <footer>
         &copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ and HTML)
     </footer>
 

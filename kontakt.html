@@ -2,14 +2,22 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Kontakt</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuuki's Kontakt</title>
     <style>
+        /* 🔥 Globales Setup */
+        * {
+            box-sizing: border-box;
+        }
+
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
             background: #f4f4f9; 
             color: #333; 
+            overflow-x: hidden;
         }
+
         header { 
             display: flex; 
             justify-content: space-between; 
@@ -18,52 +26,89 @@
             padding: 15px 30px; 
             color: white; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            width: 100%;
         }
+
         header a { 
             color: white; 
             text-decoration: none; 
             margin: 0 15px; 
             font-weight: bold;
-            transition: color 0.3s;
         }
+
         header a:hover { text-decoration: underline; }
+
+        nav {
+            display: flex;
+        }
+
+        /* 🍔 Burger Menu */
+        .menu-toggle {
+            display: none;
+            font-size: 26px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-wrap: wrap; }
+            .menu-toggle { display: block; }
+            nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 10px;
+            }
+            nav.active { display: flex; }
+            header a { margin: 10px 0; padding: 8px 0; }
+        }
+
         main { 
             max-width: 800px; 
             margin: 40px auto; 
             padding: 20px; 
+            width: calc(100% - 20px);
         }
+
         h1, h2 { color: #FF69B4; }
+
         .contact-info { 
             background: white; 
             padding: 25px; 
             border-radius: 12px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
             margin-bottom: 35px;
-            transition: transform 0.3s;
         }
-        .contact-info:hover { transform: translateY(-3px); }
-        .contact-info p { margin: 10px 0; font-size: 1.1em; }
+
+        .contact-info p { margin: 15px 0; font-size: 1.1em; }
+        .contact-info a { color: #FF69B4; text-decoration: none; font-weight: bold; }
+        .contact-info a:hover { text-decoration: underline; }
+
+        /* 📝 Formular Styling */
         form { 
             background: white; 
             padding: 30px; 
             border-radius: 12px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
+
         form label { display: block; margin: 15px 0 5px 0; font-weight: bold; }
+
         form input, form textarea { 
             width: 100%; 
             padding: 12px; 
             border: 1px solid #ccc; 
             border-radius: 8px; 
             font-size: 1em; 
-            box-sizing: border-box;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            font-family: inherit;
         }
+
         form input:focus, form textarea:focus { 
             border-color: #FF69B4; 
-            box-shadow: 0 0 8px rgba(98,0,234,0.3); 
+            box-shadow: 0 0 8px rgba(255, 105, 180, 0.3); 
             outline: none; 
         }
+
         form button { 
             margin-top: 25px; 
             padding: 14px 30px; 
@@ -72,119 +117,102 @@
             border: none; 
             border-radius: 8px; 
             font-size: 1em; 
+            font-weight: bold;
             cursor: pointer; 
+            width: 100%; /* Mobil besser bedienbar */
             transition: background-color 0.3s, transform 0.2s;
         }
+
         form button:hover { 
             background-color: #FF007F; 
             transform: translateY(-2px);
         }
-        small { color: #666; }
-        @media (max-width: 600px) {
-            header { flex-direction: column; gap: 10px; text-align: center; }
-            header nav { margin-top: 10px; }
-        }
-		.fade-in-top {
-  	    opacity: 0;
-  	    transform: translateY(-30px); /* startet 30px über der Position */
-            animation: fadeInTop 1s ease forwards; /* forwards = bleibt am Endzustand */
-	}
 
-	    @keyframes fadeInTop {
-  	to {
-    	    opacity: 1;
-            transform: translateY(0);
+        small { color: #666; display: block; margin-top: 5px; line-height: 1.4; }
+
+        /* ✨ Animationen */
+        .fade-in-top {
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInTop 0.8s ease forwards;
+        }
+
+        @keyframes fadeInTop {
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
-    	}
+        }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            background: #eee;
+            border-top: 2px solid #FF69B4;
+            color: #333;
+            font-size: 13px;
+            margin-top: 50px;
+        }
     </style>
 </head>
 <body>
+
     <header>
-        <div><strong class="fade-in-top" style="animation-delay: 0.2s;">Yuuki</strong></div>
-        <nav>
-            <a href="index.html" class="fade-in-top" style="animation-delay: 0.2s;">Home</a>
-            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.4s;">Über den Entwickler</a>
-	    	<a href="projekte.html" class="fade-in-top" style="animation-delay: 0.6s;">Projekte</a>
-			<a href="galerie.html" class="fade-in-top" style="animation-delay: 0.8s;">Galerie</a>
-            <a href="kontakt.html" class="fade-in-top" style="animation-delay: 1.0s;">Kontakt</a>
+        <div><strong class="fade-in-top">Yuuki</strong></div>
+        
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+        <nav id="nav">
+            <a href="index.html" class="fade-in-top" style="animation-delay: 0.1s;">Home</a>
+            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.2s;">Über den Entwickler</a>
+            <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.3s;">Projekte</a>
+            <a href="galerie.html" class="fade-in-top" style="animation-delay: 0.4s;">Galerie</a>
+            <a href="kontakt.html" class="fade-in-top" style="animation-delay: 0.5s;">Kontakt</a>
         </nav>
     </header>
 
     <main>
         <h1 class="fade-in-top" style="animation-delay: 0.2s;">Kontakt</h1>
 
-        <div class="contact-info">
-            <p class="fade-in-top" style="animation-delay: 0.4s;"><strong>Telefon:</strong> +49 176 46674886</p>
-            <p class="fade-in-top" style="animation-delay: 0.6s;"><strong>E-Mail:</strong> yuuki.akano.hefenbrock@gmail.com</p>
-			<p class="fade-in-top" style="animation-delay: 0.6s;"><strong>TikTok: </strong><a href="https://www.tiktok.com/@yuukiakano?_r=1&_t=ZG-93OUUCcq7sn" target="_blank">@yuukiakano</a></p>
-			<p class="fade-in-top" style="animation-delay: 0.6s;"><strong>Instagram: </strong><a href="https://www.instagram.com/akanoyuuki?igsh=cHptdWtkZXRvODdv" target="_blank">@akanoyuuki</a></p>
-
+        <div class="contact-info fade-in-top" style="animation-delay: 0.4s;">
+            <p><strong>Telefon:</strong> +49 176 46674886</p>
+            <p><strong>E-Mail:</strong> <a href="mailto:yuuki.akano.hefenbrock@gmail.com">yuuki.akano.hefenbrock@gmail.com</a></p>
+            <p><strong>TikTok:</strong> <a href="https://www.tiktok.com/@yuukiakano" target="_blank">@yuukiakano</a></p>
+            <p><strong>Instagram:</strong> <a href="https://www.instagram.com/yuukiakano_" target="_blank">@yuukiakano_</a></p>
         </div>
 
-        <h2 class="fade-in-top" style="animation-delay: 0.8s;">Nachricht senden (Weiterleitung zur Standard Mail-App)</h2>
-        <form action="mailto:yuuki.akano.hefenbrock@gmail.com" method="post" enctype="text/plain">
-            <label for="name" class="fade-in-top" style="animation-delay: 1.0s;">Ihr Name:</label>
-            <input type="text" id="name" name="name" required>
+        <h2 class="fade-in-top" style="animation-delay: 0.6s;">Nachricht senden</h2>
+        
+        <form action="mailto:yuuki.akano.hefenbrock@gmail.com" method="post" enctype="text/plain" class="fade-in-top" style="animation-delay: 0.8s;">
+            <label for="name">Ihr Name:</label>
+            <input type="text" id="name" name="name" required placeholder="Dein Name">
 
-            <label for="email" class="fade-in-top" style="animation-delay: 1.2s;">Ihre E-Mail-Adresse:</label>
-            <input type="email" id="email" name="email" required>
+            <label for="email">Ihre E-Mail-Adresse:</label>
+            <input type="email" id="email" name="email" required placeholder="beispiel@mail.de">
 
-            <label for="age" class="fade-in-top" style="animation-delay: 1.4s;">Ihr Alter:</label>
+            <label for="age">Ihr Alter:</label>
             <input type="number" id="age" name="age" min="13" max="120" required>
-            <small class="fade-in-top" style="animation-delay: 1.6s;">Bitte geben Sie Ihr Alter ein (mindestens 13 Jahre).</small>
+            <small>Mindestalter: 13 Jahre.</small>
 
-            <label for="message" class="fade-in-top" style="animation-delay: 1.8s;">Nachricht:</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-			<small class="fade-in-top" style="animation-delay: 2.0s;">Manche E-Mail-Anbieter übertragen keine Sonderzeichen wie Emojis. Bitte darauf verzichten!.</small>
+            <label for="message">Nachricht:</label>
+            <textarea id="message" name="message" rows="5" required placeholder="Was möchtest du mir schreiben?"></textarea>
+            <small>⚠️ Bitte keine Emojis verwenden (werden oft nicht übertragen).</small>
 
-            <button type="submit" class="fade-in-top" style="animation-delay: 2.2s;">Absenden</button>
+            <button type="submit">Absenden (Mail-App öffnen)</button>
         </form>
     </main>
-	<footer style="
-    	box-sizing: border-box;
-    	width: 100%;
-    	text-align: center;
-    	padding: 15px;
-    	background: #eee;
-    	border-top: 2px solid #FF69B4;
-    	color: #333;
-		font-size: 14px;
-    	margin-top: 40px;">
-    	&copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ and HTML)
+
+    <footer>
+        &copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ and HTML)
     </footer>
 
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById("nav");
+            nav.classList.toggle("active");
+        }
+    </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

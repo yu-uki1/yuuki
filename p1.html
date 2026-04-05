@@ -22,7 +22,7 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            background-color: #333; /* Dunklerer Header für DarkSystems */
+            background-color: #333; 
             padding: 15px 30px; 
             color: white; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -64,7 +64,7 @@
         }
 
         main { 
-            max-width: 900px; /* Leicht breiter für das Spec-Grid */
+            max-width: 900px; 
             margin: 30px auto; 
             padding: 20px; 
             width: 100%;
@@ -81,8 +81,6 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             margin-bottom: 40px;
             display: block;
-            
-            /* Animation */
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInSimple 1.2s ease forwards;
@@ -96,7 +94,7 @@
             }
         }
 
-        /* 📊 Spec-Grid (wie Alvion Handy) */
+        /* 📊 Spec-Grid */
         .specs-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -109,7 +107,7 @@
             padding: 25px;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border-left: 4px solid #525252; /* Dunkles Grau für DarkSystems */
+            border-left: 4px solid #525252;
             text-align: left;
         }
 
@@ -134,6 +132,7 @@
             padding: 30px; 
             border-radius: 12px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
         }
 
         form label { display: block; margin: 15px 0 5px 0; font-weight: bold; text-align: left; }
@@ -168,9 +167,30 @@
         }
 
         form button:hover { 
-            background-color: #FF007F; /* Dein Signature-Pink als Akzent beim Hover */
+            background-color: #FF007F; 
             transform: translateY(-2px);
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* 📜 Disclaimer Section */
+        .legal-disclaimer {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.6;
+            text-align: justify;
+            margin-top: 20px;
+        }
+
+        .legal-disclaimer h3 {
+            font-size: 14px;
+            color: #333;
+            margin-top: 0;
+            text-transform: uppercase;
+            text-align: left;
         }
 
         /* ✨ Animationen */
@@ -247,11 +267,33 @@
 
             <button type="submit">Anfrage via Mail senden</button>
         </form>
+
+        <section class="legal-disclaimer fade-in-top" style="animation-delay: 1.5s;">
+            <h3>Rechtlicher Hinweis & Haftungsausschluss</h3>
+            
+            <p>
+                <strong>1. Fiktiver Charakter des Inhalts:</strong> 
+                Bei der auf dieser Webseite präsentierten Marke „DarkSystems“ sowie dem Fahrzeugmodell „P1“ handelt es sich um rein fiktive Konzepte zu Demonstrations- und Designzwecken. Weder die Marke noch das beschriebene Fahrzeug existieren physisch oder stehen zum Verkauf. Alle technischen Spezifikationen sind frei erfunden.
+            </p>
+
+            <p>
+                <strong>2. Kein verbindliches Angebot:</strong> 
+                Diese Webseite stellt kein rechtsverbindliches Angebot im Sinne des BGB dar. Das Absenden einer Anfrage führt nicht zu einem Kaufvertrag. Es erfolgt keine Lieferung von Waren.
+            </p>
+
+            <p>
+                <strong>3. Urheberrecht & Haftung:</strong> 
+                Sämtliche grafischen Darstellungen sind geistiges Eigentum des Seitenbetreibers. Der Betreiber haftet nicht für Missverständnisse aus einer fehlerhaften Interpretation dieser Webseite als reales Verkaufsangebot.
+            </p>
+
+            <p style="font-style: italic; border-top: 1px solid #eee; padding-top: 10px; margin-top: 10px; font-size: 11px;">
+                Zweck dieser Seite: Portfolio-Präsentation und Demonstration von Webentwicklungs-Fähigkeiten.
+            </p>
+        </section>
     </main>
 
     <footer>
-        &copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ and HTML)<br>
-        <strong>Disclaimer:</strong> Diese Seite ist rein fiktiv. Das Hypercar "DarkSystems P1" existiert nicht im echten Leben.
+        &copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ and HTML)
     </footer>
 
     <script>

@@ -7,11 +7,17 @@
 <title>Yuuki's Website</title>
 
 <style>
+    /* 🔥 WICHTIG: verhindert Überbreite */
+    * {
+        box-sizing: border-box;
+    }
+
     body { 
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
         margin: 0; 
         background: #f4f4f9; 
         color: #333; 
+        overflow-x: hidden; /* verhindert weißen Rand durch Scroll */
     }
 
     header { 
@@ -22,6 +28,7 @@
         padding: 15px 30px; 
         color: white; 
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        width: 100%;
     }
 
     header a { 
@@ -41,6 +48,7 @@
         max-width: 800px; 
         margin: 30px auto; 
         padding: 20px; 
+        width: 100%;
     }
 
     h1 { color: #FF69B4; }
@@ -157,20 +165,6 @@ function toggleMenu() {
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

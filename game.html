@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Yuuki's Gyro-Game</title>
+    <title>Yuuki's Catch-Quest</title>
     <style>
         * { box-sizing: border-box; }
         body { 
-            font-family: 'Segoe UI', sans-serif; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; background: #f4f4f9; color: #333; 
-            overflow: hidden; /* Verhindert Scrollen beim Spielen */
+            overflow: hidden; touch-action: none;
         }
         header { 
             display: flex; justify-content: space-between; align-items: center; 
-            background-color: #FF69B4; padding: 15px; color: white; 
+            background-color: #FF69B4; padding: 15px 20px; color: white; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         main { max-width: 800px; margin: 10px auto; padding: 10px; text-align: center; }
         #game-wrapper {
@@ -22,31 +23,51 @@
             border: 3px solid #FF69B4;
             border-radius: 15px;
             overflow: hidden;
-            touch-action: none; /* Deaktiviert Zoom/Scroll auf dem Canvas */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
         canvas { background: #fffafa; display: block; width: 100%; height: auto; }
-        .ui { position: absolute; top: 10px; width: 100%; display: flex; justify-content: space-around; font-weight: bold; color: #FF69B4; pointer-events: none; }
-        #start-btn {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            padding: 15px 30px; background: #FF69B4; color: white; border: none;
-            border-radius: 30px; font-size: 1.2rem; cursor: pointer; z-index: 10;
+        .ui { 
+            position: absolute; top: 15px; width: 100%; 
+            display: flex; justify-content: space-around; 
+            font-weight: bold; color: #FF69B4; font-size: 1.1rem;
+            text-shadow: 1px 1px 0px white;
+            pointer-events: none; 
         }
+        #start-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 10;
+        }
+        #start-btn {
+            padding: 15px 40px; background: #FF69B4; color: white; border: none;
+            border-radius: 50px; font-size: 1.3rem; cursor: pointer; font-weight: bold;
+            box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4);
+        }
+        .speed-info { color: #FF69B4; font-size: 0.8rem; margin-top: 5px; }
     </style>
 </head>
 <body>
 
 <header>
     <strong>Yuuki's Website</strong>
-    <div style="font-size: 0.8rem;">Neige dein Handy zum Steuern!</div>
+    <nav style="font-size: 0.9rem;"><a href="index.html" style="color:white; text-decoration:none;">Zurück</a></nav>
 </header>
 
 <main>
     <div id="game-wrapper">
         <div class="ui">
-            <span>Punkte: <span id="score">0</span></span>
-            <span>Leben: <span id="lives">3</span></span>
+            <span>Score: <span id="score">0</span></span>
+            <span>Lives: <span id="lives">3</span></span>
         </div>
-        <button id="start-btn">Spiel starten & Sensor erlauben</button>
+        
+        <div id="start-overlay">
+            <h2 style="color: #FF69B4;">Manga Catch!</h2>
+            <p>Neige dein Handy zum Bewegen</p>
+            <button id="start-btn">JETZT STARTEN</button>
+            <p class="speed-info">Das Spiel wird mit der Zeit schneller!</p>
+        </div>
+
         <canvas id="gameCanvas" width="400" height="600"></canvas>
     </div>
 </main>
@@ -55,18 +76,19 @@
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas.getContext("2d");
     const startBtn = document.getElementById("start-btn");
+    const startOverlay = document.getElementById("start-overlay");
     
     let score = 0;
     let lives = 3;
     let gameActive = false;
-    let tiltX = 0; // Neigungswinkel
+    let tiltX = 0; 
+    let baseSpeed = 2.5; // Startgeschwindigkeit der fallenden Punkte
 
-    const player = { x: 180, y: 520, size: 40, color: "#FF69B4" };
+    const player = { x: 180, y: 510, size: 45, color: "#FF69B4" };
     const items = [];
 
-    // --- SENSOR LOGIK ---
+    // --- SENSOR & START ---
     startBtn.addEventListener("click", () => {
-        // Für iOS 13+ muss die Berechtigung explizit angefragt werden
         if (typeof DeviceOrientationEvent.requestPermission === 'function') {
             DeviceOrientationEvent.requestPermission()
                 .then(permissionState => {
@@ -76,51 +98,58 @@
                     }
                 });
         } else {
-            // Android & ältere Browser
             window.addEventListener("deviceorientation", handleOrientation);
             startGame();
         }
     });
 
     function handleOrientation(event) {
-        // gamma ist die Neigung nach links/rechts (-90 bis 90)
-        tiltX = event.gamma; 
+        // Empfindlichkeit verringert: 0.25 statt 0.5
+        tiltX = event.gamma * 0.25; 
     }
 
     function startGame() {
         gameActive = true;
-        startBtn.style.display = "none";
+        startOverlay.style.display = "none";
         spawnItem();
         draw();
     }
 
     function spawnItem() {
         if (!gameActive) return;
-        const isGood = Math.random() > 0.5; // 70% grüne Punkte, 30% rote
+        
+        // Schwierigkeitsgrad: Geschwindigkeit steigt basierend auf Score
+        // Alle 50 Punkte wird es merklich schneller
+        let difficultyBoost = score / 50; 
+        
+        const isGood = Math.random() > 0.35; 
         items.push({
-            x: Math.random() * (canvas.width - 20),
-            y: -20,
-            size: 15,
-            speed: 2 + Math.random() * 10,
+            x: Math.random() * (canvas.width - 25),
+            y: -30,
+            size: 20,
+            speed: baseSpeed + difficultyBoost + (Math.random() * 2),
             type: isGood ? 'good' : 'bad'
         });
-        setTimeout(spawnItem, 800); // Alle 0.8 Sek ein neuer Punkt
+
+        // Spawngeschwindigkeit erhöht sich auch leicht
+        let nextSpawn = Math.max(400, 900 - (score * 2));
+        setTimeout(spawnItem, nextSpawn);
     }
 
     function update() {
         if (!gameActive) return;
 
-        // Charakter bewegen basierend auf Neigung (Empfindlichkeit anpassen)
-        player.x += tiltX * 0.5;
+        // Bewegung durch Neigung
+        player.x += tiltX;
 
-        // Grenzen einhalten
+        // Spielfeldrand-Kollision
         if (player.x < 0) player.x = 0;
         if (player.x > canvas.width - player.size) player.x = canvas.width - player.size;
 
         items.forEach((item, index) => {
             item.y += item.speed;
 
-            // Kollisionsabfrage
+            // Kollisionsprüfung (Kreis-Quadrat-Annäherung)
             if (item.y + item.size > player.y && 
                 item.x + item.size > player.x && 
                 item.x < player.x + player.size &&
@@ -133,30 +162,41 @@
                     lives--;
                     document.getElementById("lives").innerText = lives;
                     if (lives <= 0) {
-                        gameActive = false;
-                        alert("Game Over! Score: " + score);
-                        location.reload();
+                        gameOver();
                     }
                 }
                 items.splice(index, 1);
             }
 
-            // Aus dem Bild gefallene Items entfernen
             if (item.y > canvas.height) items.splice(index, 1);
         });
+    }
+
+    function gameOver() {
+        gameActive = false;
+        alert("Game Over! Dein Highscore: " + score);
+        location.reload();
     }
 
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Spieler
+        // Boden-Linie (Deko)
+        ctx.strokeStyle = "#eee";
+        ctx.beginPath(); ctx.moveTo(0, 560); ctx.lineTo(400, 560); ctx.stroke();
+
+        // Spieler (Manga-Style Quadrat mit kleiner "Aura")
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = "rgba(255, 105, 180, 0.5)";
         ctx.fillStyle = player.color;
         ctx.fillRect(player.x, player.y, player.size, player.size);
+        ctx.shadowBlur = 0; // Reset für andere Elemente
 
-        // Items
+        // Items zeichnen
         items.forEach(item => {
             ctx.fillStyle = item.type === 'good' ? '#2ecc71' : '#e74c3c';
             ctx.beginPath();
+            // Zeichnet Punkte als kleine Kreise
             ctx.arc(item.x + item.size/2, item.y + item.size/2, item.size/2, 0, Math.PI*2);
             ctx.fill();
         });

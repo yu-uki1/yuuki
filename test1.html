@@ -319,8 +319,14 @@
                 <label>Zusätzliche Reifensätze (je 8.500 €):</label>
                 <div class="options-group">
                     <div class="option-item">
-                        <span>Anzahl Reifensätze (Racing/Regen):</span>
+                        <span>Anzahl Reifensätze (Racing):</span>
                         <input type="number" id="reifenAnzahl" name="ReifenAnzahl" value="0" min="0" oninput="calculatePrice()">
+                    </div>
+                <label>Zusätzliche Reifensätze (je 9.500 €):</label>
+                <div class="options-group">
+                    <div class="option-item">
+                        <span>Anzahl Reifensätze (Regen):</span>
+                        <input type="number" id="reifenAnzahl2" name="ReifenAnzahl2" value="0" min="0" oninput="calculatePrice()">
                     </div>
                 </div>
             </div>
@@ -377,6 +383,8 @@
             // Reifen Menge
             const reifenMenge = parseInt(document.getElementById('reifenAnzahl').value) || 0;
             extra += (reifenMenge * 8500);
+            const reifenMenge2 = parseInt(document.getElementById('reifenAnzahl2').value) || 0;
+            extra += (reifenMenge2 * 9500);
 
             // Gesamtsumme
             const total = basis + extra;

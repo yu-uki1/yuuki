@@ -96,12 +96,12 @@
 
     function spawnItem() {
         if (!gameActive) return;
-        const isGood = Math.random() > 0.3; // 70% grüne Punkte, 30% rote
+        const isGood = Math.random() > 0.5; // 70% grüne Punkte, 30% rote
         items.push({
             x: Math.random() * (canvas.width - 20),
             y: -20,
             size: 15,
-            speed: 2 + Math.random() * 4,
+            speed: 2 + Math.random() * 10,
             type: isGood ? 'good' : 'bad'
         });
         setTimeout(spawnItem, 800); // Alle 0.8 Sek ein neuer Punkt

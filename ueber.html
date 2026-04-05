@@ -7,11 +7,17 @@
 <title>Über den Entwickler</title>
 
 <style>
+    /* 🔥 Verhindert Überbreite und Layout-Fehler */
+    * {
+        box-sizing: border-box;
+    }
+
     body { 
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
         margin: 0; 
         background: #f4f4f9; 
         color: #333; 
+        overflow-x: hidden; /* Verhindert weißen Rand beim Scrollen */
     }
 
     header { 
@@ -21,6 +27,8 @@
         background-color: #FF69B4; 
         padding: 15px 30px; 
         color: white; 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        width: 100%;
     }
 
     header a { 
@@ -29,6 +37,8 @@
         margin: 0 15px; 
         font-weight: bold;
     }
+
+    header a:hover { text-decoration: underline; }
 
     nav {
         display: flex;
@@ -41,19 +51,38 @@
         background: white; 
         border-radius: 10px; 
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        width: calc(100% - 40px); /* Passt sich mobil besser an */
     }
 
     h1 { color: #FF69B4; }
 
-    /* 🍔 Burger */
+    /* ✨ Animation */
+    .fade-in-top {
+        opacity: 0;
+        transform: translateY(-30px);
+        animation: fadeInTop 1s ease forwards;
+    }
+
+    @keyframes fadeInTop {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* 🍔 Burger Button */
     .menu-toggle {
         display: none;
         font-size: 26px;
         cursor: pointer;
+        user-select: none;
     }
 
-    /* 📱 Mobile */
+    /* 📱 Mobile Ansicht */
     @media (max-width: 768px) {
+        header {
+            flex-wrap: wrap;
+        }
 
         .menu-toggle {
             display: block;
@@ -70,33 +99,17 @@
             display: flex;
         }
 
-        header {
-            flex-wrap: wrap;
-        }
-
         header a {
             margin: 10px 0;
-        }
-    }
-
-    /* ✨ Animation bleibt */
-    .fade-in-top {
-        opacity: 0;
-        transform: translateY(-30px);
-        animation: fadeInTop 1s ease forwards;
-    }
-
-    @keyframes fadeInTop {
-        to {
-            opacity: 1;
-            transform: translateY(0);
+            padding: 8px 0;
         }
     }
 </style>
 
 <script>
 function toggleMenu() {
-    document.getElementById("nav").classList.toggle("active");
+    const nav = document.getElementById("nav");
+    nav.classList.toggle("active");
 }
 </script>
 
@@ -105,23 +118,22 @@ function toggleMenu() {
 <body>
 
 <header>
-    <div><strong>Yuuki</strong></div>
+    <div><strong class="fade-in-top">Yuuki</strong></div>
 
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
     <nav id="nav">
-        <a href="index.html">Home</a>
-        <a href="ueber.html">Über den Entwickler</a>
-        <a href="projekte.html">Projekte</a>
-        <a href="galerie.html">Galerie</a>
-        <a href="kontakt.html">Kontakt</a>
+        <a href="index.html" class="fade-in-top" style="animation-delay: 0.1s;">Home</a>
+        <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.2s;">Über den Entwickler</a>
+        <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.3s;">Projekte</a>
+        <a href="galerie.html" class="fade-in-top" style="animation-delay: 0.4s;">Galerie</a>
+        <a href="kontakt.html" class="fade-in-top" style="animation-delay: 0.5s;">Kontakt</a>
     </nav>
 </header>
 
 <main>
     <h1 class="fade-in-top">Über den Entwickler</h1>
 
-    <!-- 🌸 Euer ORIGINAL TEXT -->
     <p class="fade-in-top" style="animation-delay: 0.6s;">
         Ich bin Jan-Luca Hefenbrock, bekannt als Yuuki Akano, <span id="age"></span> Jahre alt; leidenschaftlicher Tüftler und Fotograf.
     </p>
@@ -146,17 +158,28 @@ function toggleMenu() {
         Denn genau das treibt mich an: die Freude daran, Dinge zu erschaffen, die begeistern.
     </p>
 
-    <a href="setup.html" class="fade-in-top" style="animation-delay: 1.0s;">
-        Mein Setup
-    </a>
+    <div class="fade-in-top" style="animation-delay: 1.8s; margin-top: 20px;">
+        <a href="setup.html" style="color: #FF69B4; text-decoration: none; font-weight: bold;">➔ Mein Setup</a>
+    </div>
 </main>
 
+<footer style="
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    background: #eee;
+    border-top: 2px solid #FF69B4;
+    font-size: 14px;
+    margin-top: 40px;">
+    &copy; 2026 Yuuki – Alle Rechte vorbehalten.
+</footer>
+
 <script>
-    const birthDate = new Date(2008, 6, 1);
+    // Altersberechnung
+    const birthDate = new Date(2008, 6, 1); // 1. Juli 2008
     const today = new Date();
 
     let age = today.getFullYear() - birthDate.getFullYear();
-
     const hasHadBirthday =
         today.getMonth() > birthDate.getMonth() ||
         (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
@@ -167,4 +190,5 @@ function toggleMenu() {
 </script>
 
 </body>
-</html> 
+</html>
+ 

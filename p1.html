@@ -2,49 +2,84 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anfrage - DarkSystems P1</title>
     <style>
+        /* 🔥 Globales Setup */
+        * {
+            box-sizing: border-box;
+        }
+
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
             background: #f4f4f9; 
             color: #333; 
+            overflow-x: hidden;
         }
 
         header { 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            background-color: #525252; 
+            background-color: #333; /* Dunklerer Header für DarkSystems */
             padding: 15px 30px; 
             color: white; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            width: 100%;
         }
+
         header a { 
             color: white; 
             text-decoration: none; 
             margin: 0 15px; 
             font-weight: bold;
         }
+
         header a:hover { text-decoration: underline; }
+
+        nav {
+            display: flex;
+        }
+
+        /* 🍔 Burger Menu */
+        .menu-toggle {
+            display: none;
+            font-size: 26px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-wrap: wrap; }
+            .menu-toggle { display: block; }
+            nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 10px;
+            }
+            nav.active { display: flex; }
+            header a { margin: 10px 0; padding: 8px 0; }
+        }
 
         main { 
             max-width: 800px; 
             margin: 30px auto; 
             padding: 20px; 
+            width: 100%;
         }
 
         h1, h2 { color: #525252; }
 
-        /* Direktes Fade-In für das Plakat */
+        /* 🏎️ Plakat Design */
         .poster-container img {
             width: 100%;
+            height: auto;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             margin-bottom: 40px;
             display: block;
-            
-            /* Animation direkt beim Laden */
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInSimple 1.2s ease forwards;
@@ -58,27 +93,31 @@
             }
         }
 
-        /* Formular Design */
+        /* 📝 Formular Design */
         form { 
             background: white; 
             padding: 30px; 
             border-radius: 12px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
+
         form label { display: block; margin: 15px 0 5px 0; font-weight: bold; }
+
         form input, form textarea { 
             width: 100%; 
             padding: 12px; 
             border: 1px solid #ccc; 
             border-radius: 8px; 
             font-size: 1em; 
-            box-sizing: border-box;
+            font-family: inherit;
         }
+
         form input:focus, form textarea:focus { 
             border-color: #525252; 
-            box-shadow: 0 0 8px rgba(255,105,180,0.3); 
+            box-shadow: 0 0 8px rgba(82, 82, 82, 0.2); 
             outline: none; 
         }
+
         form button { 
             margin-top: 25px; 
             padding: 14px 30px; 
@@ -89,45 +128,53 @@
             font-size: 1.1em; 
             font-weight: bold;
             cursor: pointer; 
-            transition: background-color 0.3s, transform 0.2s;
+            transition: all 0.3s;
             width: 100%;
         }
+
         form button:hover { 
-            background-color: #FF007F; 
+            background-color: #FF007F; /* Dein Signature-Pink als Akzent beim Hover */
             transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        /* Deine Standard-Animation für Texte */
+        /* ✨ Animationen */
         .fade-in-top {
             opacity: 0;
             transform: translateY(-30px);
             animation: fadeInTop 1s ease forwards;
         }
+
         @keyframes fadeInTop {
             to { opacity: 1; transform: translateY(0); }
         }
 
         footer {
+            width: 100%;
             text-align: center;
-            padding: 15px;
+            padding: 20px;
             background: #eee;
             border-top: 2px solid #525252;
             color: #333;
-            font-size: 14px;
+            font-size: 12px;
             margin-top: 40px;
+            line-height: 1.4;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div><strong class="fade-in-top">Yuuki</strong></div>
-        <nav>
-            <a href="index.html" class="fade-in-top" style="animation-delay: 0.2s;">Home</a>
-            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.4s;">Über</a>
-            <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.6s;">Projekte</a>
-            <a href="galerie.html" class="fade-in-top" style="animation-delay: 0.8s;">Galerie</a>
-            <a href="kontakt.html" class="fade-in-top" style="animation-delay: 1.0s;">Kontakt</a>
+        <div><strong class="fade-in-top">DarkSystems P1</strong></div>
+        
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+        <nav id="nav">
+            <a href="index.html" class="fade-in-top" style="animation-delay: 0.1s;">Home</a>
+            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.2s;">Über</a>
+            <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.3s;">Projekte</a>
+            <a href="galerie.html" class="fade-in-top" style="animation-delay: 0.4s;">Galerie</a>
+            <a href="kontakt.html" class="fade-in-top" style="animation-delay: 0.5s;">Kontakt</a>
         </nav>
     </header>
 
@@ -141,25 +188,34 @@
         <h2 class="fade-in-top" style="animation-delay: 0.5s;">Senden Sie uns eine Nachricht</h2>
         
         <form action="mailto:yuuki.akano.hefenbrock@gmail.com" method="post" enctype="text/plain" class="fade-in-top" style="animation-delay: 0.6s;">
-            <label for="car">Interessiert an:</label>
-            <input type="text" id="car" name="modell" value="DarkSystems P1" readonly>
+            <label for="car">Modell:</label>
+            <input type="text" id="car" name="modell" value="DarkSystems P1" readonly style="background-color: #f0f0f0; color: #666;">
 
             <label for="name">Ihr Name:</label>
-            <input type="text" id="name" name="name" required>
+            <input type="text" id="name" name="name" required placeholder="Vor- und Nachname">
 
             <label for="email">Ihre E-Mail-Adresse:</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" required placeholder="beispiel@mail.de">
 
             <label for="message">Nachricht:</label>
-            <textarea id="message" name="nachricht" rows="5" placeholder="Ihre Anfrage..."></textarea>
+            <textarea id="message" name="nachricht" rows="5" placeholder="Ihre individuelle Anfrage zum P1..."></textarea>
 
-            <button type="submit">Anfrage via Gmail senden</button>
+            <button type="submit">Anfrage via Mail senden</button>
         </form>
     </main>
 
     <footer>
-        &copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ and HTML)  !!! Diese Seite ist nur fiktiv und hat keine Auswirkungen auf eine echte Kaufanfrage. Dieses Hypercar existiert in keinster Weise !!!
+        &copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ and HTML)<br>
+        <strong>Disclaimer:</strong> Diese Seite ist rein fiktiv. Das Hypercar "DarkSystems P1" existiert nicht im echten Leben.
     </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById("nav");
+            nav.classList.toggle("active");
+        }
+    </script>
 
 </body>
 </html>
+ 

@@ -1,67 +1,162 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <!-- WICHTIG für Handy -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Yuuki's Website</title>
+<title>Yuuki's Website</title>
 
-    <style>
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            margin: 0; 
-            background: #f4f4f9; 
-            color: #333; 
+<style>
+    body { 
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        margin: 0; 
+        background: #f4f4f9; 
+        color: #333; 
+    }
+
+    header { 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        background-color: #FF69B4; 
+        padding: 15px 30px; 
+        color: white; 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    header a { 
+        color: white; 
+        text-decoration: none; 
+        margin: 0 15px; 
+        font-weight: bold;
+    }
+
+    header a:hover { text-decoration: underline; }
+
+    nav {
+        display: flex;
+    }
+
+    main { 
+        max-width: 800px; 
+        margin: 30px auto; 
+        padding: 20px; 
+    }
+
+    h1 { color: #FF69B4; }
+
+    .fade-in-top {
+        opacity: 0;
+        transform: translateY(-30px);
+        animation: fadeInTop 1s ease forwards;
+    }
+
+    @keyframes fadeInTop {
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
+    }
 
-        header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            flex-wrap: wrap; /* wichtig für Handy */
-            background-color: #FF69B4; 
-            padding: 15px 20px; 
-            color: white; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
+    /* BURGER BUTTON */
+    .menu-toggle {
+        display: none;
+        font-size: 24px;
+        cursor: pointer;
+        user-select: none;
+    }
 
-        header a { 
-            color: white; 
-            text-decoration: none; 
-            margin: 8px 10px; 
-            font-weight: bold;
-            display: inline-block;
-        }
+    /* MOBILE */
+    @media (max-width: 768px) {
 
-        header a:hover { text-decoration: underline; }
-
-        nav {
-            display: flex;
+        header {
             flex-wrap: wrap;
         }
 
-        main { 
-            max-width: 800px; 
-            margin: 20px auto; 
-            padding: 15px; 
+        .menu-toggle {
+            display: block;
         }
 
-        h1 { 
-            color: #FF69B4; 
-            font-size: 1.8em;
+        nav {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            margin-top: 10px;
         }
 
-        .button-container { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 15px; 
-            margin-top: 20px;
+        nav.active {
+            display: flex;
         }
 
-        .btn { 
-            padding: 12px 20px; 
-            background-color: #FF69B4; 
+        header a {
+            margin: 10px 0;
+            padding: 8px 0;
+        }
+    }
+</style>
+
+<script>
+function toggleMenu() {
+    const nav = document.getElementById("nav");
+    nav.classList.toggle("active");
+}
+</script>
+
+</head>
+
+<body>
+
+<header>
+    <div><strong class="fade-in-top">Yuuki's Website</strong></div>
+
+    <!-- Burger Button -->
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+    <nav id="nav">
+        <a href="index.html" class="fade-in-top" style="animation-delay: 0.2s;">Home</a>
+        <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.4s;">Über den Entwickler</a>
+        <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.6s;">Projekte</a>
+        <a href="galerie.html" class="fade-in-top" style="animation-delay: 0.8s;">Galerie</a>
+        <a href="kontakt.html" class="fade-in-top" style="animation-delay: 1.0s;">Kontakt</a>
+    </nav>
+</header>
+
+<main>
+    <h1 class="fade-in-top" style="animation-delay: 0.3s;">
+        Willkommen zu Yuuki's Website
+    </h1>
+
+    <p class="fade-in-top" style="animation-delay: 0.4s;">
+        Willkommen auf meiner Website. Hier findet ihr fast alles über mich. Darunter meine Projekte und Fotografien.
+    </p>
+
+    <p class="fade-in-top" style="animation-delay: 0.4s;">
+        Viel Spaß beim Erkunden 😊
+    </p>
+
+    <p class="fade-in-top" style="animation-delay: 0.45s; font-family: 'Courier New', Courier, monospace;">
+        Letzte Aktualisierung:
+    </p>
+
+    <p class="fade-in-top" style="animation-delay: 0.6s; font-family: 'Courier New', Courier, monospace;">
+        29.01.2026: Farbänderung zu Pink
+    </p>
+</main>
+
+<footer style="
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    background: #eee;
+    border-top: 2px solid #FF69B4;
+    font-size: 14px;
+    margin-top: 40px;">
+    
+    &copy; 2026 Yuuki – Alle Rechte vorbehalten.
+</footer>
+
+</body>
+</html>            background-color: #FF69B4; 
             color: white; 
             border: none; 
             border-radius: 8px; 

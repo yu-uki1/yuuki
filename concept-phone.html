@@ -2,14 +2,22 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Concept-Phone</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALVION X10 Pro - Konzept</title>
     <style>
+        /* 🔥 Globales Setup */
+        * {
+            box-sizing: border-box;
+        }
+
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
             background: #f4f4f9; 
             color: #333; 
+            overflow-x: hidden;
         }
+
         header { 
             display: flex; 
             justify-content: space-between; 
@@ -18,115 +26,158 @@
             padding: 15px 30px; 
             color: white; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            width: 100%;
         }
+
         header a { 
             color: white; 
             text-decoration: none; 
             margin: 0 15px; 
             font-weight: bold;
         }
+
         header a:hover { text-decoration: underline; }
+
+        nav {
+            display: flex;
+        }
+
+        /* 🍔 Burger Menu */
+        .menu-toggle {
+            display: none;
+            font-size: 26px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-wrap: wrap; }
+            .menu-toggle { display: block; }
+            nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 10px;
+            }
+            nav.active { display: flex; }
+            header a { margin: 10px 0; padding: 8px 0; }
+        }
+
         main { 
-            max-width: 800px; 
+            max-width: 900px; 
             margin: 30px auto; 
             padding: 20px; 
+            width: 100%;
         }
-        h1 { color: #FF69B4; }
-        .button-container { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 15px; 
-            margin-top: 20px;
-        }
-        .btn { 
-            padding: 12px 25px; 
-            background-color: #FF69B4; 
-            color: white; 
-            border: none; 
-            border-radius: 8px; 
-            font-size: 1em; 
-            cursor: pointer; 
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .btn:hover { background-color: #FF007F; }
-        #disclaimer { 
-            display: none; 
-            background: white; 
-            padding: 20px; 
-            border-radius: 10px; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
-            margin-top: 20px;
-        }
-		.fade-in-top {
-  	    opacity: 0;
-  	    transform: translateY(-30px); /* startet 30px über der Position */
-            animation: fadeInTop 1s ease forwards; /* forwards = bleibt am Endzustand */
-	}
 
-	    @keyframes fadeInTop {
-  	to {
-    	    opacity: 1;
-            transform: translateY(0);
+        h1 { color: #FF69B4; text-align: center; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: #666; font-style: italic; margin-bottom: 40px; }
+
+        /* 📱 Spec-Grid */
+        .specs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .spec-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 4px solid #FF69B4;
+        }
+
+        .spec-box strong {
+            display: block;
+            color: #FF69B4;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-size: 0.85em;
+        }
+
+        /* 🖼️ Smartphone Bild */
+        .phone-image {
+            width: 100%;
+            max-width: 500px;
+            display: block;
+            margin: 40px auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* ✨ Animationen */
+        .fade-in-top {
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInTop 0.8s ease forwards;
+        }
+
+        @keyframes fadeInTop {
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
-    	}
-
-    </style>
-    <script>
-        function toggleDisclaimer() {
-            const d = document.getElementById('disclaimer');
-            d.style.display = (d.style.display === 'block') ? 'none' : 'block';
         }
-    </script>
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            background: #eee;
+            border-top: 2px solid #FF69B4;
+            color: #333;
+            font-size: 13px;
+            margin-top: 50px;
+        }
+    </style>
 </head>
 <body>
+
     <header>
-        <div><strong class="fade-in-top">Konzept Smartphone</strong></div>
-        <nav>
-            <a href="index.html" class="fade-in-top" style="animation-delay: 0.2s;">Home</a>
-            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.4s;">Über den Entwickler</a>
-	        <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.6s;">Projekte</a>
-			<a href="galerie.html" class="fade-in-top" style="animation-delay: 0.8s;">Galerie</a>
-            <a href="kontakt.html" class="fade-in-top" style="animation-delay: 1.0s;">Kontakt</a>
+        <div><strong class="fade-in-top">ALVION Concept</strong></div>
+        
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+        <nav id="nav">
+            <a href="index.html" class="fade-in-top" style="animation-delay: 0.1s;">Home</a>
+            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.2s;">Über den Entwickler</a>
+            <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.3s;">Projekte</a>
+            <a href="galerie.html" class="fade-in-top" style="animation-delay: 0.4s;">Galerie</a>
+            <a href="kontakt.html" class="fade-in-top" style="animation-delay: 0.5s;">Kontakt</a>
         </nav>
     </header>
 
     <main>
         <h1 class="fade-in-top" style="animation-delay: 0.3s;">ALVION X10 Pro</h1>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-    <p class="fade-in-top" style="animation-delay: 0.6s;">Es ist ein Konzept-Smartphone meiner Konzept-Firma ALVION</p>
-	<p class="fade-in-top" style="animation-delay: 0.8s;">Spezifikationen des Smartphones:</p>
-    <p class="fade-in-top" style="animation-delay: 0.8s;">Prozessor: Snapdragon 8 Gen 3</p>
-    <p class="fade-in-top" style="animation-delay: 0.8s;">Akku: 5500mAh; 3.5V; 19.25Wh</p>
-    <p class="fade-in-top" style="animation-delay: 0.8s;">Ladegeschwindigkeit: 90W bei 12V und 7.5A</p>
-    <p class="fade-in-top" style="animation-delay: 0.8s;">Display: LTPO AMOLED; 1080x1920; 120Hz; 6.6 Zoll</p>
-    <p class="fade-in-top" style="animation-delay: 0.8s;">Speicher: 8GB+128GB; 12GB+265GB; 12GB+512GB</p>
-    <p class="fade-in-top" style="animation-delay: 0.8s;">Kamera: Selfie: 32MP, f/2.0, 21mm, (wide), 1/3.14", 0.7μm</p>
-    <p class="fade-in-top" style="animation-delay: 0.8s;">Kamera: Rückseite: 50MP+50MP+108MP+2MP</p>
-    <p class="fade-in-top" style="animation-delay: 0.8s;">Netzwerk: 2G/3G/4G/5G; WiFi 7; Bluetooth 6.0; NFC; Infrarot</p>
-    <p class="fade-in-top" style="animation-delay: 0.8s;">Anschlüsse: USB-C 3.2(PD3.0); 3.5mm Klinke</p>
-	<p>&nbsp;</p>
-	<p class="fade-in-top" style="animation-delay: 0.8s;">Bild des Smartphones:</p>
-	<img class="fade-in-top" style="animation-delay: 0.8s"; src="concept-smartphone.png" alt="Bild des Konzept-Smartphones">
-      
-        
-    </main>
-	<footer style="
-    	box-sizing: border-box;
-    	width: 100%;
-    	text-align: center;
-    	padding: 15px;
-    	background: #eee;
-    	border-top: 2px solid #FF69B4;
-    	color: #333;
-		font-size: 14px;
-    	margin-top: 40px;">
-    	&copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ and HTML)
-	</footer>
+        <p class="subtitle fade-in-top" style="animation-delay: 0.4s;">Ein High-End Konzept-Smartphone von ALVION</p>
 
+        <img class="phone-image fade-in-top" style="animation-delay: 0.6s;" src="concept-smartphone.png" alt="Bild des ALVION X10 Pro">
+
+        <div class="specs-container">
+            <div class="spec-box fade-in-top" style="animation-delay: 0.7s;"><strong>Prozessor</strong>Snapdragon 8 Gen 3</div>
+            <div class="spec-box fade-in-top" style="animation-delay: 0.8s;"><strong>Display</strong>6.6" LTPO AMOLED, 120Hz, 1080x1920</div>
+            <div class="spec-box fade-in-top" style="animation-delay: 0.9s;"><strong>Akku</strong>5500mAh, 90W Fast-Charging (12V/7.5A)</div>
+            <div class="spec-box fade-in-top" style="animation-delay: 1.0s;"><strong>Speicher</strong>Bis zu 12GB RAM + 512GB Speicher</div>
+            <div class="spec-box fade-in-top" style="animation-delay: 1.1s;"><strong>Hauptkamera</strong>Quad: 50MP + 50MP + 108MP + 2MP</div>
+            <div class="spec-box fade-in-top" style="animation-delay: 1.2s;"><strong>Selfie</strong>32MP (f/2.0), Wide-Angle</div>
+            <div class="spec-box fade-in-top" style="animation-delay: 1.3s;"><strong>Konnektivität</strong>5G, WiFi 7, Bluetooth 6.0, NFC & Infrarot</div>
+            <div class="spec-box fade-in-top" style="animation-delay: 1.4s;"><strong>Anschlüsse</strong>USB-C 3.2 (PD3.0) & 3.5mm Klinke</div>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ and HTML)
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById("nav");
+            nav.classList.toggle("active");
+        }
+    </script>
 
 </body>
 </html>
+ 

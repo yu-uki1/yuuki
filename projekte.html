@@ -2,14 +2,22 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Projekte</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuuki's Projekte</title>
     <style>
+        /* 🔥 Grund-Setup für Stabilität */
+        * {
+            box-sizing: border-box;
+        }
+
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
             background: #f4f4f9; 
             color: #333; 
+            overflow-x: hidden;
         }
+
         header { 
             display: flex; 
             justify-content: space-between; 
@@ -18,179 +26,230 @@
             padding: 15px 30px; 
             color: white; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            width: 100%;
         }
+
         header a { 
             color: white; 
             text-decoration: none; 
             margin: 0 15px; 
             font-weight: bold;
         }
+
         header a:hover { text-decoration: underline; }
+
+        nav {
+            display: flex;
+        }
+
         main { 
-            max-width: 1000px; 
+            max-width: 1100px; 
             margin: 30px auto; 
             padding: 20px; 
-            background: white; 
-            border-radius: 10px; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: 100%;
         }
+
         h1 { color: #FF69B4; }
+
+        /* 📱 Mobile Navigation (Burger) */
+        .menu-toggle {
+            display: none;
+            font-size: 26px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-wrap: wrap; }
+            .menu-toggle { display: block; }
+            nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 10px;
+            }
+            nav.active { display: flex; }
+            header a { margin: 10px 0; padding: 5px 0; }
+        }
+
+        /* 📦 Projekt-Grid */
         .project-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
             margin-top: 30px;
         }
+
         .project-card {
-            background-color: #fafafa;
-            border-radius: 10px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
             overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
         }
+
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
         }
-        .project-card img {
-            width: 100%;
-            display: block;
+
+        .project-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-        .project-card .project-info {
-            padding: 15px;
-        }
-        .project-card .project-info h2 {
+
+        .project-info h2 {
             margin: 0 0 10px 0;
+            font-size: 1.4rem;
             color: #FF69B4;
         }
-        .project-card .project-info p {
-            margin: 0;
-            font-size: 14px;
+
+        .project-info p {
+            margin: 0 0 20px 0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #555;
         }
-        .project-card .project-info a {
+
+        .btn-link {
             display: inline-block;
-            margin-top: 10px;
-            padding: 8px 12px;
+            padding: 10px 15px;
             background-color: #FF69B4;
-            color: white;
-            border-radius: 5px;
+            color: white !important;
+            border-radius: 6px;
             text-decoration: none;
             font-weight: bold;
+            text-align: center;
+            transition: background 0.3s;
         }
-        .project-card .project-info a:hover {
-            background-color: #FF007F;
-        }
-		.fade-in-top {
-  	    opacity: 0;
-  	    transform: translateY(-30px); /* startet 30px über der Position */
-            animation: fadeInTop 1s ease forwards; /* forwards = bleibt am Endzustand */
-	}
 
-	    @keyframes fadeInTop {
-  	to {
-    	    opacity: 1;
-            transform: translateY(0);
+        .btn-link:hover {
+            background-color: #FF007F;
+            text-decoration: none !important;
+        }
+
+        /* ✨ Animationen */
+        .fade-in-top {
+            opacity: 0;
+            transform: translateY(-30px);
+            animation: fadeInTop 0.8s ease forwards;
+        }
+
+        @keyframes fadeInTop {
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
-    	}
+        }
     </style>
 </head>
 <body>
+
     <header>
-        <div><strong class="fade-in-top" style="animation-delay: 0.2s;">Yuuki's Projekte</strong></div>
-        <nav>
-            <a href="index.html" class="fade-in-top" style="animation-delay: 0.2s;">Home</a>
-            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.4s;">Über den Entwickler</a>
-            <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.6s;">Projekte</a>
-			<a href="galerie.html" class="fade-in-top" style="animation-delay: 0.8s;">Galerie</a>
-            <a href="kontakt.html" class="fade-in-top" style="animation-delay: 1.0s;">Kontakt</a>
+        <div><strong class="fade-in-top">Yuuki's Projekte</strong></div>
+        
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+        <nav id="nav">
+            <a href="index.html" class="fade-in-top" style="animation-delay: 0.1s;">Home</a>
+            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.2s;">Über den Entwickler</a>
+            <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.3s;">Projekte</a>
+            <a href="galerie.html" class="fade-in-top" style="animation-delay: 0.4s;">Galerie</a>
+            <a href="kontakt.html" class="fade-in-top" style="animation-delay: 0.5s;">Kontakt</a>
         </nav>
     </header>
 
     <main>
-        <h1 class="fade-in-top" style="animation-delay: 0.4s;">Meine Projekte</h1>
+        <h1 class="fade-in-top" style="animation-delay: 0.3s;">Meine Projekte</h1>
+        
         <div class="project-container">
-            <div class="project-card">
+            
+            <div class="project-card fade-in-top" style="animation-delay: 0.5s;">
                 <div class="project-info">
-                    <a href="empty.html" class="fade-in-top" style="animation-delay: 0.4s;">Wecker</a>
-                    <p class="fade-in-top" style="animation-delay: 0.7s;">Ich brauchte einen Wecker, aber wollte mir keinen für 5€ kaufen. Zufälligerweise hatte ich alle passenden Teile zur Verfügung. Dafür habe ich mehrere TM1637-Displays verwendet und ein RTC-Modul.</p>
+                    <div>
+                        <h2>Wecker</h2>
+                        <p>Ich brauchte einen Wecker, aber wollte mir keinen für 5€ kaufen. Ich hatte alle passenden Teile da: TM1637-Displays und ein RTC-Modul.</p>
+                    </div>
+                    <a href="empty.html" class="btn-link">Details</a>
                 </div>
             </div>
-            <div class="project-card">
+
+            <div class="project-card fade-in-top" style="animation-delay: 0.6s;">
                 <div class="project-info">
-                    <a href="empty.html" class="fade-in-top" style="animation-delay: 0.4s;">Streampad</a>
-                    <p class="fade-in-top" style="animation-delay: 0.7s;">Genau wie bei dem Wecker wollte ich kein Geld ausgeben. Am Ende habe ich dann doch etwas ausgegeben. Dies war aber deutlich günstiger als ein Streamdeck zu kaufen. Das Streampad hatte zwar keine Displays, aber war trotzdem ein richtig geiles Projekt. Ich habe auch eine ganze App entwickelt zur Tastenbelegung.</p>
+                    <div>
+                        <h2>Streampad</h2>
+                        <p>Ein DIY Streamdeck, viel günstiger als das Original. Ohne Displays, aber mit einer komplett selbst entwickelten App zur Tastenbelegung.</p>
+                    </div>
+                    <a href="empty.html" class="btn-link">Details</a>
                 </div>
             </div>
-            <div class="project-card">
+
+            <div class="project-card fade-in-top" style="animation-delay: 0.7s;">
                 <div class="project-info">
-                    <a href="minigame.html" class="fade-in-top" style="animation-delay: 0.4s;">Eigenes Spiel</a>
-                    <p class="fade-in-top" style="animation-delay: 0.7s;">Ich wollte mal ein eigenes Spiel entwickeln, welches aber in 2D gestaltet ist. Man hat eine 1500x1500 Open World. Es gibt Truhen, verschiedene Items, Inventar und Lebens- sowie Mana- und Rüstungsanzeige. Zudem gibt es noch weitere Sachen.</p>
+                    <div>
+                        <h2>Eigenes Spiel</h2>
+                        <p>Ein 2D Open World Spiel (1500x1500px). Mit Truhen, Items, Inventar und einem kompletten Lebens-/Mana-System.</p>
+                    </div>
+                    <a href="minigame.html" class="btn-link">Zum Download</a>
                 </div>
             </div>
-			<div class="project-card">
-				<div class="project-info">
-					<a href="concept-phone.html" class="fade-in-top" style="animation-delay: 0.4s;">Konzept-Smartphone</a>
-					<p class="fade-in-top" style="animation-delay: 0.7s;">Hier habe ich ein komplettes Konzept-Smartphone, meiner imaginären Firma ALVION erstellt. Das Smartphone nennt sich das ALVION X10 Pro.</p>
-				</div>
-			</div>
-			<div class="project-card">
-				<div class="project-info">
-					<a href="empty.html" class="fade-in-top" style="animation-delay: 0.4s;">Browser-App</a>
-					<p class="fade-in-top" style="animation-delay: 0.7s;">Eine selbst erstellte Browser-App zum privaten Surfen. Allerdings nicht privat im Internet, sondern als Inkognito-Browser.</p>
-				</div>
-			</div>
-			<div class="project-card">
-				<div class="project-info">
-					<a href="aufgabenmanager.html" class="fade-in-top" style="animation-delay: 0.4s;">Aufgabenmanager</a>
-					<p class="fade-in-top" style="animation-delay: 0.7s;">Ein Aufgabenmanager um sich über bevorstehende Aufgaben informieren zu lassen.</p>
-				</div>
-			</div>
-            <!-- Weitere Projekte können hier hinzugefügt werden -->
+
+            <div class="project-card fade-in-top" style="animation-delay: 0.8s;">
+                <div class="project-info">
+                    <div>
+                        <h2>Konzept-Smartphone</h2>
+                        <p>Das ALVION X10 Pro – ein komplettes Design- und Hardware-Konzept meiner imaginären Firma ALVION.</p>
+                    </div>
+                    <a href="concept-phone.html" class="btn-link">Details</a>
+                </div>
+            </div>
+
+            <div class="project-card fade-in-top" style="animation-delay: 0.9s;">
+                <div class="project-info">
+                    <div>
+                        <h2>Browser-App</h2>
+                        <p>Ein selbst erstellter Browser für privates Surfen, optimiert als Inkognito-Lösung.</p>
+                    </div>
+                    <a href="empty.html" class="btn-link">Details</a>
+                </div>
+            </div>
+
+            <div class="project-card fade-in-top" style="animation-delay: 1.0s;">
+                <div class="project-info">
+                    <div>
+                        <h2>Aufgabenmanager</h2>
+                        <p>Ein Tool, um den Überblick über alle anstehenden Aufgaben zu behalten und sich rechtzeitig informieren zu lassen.</p>
+                    </div>
+                    <a href="aufgabenmanager.html" class="btn-link">Zum Download</a>
+                </div>
+            </div>
+
         </div>
     </main>
-	<footer style="
-    	box-sizing: border-box;
-    	width: 100%;
-    	text-align: center;
-    	padding: 15px;
-    	background: #eee;
-    	border-top: 2px solid #FF69B4;
-    	color: #333;
-		font-size: 11px;
-    	margin-top: 40px;">
-    	&copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ and HTML)
+
+    <footer style="
+        width: 100%;
+        text-align: center;
+        padding: 20px;
+        background: #eee;
+        border-top: 2px solid #FF69B4;
+        color: #333;
+        font-size: 13px;
+        margin-top: 50px;">
+        &copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ and HTML)
     </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById("nav");
+            nav.classList.toggle("active");
+        }
+    </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

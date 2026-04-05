@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Yuuki's Catch-Quest</title>
     <style>
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; background: #f4f4f9; color: #333; 
@@ -13,59 +13,72 @@
         }
         header { 
             display: flex; justify-content: space-between; align-items: center; 
-            background-color: #FF69B4; padding: 15px 20px; color: white; 
+            background-color: #FF69B4; padding: 10px 20px; color: white; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        main { max-width: 800px; margin: 10px auto; padding: 10px; text-align: center; }
-        #game-wrapper {
+        main { max-width: 800px; margin: 10px auto; padding: 5px; text-align: center; }
+        
+        #game-container {
             position: relative;
-            background: white;
+            max-width: 400px;
+            margin: 0 auto;
             border: 3px solid #FF69B4;
             border-radius: 15px;
+            background: white;
             overflow: hidden;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
+
         canvas { background: #fffafa; display: block; width: 100%; height: auto; }
+
         .ui { 
-            position: absolute; top: 15px; width: 100%; 
+            position: absolute; top: 10px; width: 100%; 
             display: flex; justify-content: space-around; 
-            font-weight: bold; color: #FF69B4; font-size: 1.1rem;
-            text-shadow: 1px 1px 0px white;
-            pointer-events: none; 
+            font-weight: bold; color: #FF69B4; pointer-events: none; z-index: 5;
         }
+
+        /* Touch-Steuerung Flächen */
+        .touch-controls {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 80%;
+            display: flex; z-index: 4;
+        }
+        .touch-area { flex: 1; height: 100%; }
+
         #start-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.95);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            z-index: 10;
+            z-index: 10; padding: 20px;
         }
         #start-btn {
             padding: 15px 40px; background: #FF69B4; color: white; border: none;
-            border-radius: 50px; font-size: 1.3rem; cursor: pointer; font-weight: bold;
-            box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4);
+            border-radius: 50px; font-size: 1.2rem; cursor: pointer; font-weight: bold;
         }
-        .speed-info { color: #FF69B4; font-size: 0.8rem; margin-top: 5px; }
     </style>
 </head>
 <body>
 
 <header>
     <strong>Yuuki's Website</strong>
-    <nav style="font-size: 0.9rem;"><a href="index.html" style="color:white; text-decoration:none;">Zurück</a></nav>
+    <nav style="font-size: 0.8rem;"><a href="index.html" style="color:white; text-decoration:none;">Menü</a></nav>
 </header>
 
 <main>
-    <div id="game-wrapper">
+    <div id="game-container">
         <div class="ui">
-            <span>Score: <span id="score">0</span></span>
-            <span>Lives: <span id="lives">3</span></span>
+            <span>Punkte: <span id="score">0</span></span>
+            <span>Leben: <span id="lives">3</span></span>
+        </div>
+
+        <div class="touch-controls">
+            <div class="touch-area" id="left-touch"></div>
+            <div class="touch-area" id="right-touch"></div>
         </div>
         
         <div id="start-overlay">
             <h2 style="color: #FF69B4;">Manga Catch!</h2>
-            <p>Neige dein Handy zum Bewegen</p>
-            <button id="start-btn">JETZT STARTEN</button>
-            <p class="speed-info">Das Spiel wird mit der Zeit schneller!</p>
+            <p style="font-size: 0.9rem;">PC: Pfeiltasten<br>Handy: Links/Rechts tippen</p>
+            <button id="start-btn">START</button>
         </div>
 
         <canvas id="gameCanvas" width="400" height="600"></canvas>
@@ -81,75 +94,61 @@
     let score = 0;
     let lives = 3;
     let gameActive = false;
-    let tiltX = 0; 
-    let baseSpeed = 2.5; // Startgeschwindigkeit der fallenden Punkte
+    let baseSpeed = 3;
 
-    const player = { x: 180, y: 510, size: 45, color: "#FF69B4" };
+    const player = { x: 175, y: 510, size: 50, speed: 9, color: "#FF69B4" };
     const items = [];
+    const keys = {};
 
-    // --- SENSOR & START ---
+    // --- STEUERUNG LOGIK ---
+    window.addEventListener("keydown", e => keys[e.key] = true);
+    window.addEventListener("keyup", e => keys[e.key] = false);
+
+    // Touch-Steuerung
+    let leftPressed = false;
+    let rightPressed = false;
+
+    document.getElementById("left-touch").addEventListener("touchstart", (e) => { e.preventDefault(); leftPressed = true; });
+    document.getElementById("left-touch").addEventListener("touchend", () => leftPressed = false);
+    document.getElementById("right-touch").addEventListener("touchstart", (e) => { e.preventDefault(); rightPressed = true; });
+    document.getElementById("right-touch").addEventListener("touchend", () => rightPressed = false);
+
     startBtn.addEventListener("click", () => {
-        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-            DeviceOrientationEvent.requestPermission()
-                .then(permissionState => {
-                    if (permissionState === 'granted') {
-                        window.addEventListener("deviceorientation", handleOrientation);
-                        startGame();
-                    }
-                });
-        } else {
-            window.addEventListener("deviceorientation", handleOrientation);
-            startGame();
-        }
-    });
-
-    function handleOrientation(event) {
-        // Empfindlichkeit verringert: 0.25 statt 0.5
-        tiltX = event.gamma * 0.05; 
-    }
-
-    function startGame() {
         gameActive = true;
         startOverlay.style.display = "none";
         spawnItem();
         draw();
-    }
+    });
 
     function spawnItem() {
         if (!gameActive) return;
         
-        // Schwierigkeitsgrad: Geschwindigkeit steigt basierend auf Score
-        // Alle 50 Punkte wird es merklich schneller
-        let difficultyBoost = score / 50; 
-        
+        // Schwierigkeit: Schneller pro 50 Punkte
+        let speedBoost = 1 + (Math.floor(score / 50) * 0.25);
         const isGood = Math.random() > 0.35; 
+
         items.push({
-            x: Math.random() * (canvas.width - 25),
+            x: Math.random() * (canvas.width - 30),
             y: -30,
             size: 20,
-            speed: baseSpeed + difficultyBoost + (Math.random() * 2),
+            speed: (baseSpeed + Math.random() * 2) * speedBoost,
             type: isGood ? 'good' : 'bad'
         });
 
-        // Spawngeschwindigkeit erhöht sich auch leicht
-        let nextSpawn = Math.max(400, 900 - (score * 2));
+        let nextSpawn = Math.max(300, 850 - (score * 2));
         setTimeout(spawnItem, nextSpawn);
     }
 
     function update() {
         if (!gameActive) return;
 
-        // Bewegung durch Neigung
-        player.x += tiltX;
-
-        // Spielfeldrand-Kollision
-        if (player.x < 0) player.x = 0;
-        if (player.x > canvas.width - player.size) player.x = canvas.width - player.size;
+        // Kombinierte Steuerung (Tastatur + Touch)
+        if ((keys["ArrowLeft"] || keys["a"] || leftPressed) && player.x > 0) player.x -= player.speed;
+        if ((keys["ArrowRight"] || keys["d"] || rightPressed) && player.x < canvas.width - player.size) player.x += player.speed;
 
         items.forEach((item, index) => {
             item.y += item.speed;
 
-            // Kollisionsprüfung (Kreis-Quadrat-Annäherung)
             if (item.y + item.size > player.y && 
                 item.x + item.size > player.x && 
                 item.x < player.x + player.size &&
@@ -162,41 +161,30 @@
                     lives--;
                     document.getElementById("lives").innerText = lives;
                     if (lives <= 0) {
-                        gameOver();
+                        gameActive = false;
+                        alert("Game Over! Score: " + score);
+                        location.reload();
                     }
                 }
                 items.splice(index, 1);
             }
-
             if (item.y > canvas.height) items.splice(index, 1);
         });
-    }
-
-    function gameOver() {
-        gameActive = false;
-        alert("Game Over! Dein Highscore: " + score);
-        location.reload();
     }
 
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Boden-Linie (Deko)
-        ctx.strokeStyle = "#eee";
-        ctx.beginPath(); ctx.moveTo(0, 560); ctx.lineTo(400, 560); ctx.stroke();
-
-        // Spieler (Manga-Style Quadrat mit kleiner "Aura")
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = "rgba(255, 105, 180, 0.5)";
+        // Spieler mit Leuchteffekt
+        ctx.shadowBlur = 15; ctx.shadowColor = "#FF69B4";
         ctx.fillStyle = player.color;
         ctx.fillRect(player.x, player.y, player.size, player.size);
-        ctx.shadowBlur = 0; // Reset für andere Elemente
+        ctx.shadowBlur = 0;
 
-        // Items zeichnen
+        // Items
         items.forEach(item => {
             ctx.fillStyle = item.type === 'good' ? '#2ecc71' : '#e74c3c';
             ctx.beginPath();
-            // Zeichnet Punkte als kleine Kreise
             ctx.arc(item.x + item.size/2, item.y + item.size/2, item.size/2, 0, Math.PI*2);
             ctx.fill();
         });
@@ -207,4 +195,3 @@
 </script>
 </body>
 </html>
- 

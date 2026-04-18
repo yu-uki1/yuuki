@@ -56,6 +56,49 @@
 
     h1 { color: #FF69B4; }
 
+    /* 🎵 Musik Sektion Styling */
+    .music-section {
+        background: #fff0f6; /* Ganz helles Pink passend zum Header */
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 30px;
+        border-left: 5px solid #FF69B4;
+    }
+
+    .music-section h3 {
+        margin-top: 0;
+        color: #FF69B4;
+        font-size: 1.2rem;
+    }
+
+    .current-song {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+
+    .history-dropdown {
+        cursor: pointer;
+        font-size: 0.95rem;
+        color: #555;
+    }
+
+    .history-dropdown summary {
+        font-weight: bold;
+        outline: none;
+        transition: color 0.3s;
+    }
+
+    .history-dropdown summary:hover {
+        color: #FF69B4;
+    }
+
+    .history-dropdown ul {
+        list-style-type: "♪ ";
+        padding-left: 20px;
+        margin-top: 10px;
+        line-height: 1.6;
+    }
+
     /* ✨ Animation */
     .fade-in-top {
         opacity: 0;
@@ -158,7 +201,23 @@ function toggleMenu() {
         Denn genau das treibt mich an: die Freude daran, Dinge zu erschaffen, die begeistern.
     </p>
 
-    <div class="fade-in-top" style="animation-delay: 1.8s; margin-top: 20px;">
+    <section class="music-section fade-in-top" style="animation-delay: 1.7s;">
+        <h3>Was ich gerade höre 🎧</h3>
+        <div class="current-song">
+            <p><strong>Aktueller Favorit:</strong> God Complex - Colorblind</p>
+        </div>
+
+        <details class="history-dropdown">
+            <summary>Frühere Favoriten ansehen</summary>
+            <ul>
+                <li>Gods - Sleep Token</li>
+                <li>The Final Say - Caskets</li>
+                <li>Blackhole - Architects</li>
+            </ul>
+        </details>
+    </section>
+
+    <div class="fade-in-top" style="animation-delay: 1.9s; margin-top: 30px;">
         <a href="setup.html" style="color: #FF69B4; text-decoration: none; font-weight: bold;">➔ Mein Setup</a>
     </div>
 </main>
@@ -192,4 +251,3 @@ function toggleMenu() {
         async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
- 

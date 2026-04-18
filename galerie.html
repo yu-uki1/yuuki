@@ -5,202 +5,139 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yuuki's Bildergalerie</title>
     <style>
-        /* 🔥 Stabilitäts-Fixes */
-        * {
-            box-sizing: border-box;
-        }
-
+        * { box-sizing: border-box; }
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            margin: 0; 
-            background: #f4f4f9; 
-            color: #333; 
-            overflow-x: hidden;
+            margin: 0; background: #f4f4f9; color: #333; overflow-x: hidden;
         }
 
         header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            background-color: #FF69B4; 
-            padding: 15px 30px; 
-            color: white; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            width: 100%;
+            display: flex; justify-content: space-between; align-items: center; 
+            background-color: #FF69B4; padding: 15px 30px; color: white; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); width: 100%;
         }
-
-        header a { 
-            color: white; 
-            text-decoration: none; 
-            margin: 0 15px; 
-            font-weight: bold;
-        }
-
-        header a:hover { text-decoration: underline; }
-
-        nav {
-            display: flex;
-        }
+        header a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; }
 
         main { 
-            max-width: 900px; 
-            margin: 30px auto; 
-            padding: 20px; 
-            background: white; 
-            border-radius: 10px; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            width: calc(100% - 40px); /* Platz für mobilen Rand */
+            max-width: 900px; margin: 30px auto; padding: 20px; 
+            background: white; border-radius: 10px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); width: calc(100% - 40px);
+            text-align: center;
         }
 
         h1 { color: #FF69B4; }
 
-        /* 🍔 Burger Button */
-        .menu-toggle {
-            display: none;
-            font-size: 26px;
-            cursor: pointer;
-            user-select: none;
+        /* 🍪 Cookie / Privacy Overlay */
+        #privacy-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000;
+            padding: 20px;
         }
 
-        /* 📱 Mobile Ansicht */
+        .privacy-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .privacy-box h2 { color: #FF69B4; margin-top: 0; }
+
+        .btn-group { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
+
+        .btn {
+            padding: 10px 20px; border: none; border-radius: 5px;
+            cursor: pointer; font-weight: bold; font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .btn-accept { background: #FF69B4; color: white; }
+        .btn-accept:hover { background: #e0559d; }
+
+        .btn-decline { background: #ddd; color: #333; }
+        .btn-decline:hover { background: #bbb; }
+
+        /* 📸 Galerie-Container (standardmäßig versteckt) */
+        #gallery-content {
+            display: none; /* Wird erst nach Zustimmung gezeigt */
+        }
+
+        .gallery {
+            display: flex; flex-direction: column; align-items: center; gap: 40px; margin-top: 20px;
+        }
+
+        /* ✨ Animation */
+        .fade-in-top { opacity: 0; transform: translateY(-30px); animation: fadeInTop 0.8s ease forwards; }
+        @keyframes fadeInTop { to { opacity: 1; transform: translateY(0); } }
+
         @media (max-width: 768px) {
             header { flex-wrap: wrap; }
-            .menu-toggle { display: block; }
-            nav {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                margin-top: 10px;
-            }
-            nav.active { display: flex; }
-            header a { margin: 10px 0; padding: 8px 0; }
-        }
-
-        /* 📸 Galerie-Bilder */
-        .gallery {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            margin-top: 20px;
-        }
-
-        .gallery img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            display: block;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 1.2s ease-out, transform 1s ease-out;
-        }
-
-        /* Wenn das Bild im Sichtfeld ist */
-        .gallery img.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ✨ Header Animationen */
-        .fade-in-top {
-            opacity: 0;
-            transform: translateY(-30px);
-            animation: fadeInTop 0.8s ease forwards;
-        }
-
-        @keyframes fadeInTop {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        footer {
-            width: 100%;
-            text-align: center;
-            padding: 20px;
-            background: #eee;
-            border-top: 2px solid #FF69B4;
-            color: #333;
-            font-size: 13px;
-            margin-top: 50px;
+            nav { display: flex; flex-direction: row; font-size: 12px; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div><strong class="fade-in-top">Yuuki's Galerie</strong></div>
-        
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <div id="privacy-overlay">
+        <div class="privacy-box">
+            <h2>Datenschutz-Hinweis 📸</h2>
+            <p>Um meine Bildergalerie zu sehen, werden Inhalte von <strong>Instagram</strong> geladen. Dabei werden Daten (wie deine IP-Adresse) an Meta übertragen.</p>
+            <p>Bist du damit einverstanden?</p>
+            <div class="btn-group">
+                <button class="btn btn-accept" onclick="acceptInstagram()">Ja, anzeigen</button>
+                <button class="btn btn-decline" onclick="declineInstagram()">Nein, zurück</button>
+            </div>
+        </div>
+    </div>
 
-        <nav id="nav">
-            <a href="index.html" class="fade-in-top" style="animation-delay: 0.1s;">Home</a>
-            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.2s;">Über den Entwickler</a>
-            <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.3s;">Projekte</a>
-            <a href="galerie.html" class="fade-in-top" style="animation-delay: 0.4s;">Galerie</a>
-            <a href="kontakt.html" class="fade-in-top" style="animation-delay: 0.5s;">Kontakt</a>
+    <header>
+        <div><strong>Yuuki's Galerie</strong></div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="galerie.html">Galerie</a>
         </nav>
     </header>
 
-    <main>
-        <h1 class="fade-in-top" style="animation-delay: 0.3s;">Galerie</h1>
-
+    <main id="gallery-content">
+        <h1 class="fade-in-top">Galerie</h1>
         <div class="gallery">
-            <img class="scroll-fade" src="bild1.png" alt="Fotografie 1">
-            <img class="scroll-fade" src="bild2.jpg" alt="Fotografie 2">
-            <img class="scroll-fade" src="bild3.jpg" alt="Fotografie 3">
-            <img class="scroll-fade" src="bild4.jpg" alt="Fotografie 4">
-            <img class="scroll-fade" src="bild6.jpg" alt="Fotografie 6">
-            <img class="scroll-fade" src="bild8.jpg" alt="Fotografie 8">
-            <img class="scroll-fade" src="bild9.jpg" alt="Fotografie 9">
-            <img class="scroll-fade" src="bild10.jpg" alt="Fotografie 10">
-            <img class="scroll-fade" src="bild11.png" alt="Fotografie 11">
-            <img class="scroll-fade" src="bild12.jpg" alt="Fotografie 12">
-            <img class="scroll-fade" src="bild13.jpg" alt="Fotografie 13">
-            <img class="scroll-fade" src="bild14.jpg" alt="Fotografie 14">
-            <img class="scroll-fade" src="bild15.png" alt="Fotografie 15">
-            <img class="scroll-fade" src="bild16.jpg" alt="Fotografie 16">
-            <img class="scroll-fade" src="bild17.jpg" alt="Fotografie 17">
-            <img class="scroll-fade" src="bild18.jpg" alt="Fotografie 18">
-            <img class="scroll-fade" src="bild19.jpg" alt="Fotografie 19">
-            <img class="scroll-fade" src="bild20.jpg" alt="Fotografie 20">
-            <img class="scroll-fade" src="bild21.png" alt="Fotografie 21">
+            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DXPeemAiJvi/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);">
+                <a href="https://www.instagram.com/p/DXPeemAiJvi/">Beitrag auf Instagram ansehen</a>
+            </blockquote>
+            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DXJgLd2CKbH/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:calc(100% - 2px);"><div style="padding:16px;">
+        		<a href="https://www.instagram.com/p/DXJgLd2CKbH/" target="_blank" style="text-decoration:none; color:#000;">Beitrag auf Instagram ansehen</a></div>
+            </blockquote>
         </div>
     </main>
 
-    <footer>
-        &copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ and HTML)
-    </footer>
-
     <script>
-        // Menü-Logik
-        function toggleMenu() {
-            const nav = document.getElementById("nav");
-            nav.classList.toggle("active");
+        function acceptInstagram() {
+            // Overlay ausblenden
+            document.getElementById('privacy-overlay').style.display = 'none';
+            // Galerie anzeigen
+            document.getElementById('gallery-content').style.display = 'block';
+            
+            // Instagram Skript dynamisch laden (erst jetzt fließen Daten!)
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = "//www.instagram.com/embed.js";
+            document.body.appendChild(script);
         }
 
-        // Scroll-Animation Logik
-        const images = document.querySelectorAll('.scroll-fade');
-
-        function checkVisibility() {
-            const triggerBottom = window.innerHeight * 0.9; // Erscheint bei 90% Bildschirmhöhe
-
-            images.forEach(img => {
-                const imgTop = img.getBoundingClientRect().top;
-
-                if(imgTop < triggerBottom) {
-                    img.classList.add('visible');
-                }
-            });
+        function declineInstagram() {
+            // Zurück zur Startseite schicken
+            window.location.href = "index.html";
         }
 
-        window.addEventListener('scroll', checkVisibility);
-        // Einmal beim Laden prüfen, falls Bilder schon im Sichtfeld sind
-        window.addEventListener('load', checkVisibility);
+        // Check ob der User in dieser Session schon zugestimmt hat (optional)
+        if (sessionStorage.getItem('instaAccepted') === 'true') {
+            acceptInstagram();
+        }
     </script>
-<script data-goatcounter="https://yuuki.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
- 

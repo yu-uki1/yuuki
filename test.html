@@ -69,17 +69,14 @@
         margin-top: 0;
         color: #FF69B4;
         font-size: 1.2rem;
-    }
-
-    .current-song {
-        font-size: 1.1rem;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
 
     .history-dropdown {
         cursor: pointer;
         font-size: 0.95rem;
         color: #555;
+        margin-top: 15px;
     }
 
     .history-dropdown summary {
@@ -203,16 +200,23 @@ function toggleMenu() {
 
     <section class="music-section fade-in-top" style="animation-delay: 1.7s;">
         <h3>Was ich gerade höre 🎧</h3>
-        <div class="current-song">
-            <p><strong>Aktueller Favorit:</strong> Bling-Bang-Bang-Born — Creepy Nuts</p>
-        </div>
+        
+        <iframe style="border-radius:12px" 
+                src="https://open.spotify.com/embed/track/2Z0v0Y8yFvXNnFfGZ4z2vB?utm_source=generator&theme=0" 
+                width="100%" 
+                height="152" 
+                frameBorder="0" 
+                allowfullscreen="" 
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                loading="lazy">
+        </iframe>
 
         <details class="history-dropdown">
             <summary>Frühere Favoriten ansehen</summary>
             <ul>
-                <li>Idol — YOASOBI</li>
-                <li>KICK BACK — Kenshi Yonezu</li>
-                <li>Gurenge — LiSA</li>
+                <li>Gods — Sleep Token</li>
+                <li>The Final Say — Caskets</li>
+                <li>Blackhole — Architects</li>
             </ul>
         </details>
     </section>

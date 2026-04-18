@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Über den Entwickler</title>
+
+<style>
+    /* 🔥 Verhindert Überbreite und Layout-Fehler */
+    * {
+        box-sizing: border-box;
+    }
+
+    body { 
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        margin: 0; 
+        background: #f4f4f9; 
+        color: #333; 
+        overflow-x: hidden; /* Verhindert weißen Rand beim Scrollen */
+    }
+
+    header { 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        background-color: #FF69B4; 
+        padding: 15px 30px; 
+        color: white; 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        width: 100%;
+    }
+
+    header a { 
+        color: white; 
+        text-decoration: none; 
+        margin: 0 15px; 
+        font-weight: bold;
+    }
+
+    header a:hover { text-decoration: underline; }
+
+    nav {
+        display: flex;
+    }
+
+    main { 
+        max-width: 800px; 
+        margin: 30px auto; 
+        padding: 20px; 
+        background: white; 
+        border-radius: 10px; 
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        width: calc(100% - 40px); /* Passt sich mobil besser an */
+    }
+
+    h1 { color: #FF69B4; }
+
+    /* 🎵 Musik Sektion Styling */
+    .music-section {
+        background: #fff0f6; /* Ganz helles Pink passend zum Header */
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 30px;
+        border-left: 5px solid #FF69B4;
+    }
+
+    .music-section h3 {
+        margin-top: 0;
+        color: #FF69B4;
+        font-size: 1.2rem;
+    }
+
+    .current-song {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+
+    .history-dropdown {
+        cursor: pointer;
+        font-size: 0.95rem;
+        color: #555;
+    }
+
+    .history-dropdown summary {
+        font-weight: bold;
+        outline: none;
+        transition: color 0.3s;
+    }
+
+    .history-dropdown summary:hover {
+        color: #FF69B4;
+    }
+
+    .history-dropdown ul {
+        list-style-type: "♪ ";
+        padding-left: 20px;
+        margin-top: 10px;
+        line-height: 1.6;
+    }
+
+    /* ✨ Animation */
+    .fade-in-top {
+        opacity: 0;
+        transform: translateY(-30px);
+        animation: fadeInTop 1s ease forwards;
+    }
+
+    @keyframes fadeInTop {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* 🍔 Burger Button */
+    .menu-toggle {
+        display: none;
+        font-size: 26px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    /* 📱 Mobile Ansicht */
+    @media (max-width: 768px) {
+        header {
+            flex-wrap: wrap;
+        }
+
+        .menu-toggle {
+            display: block;
+        }
+
+        nav {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        nav.active {
+            display: flex;
+        }
+
+        header a {
+            margin: 10px 0;
+            padding: 8px 0;
+        }
+    }
+</style>
+
+<script>
+function toggleMenu() {
+    const nav = document.getElementById("nav");
+    nav.classList.toggle("active");
+}
+</script>
+
+</head>
+
+<body>
+
+<header>
+    <div><strong class="fade-in-top">Yuuki</strong></div>
+
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+    <nav id="nav">
+        <a href="index.html" class="fade-in-top" style="animation-delay: 0.1s;">Home</a>
+        <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.2s;">Über den Entwickler</a>
+        <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.3s;">Projekte</a>
+        <a href="galerie.html" class="fade-in-top" style="animation-delay: 0.4s;">Galerie</a>
+        <a href="kontakt.html" class="fade-in-top" style="animation-delay: 0.5s;">Kontakt</a>
+    </nav>
+</header>
+
+<main>
+    <h1 class="fade-in-top">Über den Entwickler</h1>
+
+    <p class="fade-in-top" style="animation-delay: 0.6s;">
+        Ich bin Jan-Luca Hefenbrock, bekannt als Yuuki Akano, <span id="age"></span> Jahre alt; leidenschaftlicher Tüftler und Fotograf.
+    </p>
+
+    <p class="fade-in-top" style="animation-delay: 0.8s;">
+        Seit Jahren fasziniert mich alles rund um Technik, Programmierung und kreative Projekte – vom Basteln am Raspberry Pi bis hin zu eigenen Webprojekten.
+    </p>
+
+    <p class="fade-in-top" style="animation-delay: 1.0s;">
+        Doch auch durch die Linse meiner Kamera entdecke ich die Welt neu: Fotografie bedeutet für mich, besondere Momente einzufangen und sie in Bildern festzuhalten, die Geschichten erzählen.
+    </p> 
+
+    <p class="fade-in-top" style="animation-delay: 1.2s;">
+        Für mich geht es dabei immer darum, Neues auszuprobieren, zu lernen und meine Ideen mit anderen zu teilen.
+    </p>
+
+    <p class="fade-in-top" style="animation-delay: 1.4s;">
+        Schaut Euch um, entdeckt meine Projekte und Fotografien. Vielleicht findet Ihr selbst Inspiration, eigene Ideen umzusetzen.
+    </p>
+
+    <p class="fade-in-top" style="animation-delay: 1.6s;">
+        Denn genau das treibt mich an: die Freude daran, Dinge zu erschaffen, die begeistern.
+    </p>
+
+    <section class="music-section fade-in-top" style="animation-delay: 1.7s;">
+        <h3>Was ich gerade höre 🎧</h3>
+        <div class="current-song">
+            <p><strong>Aktueller Favorit:</strong> Bling-Bang-Bang-Born — Creepy Nuts</p>
+        </div>
+
+        <details class="history-dropdown">
+            <summary>Frühere Favoriten ansehen</summary>
+            <ul>
+                <li>Idol — YOASOBI</li>
+                <li>KICK BACK — Kenshi Yonezu</li>
+                <li>Gurenge — LiSA</li>
+            </ul>
+        </details>
+    </section>
+
+    <div class="fade-in-top" style="animation-delay: 1.9s; margin-top: 30px;">
+        <a href="setup.html" style="color: #FF69B4; text-decoration: none; font-weight: bold;">➔ Mein Setup</a>
+    </div>
+</main>
+
+<footer style="
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    background: #eee;
+    border-top: 2px solid #FF69B4;
+    font-size: 14px;
+    margin-top: 40px;">
+    &copy; 2026 Yuuki – Alle Rechte vorbehalten.
+</footer>
+
+<script>
+    // Altersberechnung
+    const birthDate = new Date(2008, 6, 1); // 1. Juli 2008
+    const today = new Date();
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const hasHadBirthday =
+        today.getMonth() > birthDate.getMonth() ||
+        (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+
+    if (!hasHadBirthday) age--;
+
+    document.getElementById("age").textContent = age;
+</script>
+<script data-goatcounter="https://yuuki.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

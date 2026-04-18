@@ -17,7 +17,7 @@
         margin: 0; 
         background: #f4f4f9; 
         color: #333; 
-        overflow-x: hidden; /* verhindert weißen Rand durch Scroll */
+        overflow-x: hidden; 
     }
 
     header { 
@@ -74,50 +74,78 @@
         user-select: none;
     }
 
+    /* 🍪 Willkommens-PopUp Styling */
+    #welcome-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        display: none; /* Wird per JavaScript auf 'flex' gesetzt */
+        justify-content: center; 
+        align-items: center;
+        z-index: 2000; 
+        padding: 20px;
+    }
+
+    .welcome-box {
+        background: white; 
+        padding: 30px; 
+        border-radius: 15px;
+        max-width: 500px; 
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .welcome-box h2 { color: #FF69B4; margin-top: 0; }
+
+    .welcome-btn {
+        background: #FF69B4; 
+        color: white; 
+        border: none; 
+        padding: 12px 25px; 
+        border-radius: 5px; 
+        cursor: pointer; 
+        font-weight: bold; 
+        font-size: 16px; 
+        margin-top: 15px;
+        transition: background 0.3s;
+    }
+
+    .welcome-btn:hover {
+        background: #e0559d;
+    }
+
     /* MOBILE */
     @media (max-width: 768px) {
-
-        header {
-            flex-wrap: wrap;
-        }
-
-        .menu-toggle {
-            display: block;
-        }
-
+        header { flex-wrap: wrap; }
+        .menu-toggle { display: block; }
         nav {
             display: none;
             flex-direction: column;
             width: 100%;
             margin-top: 10px;
         }
-
-        nav.active {
-            display: flex;
-        }
-
-        header a {
-            margin: 10px 0;
-            padding: 8px 0;
-        }
+        nav.active { display: flex; }
+        header a { margin: 10px 0; padding: 8px 0; }
     }
 </style>
-
-<script>
-function toggleMenu() {
-    const nav = document.getElementById("nav");
-    nav.classList.toggle("active");
-}
-</script>
-
 </head>
 
 <body>
 
+<div id="welcome-overlay">
+    <div class="welcome-box">
+        <h2>Willkommen auf meiner Seite 😁</h2>
+        <p>Sie ist noch im Aufbau und wächst gerade mit jedem Tag ein bisschen weiter.</p>
+        <p>Es kann sein, dass noch nicht alles perfekt ist – aber genau daran arbeite ich gerade.</p>
+        <p>Ich bitte dich um einen respektvollen Umgang und um Verständnis für Fehler.</p>
+        <p>Danke ☺️</p>
+        <button class="welcome-btn" onclick="acceptWelcome()">Verstanden & Weiter</button>
+    </div>
+</div>
+
 <header>
     <div><strong class="fade-in-top">Yuuki's Website</strong></div>
 
-    <!-- Burger Button -->
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
     <nav id="nav">
@@ -159,44 +187,31 @@ function toggleMenu() {
     border-top: 2px solid #FF69B4;
     font-size: 14px;
     margin-top: 40px;">
-    
     &copy; 2026 Yuuki – Alle Rechte vorbehalten.
 </footer>
+
+<script>
+// Burger Menü Logik
+function toggleMenu() {
+    const nav = document.getElementById("nav");
+    nav.classList.toggle("active");
+}
+
+// Willkommens-PopUp Logik
+function acceptWelcome() {
+    sessionStorage.setItem('welcomeAccepted', 'true');
+    document.getElementById('welcome-overlay').style.display = 'none';
+}
+
+// Beim Laden prüfen
+window.onload = function() {
+    if (sessionStorage.getItem('welcomeAccepted') !== 'true') {
+        document.getElementById('welcome-overlay').style.display = 'flex';
+    }
+};
+</script>
+
 <script data-goatcounter="https://yuuki.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 </body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</html> 

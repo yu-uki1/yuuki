@@ -1,225 +1,217 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yuuki's Bildergalerie</title>
-    <style>
-        /* 🔥 Stabilitäts-Fixes */
-        * {
-            box-sizing: border-box;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Yuuki's Website</title>
+
+<style>
+    /* 🔥 WICHTIG: verhindert Überbreite */
+    * {
+        box-sizing: border-box;
+    }
+
+    body { 
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        margin: 0; 
+        background: #f4f4f9; 
+        color: #333; 
+        overflow-x: hidden; 
+    }
+
+    header { 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        background-color: #FF69B4; 
+        padding: 15px 30px; 
+        color: white; 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        width: 100%;
+    }
+
+    header a { 
+        color: white; 
+        text-decoration: none; 
+        margin: 0 15px; 
+        font-weight: bold;
+    }
+
+    header a:hover { text-decoration: underline; }
+
+    nav {
+        display: flex;
+    }
+
+    main { 
+        max-width: 800px; 
+        margin: 30px auto; 
+        padding: 20px; 
+        width: 100%;
+    }
+
+    h1 { color: #FF69B4; }
+
+    .fade-in-top {
+        opacity: 0;
+        transform: translateY(-30px);
+        animation: fadeInTop 1s ease forwards;
+    }
+
+    @keyframes fadeInTop {
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
+    }
 
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            margin: 0; 
-            background: #f4f4f9; 
-            color: #333; 
-            overflow-x: hidden;
-        }
+    /* BURGER BUTTON */
+    .menu-toggle {
+        display: none;
+        font-size: 24px;
+        cursor: pointer;
+        user-select: none;
+    }
 
-        header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            background-color: #FF69B4; 
-            padding: 15px 30px; 
-            color: white; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            width: 100%;
-        }
+    /* 🍪 Willkommens-PopUp Styling */
+    #welcome-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        display: none; /* Wird per JavaScript auf 'flex' gesetzt */
+        justify-content: center; 
+        align-items: center;
+        z-index: 2000; 
+        padding: 20px;
+    }
 
-        header a { 
-            color: white; 
-            text-decoration: none; 
-            margin: 0 15px; 
-            font-weight: bold;
-        }
+    .welcome-box {
+        background: white; 
+        padding: 30px; 
+        border-radius: 15px;
+        max-width: 500px; 
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
 
-        header a:hover { text-decoration: underline; }
+    .welcome-box h2 { color: #FF69B4; margin-top: 0; }
 
+    .welcome-btn {
+        background: #FF69B4; 
+        color: white; 
+        border: none; 
+        padding: 12px 25px; 
+        border-radius: 5px; 
+        cursor: pointer; 
+        font-weight: bold; 
+        font-size: 16px; 
+        margin-top: 15px;
+        transition: background 0.3s;
+    }
+
+    .welcome-btn:hover {
+        background: #e0559d;
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+        header { flex-wrap: wrap; }
+        .menu-toggle { display: block; }
         nav {
-            display: flex;
-        }
-
-        main { 
-            max-width: 900px; 
-            margin: 30px auto; 
-            padding: 20px; 
-            background: white; 
-            border-radius: 10px; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            width: calc(100% - 40px);
-            text-align: center;
-        }
-
-        h1 { color: #FF69B4; }
-
-        /* 🍪 Datenschutz PopUp */
-        #privacy-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: flex; justify-content: center; align-items: center;
-            z-index: 1000; padding: 20px;
-        }
-
-        .privacy-box {
-            background: white; padding: 30px; border-radius: 15px;
-            max-width: 500px; text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
-
-        .privacy-box h2 { color: #FF69B4; margin-top: 0; }
-
-        .btn-group { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
-
-        .btn {
-            padding: 10px 20px; border: none; border-radius: 5px;
-            cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.3s;
-        }
-
-        .btn-accept { background: #FF69B4; color: white; }
-        .btn-accept:hover { background: #e0559d; }
-        .btn-decline { background: #ddd; color: #333; }
-
-        /* 📸 Galerie Bereich */
-        #gallery-content { display: none; }
-        .gallery { display: flex; flex-direction: column; align-items: center; gap: 40px; margin-top: 20px; }
-
-        /* 🍔 Burger Button */
-        .menu-toggle {
             display: none;
-            font-size: 26px;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        /* ✨ Animation */
-        .fade-in-top { opacity: 0; transform: translateY(-30px); animation: fadeInTop 0.8s ease forwards; }
-        @keyframes fadeInTop { to { opacity: 1; transform: translateY(0); } }
-
-        /* 📱 Mobile Ansicht */
-        @media (max-width: 768px) {
-            header { flex-wrap: wrap; }
-            .menu-toggle { display: block; }
-            nav {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                margin-top: 10px;
-            }
-            nav.active { display: flex; }
-            header a { margin: 10px 0; padding: 8px 0; }
-        }
-
-        footer {
+            flex-direction: column;
             width: 100%;
-            text-align: center;
-            padding: 20px;
-            background: #eee;
-            border-top: 2px solid #FF69B4;
-            color: #333;
-            font-size: 13px;
-            margin-top: 50px;
+            margin-top: 10px;
         }
-    </style>
+        nav.active { display: flex; }
+        header a { margin: 10px 0; padding: 8px 0; }
+    }
+</style>
 </head>
+
 <body>
 
-    <div id="privacy-overlay">
-        <div class="privacy-box">
-            <h2>Datenschutz-Hinweis 📸</h2>
-            <p>Um meine Bildergalerie zu sehen, werden Inhalte von <strong>Instagram</strong> geladen. Dabei werden Daten (wie deine IP-Adresse) an Meta übertragen.</p>
-            <p>Bist du damit einverstanden?</p>
-            <div class="btn-group">
-                <button class="btn btn-accept" onclick="acceptInstagram()">Ja, anzeigen</button>
-                <button class="btn btn-decline" onclick="declineInstagram()">Nein, zurück</button>
-            </div>
-        </div>
+<div id="welcome-overlay">
+    <div class="welcome-box">
+        <h2>Willkommen auf meiner Seite 😁</h2>
+        <p>Sie ist noch im Aufbau und wächst gerade mit jedem Tag ein bisschen weiter.</p>
+        <p>Es kann sein, dass noch nicht alles perfekt ist – aber genau daran arbeite ich gerade.</p>
+        <p>Ich bitte dich um einen respektvollen Umgang und um Verständnis für Fehler.</p>
+        <p>Danke ☺️</p>
+        <button class="welcome-btn" onclick="acceptWelcome()">Verstanden & Weiter</button>
     </div>
+</div>
 
-    <header>
-        <div><strong class="fade-in-top">Yuuki's Galerie</strong></div>
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-        <nav id="nav">
-            <a href="index.html" class="fade-in-top" style="animation-delay: 0.1s;">Home</a>
-            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.2s;">Über den Entwickler</a>
-            <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.3s;">Projekte</a>
-            <a href="galerie.html" class="fade-in-top" style="animation-delay: 0.4s;">Galerie</a>
-            <a href="kontakt.html" class="fade-in-top" style="animation-delay: 0.5s;">Kontakt</a>
-        </nav>
-    </header>
+<header>
+    <div><strong class="fade-in-top">Yuuki's Website</strong></div>
 
-    <main id="gallery-content">
-        <h1 class="fade-in-top" style="animation-delay: 0.3s;">Galerie</h1>
-        <p class="fade-in-top" style="animation-delay: 0.5s;">Hier sind meine neuesten Schnappschüsse direkt von Instagram.</p>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
-        <div class="gallery">
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DXPeemAiJvi/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"></blockquote>
-            
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DXJgLd2CKbH/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"></blockquote>
+    <nav id="nav">
+        <a href="index.html" class="fade-in-top" style="animation-delay: 0.2s;">Home</a>
+        <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.4s;">Über den Entwickler</a>
+        <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.6s;">Projekte</a>
+        <a href="galerie.html" class="fade-in-top" style="animation-delay: 0.8s;">Galerie</a>
+        <a href="kontakt.html" class="fade-in-top" style="animation-delay: 1.0s;">Kontakt</a>
+    </nav>
+</header>
 
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DVTeYSeiJ6b/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"></blockquote>
+<main>
+    <h1 class="fade-in-top" style="animation-delay: 0.3s;">
+        Willkommen zu Yuuki's Website
+    </h1>
 
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DW_uHzrCKMn/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"></blockquote>
+    <p class="fade-in-top" style="animation-delay: 0.4s;">
+        Willkommen auf meiner Website. Hier findet ihr fast alles über mich. Darunter meine Projekte und Fotografien.
+    </p>
 
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DW6kebKiHMk/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"></blockquote>
+    <p class="fade-in-top" style="animation-delay: 0.4s;">
+        Viel Spaß beim Erkunden 😊
+    </p>
 
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DWykoX4iNU2/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"></blockquote>
+    <p class="fade-in-top" style="animation-delay: 0.45s; font-family: 'Courier New', Courier, monospace;">
+        Letzte Aktualisierung:
+    </p>
 
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DWpA6dpiBdr/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"></blockquote>
+    <p class="fade-in-top" style="animation-delay: 0.6s; font-family: 'Courier New', Courier, monospace;">
+        05.04.2026: Responsive Layout für Mobilgeräte hinzugefügt
+    </p>
+</main>
 
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DWPVvrkCP2r/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"></blockquote>
+<footer style="
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    background: #eee;
+    border-top: 2px solid #FF69B4;
+    font-size: 14px;
+    margin-top: 40px;">
+    &copy; 2026 Yuuki – Alle Rechte vorbehalten.
+</footer>
 
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DWKfrPXiPIa/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"></blockquote>
+<script>
+// Burger Menü Logik
+function toggleMenu() {
+    const nav = document.getElementById("nav");
+    nav.classList.toggle("active");
+}
 
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DWJaZWVCIKZ/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"></blockquote>
+// Willkommens-PopUp Logik
+function acceptWelcome() {
+    sessionStorage.setItem('welcomeAccepted', 'true');
+    document.getElementById('welcome-overlay').style.display = 'none';
+}
 
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DV7MN3aCMQc/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"></blockquote>
+// Beim Laden prüfen
+window.onload = function() {
+    if (sessionStorage.getItem('welcomeAccepted') !== 'true') {
+        document.getElementById('welcome-overlay').style.display = 'flex';
+    }
+};
+</script>
 
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DV59PD3CPuW/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"></blockquote>
-
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DVzBtUdCPpJ/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"></blockquote>
-
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DVxnUigCHOY/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"></blockquote>
-
-        </div>
-    </main>
-
-    <footer>
-        &copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ and HTML)
-    </footer>
-
-    <script>
-        // Menü-Logik
-        function toggleMenu() {
-            const nav = document.getElementById("nav");
-            nav.classList.toggle("active");
-        }
-
-        // Datenschutz & Instagram-Logik
-        function acceptInstagram() {
-            sessionStorage.setItem('instaAccepted', 'true');
-            document.getElementById('privacy-overlay').style.display = 'none';
-            document.getElementById('gallery-content').style.display = 'block';
-            
-            // Script erst nach Zustimmung laden
-            const script = document.createElement('script');
-            script.async = true;
-            script.src = "//www.instagram.com/embed.js";
-            document.body.appendChild(script);
-        }
-
-        function declineInstagram() {
-            window.location.href = "index.html";
-        }
-
-        if (sessionStorage.getItem('instaAccepted') === 'true') {
-            acceptInstagram();
-        }
-    </script>
-    <script data-goatcounter="https://yuuki.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script data-goatcounter="https://yuuki.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
- 

@@ -69,17 +69,14 @@
         margin-top: 0;
         color: #FF69B4;
         font-size: 1.2rem;
-    }
-
-    .current-song {
-        font-size: 1.1rem;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
 
     .history-dropdown {
         cursor: pointer;
         font-size: 0.95rem;
         color: #555;
+        margin-top: 15px;
     }
 
     .history-dropdown summary {
@@ -203,16 +200,47 @@ function toggleMenu() {
 
     <section class="music-section fade-in-top" style="animation-delay: 1.7s;">
         <h3>Was ich gerade höre 🎧</h3>
-        <div class="current-song">
-            <p><strong>Aktueller Favorit:</strong> God Complex - Colorblind</p>
-        </div>
+        
+        <iframe style="border-radius:12px" 
+                src="https://open.spotify.com/embed/track/1lFhDbguae2erKs0nYB2bR?utm_source=generator" 
+                width="100%" 
+                height="152" 
+                frameBorder="0" 
+                allowfullscreen="" 
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                loading="lazy">
+        </iframe>
 
         <details class="history-dropdown">
             <summary>Frühere Favoriten ansehen</summary>
             <ul>
-                <li>Gods - Sleep Token</li>
-                <li>The Final Say - Caskets</li>
-                <li>Blackhole - Architects</li>
+                <iframe style="border-radius:12px" 
+                    src="https://open.spotify.com/embed/track/6x4AAZvDz156sNHfMsDCSx?utm_source=generator" 
+                    width="100%" 
+                    height="152" 
+                    frameBorder="0" 
+                    allowfullscreen="" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    loading="lazy">
+                </iframe>
+                <iframe style="border-radius:12px" 
+                    src="https://open.spotify.com/embed/track/37QT8fENZDrBCZZSR2NxHE?utm_source=generator" 
+                    width="100%" 
+                    height="152" 
+                    frameBorder="0" 
+                    allowfullscreen="" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    loading="lazy">
+                </iframe>
+                <iframe style="border-radius:12px" 
+                    src="https://open.spotify.com/embed/track/04yjYHGB3aoyS3q7D7LiKy?utm_source=generator" 
+                    width="100%" 
+                    height="152" 
+                    frameBorder="0" 
+                    allowfullscreen="" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    loading="lazy">
+                </iframe>
             </ul>
         </details>
     </section>

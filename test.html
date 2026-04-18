@@ -1,265 +1,178 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Über den Entwickler</title>
-
-<style>
-    /* 🔥 Verhindert Überbreite und Layout-Fehler */
-    * {
-        box-sizing: border-box;
-    }
-
-    body { 
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-        margin: 0; 
-        background: #f4f4f9; 
-        color: #333; 
-        overflow-x: hidden; /* Verhindert weißen Rand beim Scrollen */
-    }
-
-    header { 
-        display: flex; 
-        justify-content: space-between; 
-        align-items: center; 
-        background-color: #FF69B4; 
-        padding: 15px 30px; 
-        color: white; 
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        width: 100%;
-    }
-
-    header a { 
-        color: white; 
-        text-decoration: none; 
-        margin: 0 15px; 
-        font-weight: bold;
-    }
-
-    header a:hover { text-decoration: underline; }
-
-    nav {
-        display: flex;
-    }
-
-    main { 
-        max-width: 800px; 
-        margin: 30px auto; 
-        padding: 20px; 
-        background: white; 
-        border-radius: 10px; 
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        width: calc(100% - 40px); /* Passt sich mobil besser an */
-    }
-
-    h1 { color: #FF69B4; }
-
-    /* 🎵 Musik Sektion Styling */
-    .music-section {
-        background: #fff0f6; /* Ganz helles Pink passend zum Header */
-        padding: 20px;
-        border-radius: 10px;
-        margin-top: 30px;
-        border-left: 5px solid #FF69B4;
-    }
-
-    .music-section h3 {
-        margin-top: 0;
-        color: #FF69B4;
-        font-size: 1.2rem;
-        margin-bottom: 15px;
-    }
-
-    .history-dropdown {
-        cursor: pointer;
-        font-size: 0.95rem;
-        color: #555;
-        margin-top: 15px;
-    }
-
-    .history-dropdown summary {
-        font-weight: bold;
-        outline: none;
-        transition: color 0.3s;
-    }
-
-    .history-dropdown summary:hover {
-        color: #FF69B4;
-    }
-
-    .history-dropdown ul {
-        list-style-type: "♪ ";
-        padding-left: 20px;
-        margin-top: 10px;
-        line-height: 1.6;
-    }
-
-    /* ✨ Animation */
-    .fade-in-top {
-        opacity: 0;
-        transform: translateY(-30px);
-        animation: fadeInTop 1s ease forwards;
-    }
-
-    @keyframes fadeInTop {
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    /* 🍔 Burger Button */
-    .menu-toggle {
-        display: none;
-        font-size: 26px;
-        cursor: pointer;
-        user-select: none;
-    }
-
-    /* 📱 Mobile Ansicht */
-    @media (max-width: 768px) {
-        header {
-            flex-wrap: wrap;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuuki's Bildergalerie</title>
+    <style>
+        /* 🔥 Stabilitäts-Fixes */
+        * {
+            box-sizing: border-box;
         }
 
-        .menu-toggle {
-            display: block;
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            background: #f4f4f9; 
+            color: #333; 
+            overflow-x: hidden;
         }
+
+        header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background-color: #FF69B4; 
+            padding: 15px 30px; 
+            color: white; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            width: 100%;
+        }
+
+        header a { 
+            color: white; 
+            text-decoration: none; 
+            margin: 0 15px; 
+            font-weight: bold;
+        }
+
+        header a:hover { text-decoration: underline; }
 
         nav {
-            display: none;
-            flex-direction: column;
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        nav.active {
             display: flex;
         }
 
-        header a {
-            margin: 10px 0;
-            padding: 8px 0;
+        main { 
+            max-width: 900px; 
+            margin: 30px auto; 
+            padding: 20px; 
+            background: white; 
+            border-radius: 10px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: calc(100% - 40px);
+            text-align: center; /* Zentriert die Überschrift und Posts */
         }
-    }
-</style>
 
-<script>
-function toggleMenu() {
-    const nav = document.getElementById("nav");
-    nav.classList.toggle("active");
-}
-</script>
+        h1 { color: #FF69B4; }
 
+        /* 📸 Galerie-Container */
+        .gallery {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Zentriert die Insta-Posts */
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        /* ✨ Animationen */
+        .fade-in-top {
+            opacity: 0;
+            transform: translateY(-30px);
+            animation: fadeInTop 0.8s ease forwards;
+        }
+
+        @keyframes fadeInTop {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 🍔 Burger Button */
+        .menu-toggle {
+            display: none;
+            font-size: 26px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* 📱 Mobile Ansicht */
+        @media (max-width: 768px) {
+            header { flex-wrap: wrap; }
+            .menu-toggle { display: block; }
+            nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 10px;
+            }
+            nav.active { display: flex; }
+            header a { margin: 10px 0; padding: 8px 0; }
+        }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            background: #eee;
+            border-top: 2px solid #FF69B4;
+            color: #333;
+            font-size: 13px;
+            margin-top: 50px;
+        }
+    </style>
 </head>
-
 <body>
 
-<header>
-    <div><strong class="fade-in-top">Yuuki</strong></div>
-
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-
-    <nav id="nav">
-        <a href="index.html" class="fade-in-top" style="animation-delay: 0.1s;">Home</a>
-        <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.2s;">Über den Entwickler</a>
-        <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.3s;">Projekte</a>
-        <a href="galerie.html" class="fade-in-top" style="animation-delay: 0.4s;">Galerie</a>
-        <a href="kontakt.html" class="fade-in-top" style="animation-delay: 0.5s;">Kontakt</a>
-    </nav>
-</header>
-
-<main>
-    <h1 class="fade-in-top">Über den Entwickler</h1>
-
-    <p class="fade-in-top" style="animation-delay: 0.6s;">
-        Ich bin Jan-Luca Hefenbrock, bekannt als Yuuki Akano, <span id="age"></span> Jahre alt; leidenschaftlicher Tüftler und Fotograf.
-    </p>
-
-    <p class="fade-in-top" style="animation-delay: 0.8s;">
-        Seit Jahren fasziniert mich alles rund um Technik, Programmierung und kreative Projekte – vom Basteln am Raspberry Pi bis hin zu eigenen Webprojekten.
-    </p>
-
-    <p class="fade-in-top" style="animation-delay: 1.0s;">
-        Doch auch durch die Linse meiner Kamera entdecke ich die Welt neu: Fotografie bedeutet für mich, besondere Momente einzufangen und sie in Bildern festzuhalten, die Geschichten erzählen.
-    </p> 
-
-    <p class="fade-in-top" style="animation-delay: 1.2s;">
-        Für mich geht es dabei immer darum, Neues auszuprobieren, zu lernen und meine Ideen mit anderen zu teilen.
-    </p>
-
-    <p class="fade-in-top" style="animation-delay: 1.4s;">
-        Schaut Euch um, entdeckt meine Projekte und Fotografien. Vielleicht findet Ihr selbst Inspiration, eigene Ideen umzusetzen.
-    </p>
-
-    <p class="fade-in-top" style="animation-delay: 1.6s;">
-        Denn genau das treibt mich an: die Freude daran, Dinge zu erschaffen, die begeistern.
-    </p>
-
-    <section class="music-section fade-in-top" style="animation-delay: 1.7s;">
-        <h3>Was ich gerade höre 🎧</h3>
+    <header>
+        <div><strong class="fade-in-top">Yuuki's Galerie</strong></div>
         
-        <iframe style="border-radius:12px" 
-                src="https://open.spotify.com/embed/track/1lFhDbguae2erKs0nYB2bR?utm_source=generator" 
-                width="100%" 
-                height="152" 
-                frameBorder="0" 
-                allowfullscreen="" 
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                loading="lazy">
-        </iframe>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
-        <details class="history-dropdown">
-            <summary>Frühere Favoriten ansehen</summary>
-            <ul>
-                <iframe style="border-radius:12px" 
-                    src="https://open.spotify.com/embed/track/6x4AAZvDz156sNHfMsDCSx?utm_source=generator" 
-                    width="100%" 
-                    height="152" 
-                    frameBorder="0" 
-                    allowfullscreen="" 
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                    loading="lazy">
-                </iframe>
-                <li>The Final Say — Caskets</li>
-                <li>Blackhole — Architects</li>
-            </ul>
-        </details>
-    </section>
+        <nav id="nav">
+            <a href="index.html" class="fade-in-top" style="animation-delay: 0.1s;">Home</a>
+            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.2s;">Über den Entwickler</a>
+            <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.3s;">Projekte</a>
+            <a href="galerie.html" class="fade-in-top" style="animation-delay: 0.4s;">Galerie</a>
+            <a href="kontakt.html" class="fade-in-top" style="animation-delay: 0.5s;">Kontakt</a>
+        </nav>
+    </header>
 
-    <div class="fade-in-top" style="animation-delay: 1.9s; margin-top: 30px;">
-        <a href="setup.html" style="color: #FF69B4; text-decoration: none; font-weight: bold;">➔ Mein Setup</a>
-    </div>
-</main>
+    <main>
+        <h1 class="fade-in-top" style="animation-delay: 0.3s;">Galerie</h1>
+        <p class="fade-in-top" style="animation-delay: 0.5s;">Hier sind meine neuesten Schnappschüsse direkt von Instagram.</p>
 
-<footer style="
-    width: 100%;
-    text-align: center;
-    padding: 15px;
-    background: #eee;
-    border-top: 2px solid #FF69B4;
-    font-size: 14px;
-    margin-top: 40px;">
-    &copy; 2026 Yuuki – Alle Rechte vorbehalten.
-</footer>
+        <div class="gallery fade-in-top" style="animation-delay: 0.7s;">
+            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DXPeemAiJvi/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
+                <div style="padding:16px;"> 
+                    <a href="https://www.instagram.com/p/DXPeemAiJvi/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> 
+                        <div style=" display: flex; flex-direction: row; align-items: center;"> 
+                            <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> 
+                            <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> 
+                                <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> 
+                                <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div>
+                            </div>
+                        </div>
+                        <div style="padding: 19% 0;"></div> 
+                        <div style="display:block; height:50px; margin:0 auto 12px; width:50px;">
+                            <svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 ..."></path></g></g></g></svg>
+                        </div>
+                        <div style="padding-top: 8px;"> 
+                            <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">Sieh dir diesen Beitrag auf Instagram an</div>
+                        </div>
+                    </a>
+                    <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">
+                        <a href="https://www.instagram.com/p/DXPeemAiJvi/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">Ein Beitrag geteilt von YuukiAkano (@yuukiakano_)</a>
+                    </p>
+                </div>
+            </blockquote>
+        </div>
+    </main>
 
-<script>
-    // Altersberechnung
-    const birthDate = new Date(2008, 6, 1); // 1. Juli 2008
-    const today = new Date();
+    <footer>
+        &copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with ❤️ and HTML)
+    </footer>
 
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const hasHadBirthday =
-        today.getMonth() > birthDate.getMonth() ||
-        (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
-
-    if (!hasHadBirthday) age--;
-
-    document.getElementById("age").textContent = age;
-</script>
-<script data-goatcounter="https://yuuki.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+    <script>
+        // Menü-Logik
+        function toggleMenu() {
+            const nav = document.getElementById("nav");
+            nav.classList.toggle("active");
+        }
+    </script>
+    
+    <script async src="//www.instagram.com/embed.js"></script>
+    <script data-goatcounter="https://yuuki.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
+ 

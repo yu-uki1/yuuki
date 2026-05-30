@@ -86,15 +86,23 @@
         /* 📸 Galerie Bereich */
         #gallery-content { display: none; }
         
-        /* Hier wurde die Responsiveness für die Boxen eingefügt */
+        /* Modifizierter Bereich für echtes Nebeneinander-Anzeigen innerhalb der Main-Box */
         .gallery { 
             display: flex; 
             flex-direction: row; 
             flex-wrap: wrap; 
             justify-content: center; 
             align-items: flex-start; 
-            gap: 20px; 
+            gap: 15px; 
             margin-top: 20px; 
+        }
+
+        /* Überschreibt die starren Breiten der Instagram-Embeds, damit sie sich aufteilen können */
+        .gallery .instagram-media {
+            flex: 1 1 calc(50% - 15px) !important;
+            max-width: 400px !important;
+            min-width: 280px !important;
+            margin: 0 !important;
         }
 
         /* 🍔 Burger Button */

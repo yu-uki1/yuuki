@@ -114,7 +114,7 @@
         background: #e0559d;
     }
 
-    /* 🍪 NEU: Cookie/Daten-PopUp Styling (Exakt wie das Begrüßungs-PopUp) */
+    /* 🍪 Cookie/Daten-PopUp Styling (Exakt wie das Begrüßungs-PopUp) */
     #cookie-overlay {
         position: fixed;
         top: 0; left: 0; width: 100%; height: 100%;
@@ -191,13 +191,14 @@
 
 <div id="cookie-overlay">
     <div class="cookie-box">
-        <h2>Datenschutz & Cookies 🎧</h2>
-        <p>Um meine Seite voll nutzen zu können (z.B. eingebettete <strong>Spotify-Player</strong>), werden externe Inhalte geladen.</p>
-        <p>Dabei werden von Spotify Cookies gesetzt und Daten wie deine IP-Adresse, Browser-Informationen und Tracking-Daten an Werbenetzwerke übertragen.</p>
-        <p>Zudem verwende ich ein anonymes Statistik-Tool (GoatCounter), um zu sehen, wie viele Leute meine Seite besuchen.</p>
+        <h2>Nutzungsbedingung & Daten 🎧</h2>
+        <p>Diese Website basiert auf eingebetteten Musik-Playern von <strong>Spotify</strong> und einem Analyse-Tool (GoatCounter), sowie einer Einbettung meiner Posts von <strong>Instagram</strong></p>
+        <p>Ohne das Laden dieser externen Scripte und Cookies kann die Seite <strong>technisch nicht funktionieren</strong>, da die Inhalte direkt von den Plattformen gestreamt werden. Dabei werden deine IP-Adresse und Browserdaten an Spotify und Instagram übertragen. </p>
+        <p>Möglicherweise werden noch weitere Daten übertragen. Mehr Informationen in der Datenschutzerklärung <a href="datenschutzerklaerung.html" style="color: inherit; text-decoration: none; order: 3;">Datenschutzerklärung</a></p>
+        <p>Wenn du die Seite nutzen möchtest, musst du der Datenübertragung zustimmen.</p>
         <div class="cookie-btn-group">
-            <button class="welcome-btn" style="margin-top:0;" onclick="acceptCookies()">Alles erlauben</button>
-            <button class="cookie-btn-decline" onclick="declineCookies()">Nur notwendige</button>
+            <button class="welcome-btn" style="margin-top:0;" onclick="acceptCookies()">Einverstanden & Laden</button>
+            <button class="cookie-btn-decline" onclick="declineCookies()">Nein, zurück</button>
         </div>
     </div>
 </div>
@@ -234,7 +235,7 @@
     </p>
 
     <p class="fade-in-top" style="animation-delay: 0.6s; font-family: 'Courier New', Courier, monospace;">
-        05.04.2026: Responsive Layout für Mobilgeräte hinzugefügt
+        30.05.2026: Neuer Post in Galerie; Datenschutzerklärung hinzugefügt; Impressum hinzugefügt
     </p>
 </main>
 
@@ -293,16 +294,19 @@ function acceptCookies() {
 }
 
 function declineCookies() {
-    localStorage.setItem('cookieConsent', 'false');
-    document.getElementById('cookie-overlay').style.display = 'none';
-    // Hier werden die Skripte blockiert, die Seite bleibt sauber
+    // Schickt den Nutzer auf die vorherige Seite im Browser-Verlauf zurück
+    if (document.referrer && window.history.length > 1) {
+        window.history.back();
+    } else {
+        // Fallback, wenn direkt in neuem Tab geöffnet
+        window.location.href = "https://www.google.de";
+    }
 }
 
 // Lädt den Tracker erst nach Erlaubnis nach
 function loadTrackingScripts() {
     if (!document.getElementById('goatcounter-script')) {
         const script = document.createElement('script');
-        script.id = 'goatcounter-script';
         script.id = 'goatcounter-script';
         script.async = true;
         script.src = "//gc.zgo.at/count.js";

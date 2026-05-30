@@ -191,15 +191,24 @@
 
     <footer style="
         width: 100%;
-        text-align: center;
         padding: 15px;
         background: #eee;
         border-top: 2px solid #FF69B4;
         font-size: 14px;
-        margin-top: 40px;">
-        &copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with Love❤️)
-        <a href="datenschutzerklaerung.html" style="position: absolute; right: 15px; color: inherit; text-decoration: none;">Datenschutzerklärung</a>
-        <a href="impressum.html" style="position: absolute; left: 15px; color: inherit; text-decoration: none;">Impressum</a>
+        margin-top: 40px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        box-sizing: border-box;">
+    
+        <a href="impressum.html" style="color: inherit; text-decoration: none; order: 1;">Impressum</a>
+    
+        <span style="color: inherit; text-align: center; order: 2; flex-grow: 1; min-width: 200px;">
+            &copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with Love❤️)
+        </span>
+    
+        <a href="datenschutzerklaerung.html" style="color: inherit; text-decoration: none; order: 3;">Datenschutzerklärung</a>
     </footer>
 
     <script>

@@ -114,6 +114,52 @@
         background: #e0559d;
     }
 
+    /* 🍪 Cookie/Daten-PopUp Styling (Exakt wie das Begrüßungs-PopUp) */
+    #cookie-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        display: none;
+        justify-content: center; 
+        align-items: center;
+        z-index: 1999; 
+        padding: 20px;
+    }
+
+    .cookie-box {
+        background: white; 
+        padding: 30px; 
+        border-radius: 15px;
+        max-width: 500px; 
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .cookie-box h2 { color: #FF69B4; margin-top: 0; }
+
+    .cookie-btn-group {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 15px;
+    }
+
+    .cookie-btn-decline {
+        background: #ddd;
+        color: #333;
+        border: none; 
+        padding: 12px 25px; 
+        border-radius: 5px; 
+        cursor: pointer; 
+        font-weight: bold; 
+        font-size: 16px;
+        transition: background 0.3s;
+    }
+
+    .cookie-btn-decline:hover {
+        background: #ccc;
+    }
+
     /* MOBILE */
     @media (max-width: 768px) {
         header { flex-wrap: wrap; }
@@ -140,6 +186,20 @@
         <p>Ich bitte dich um einen respektvollen Umgang und um Verständnis für Fehler.</p>
         <p>Danke ☺️</p>
         <button class="welcome-btn" onclick="acceptWelcome()">Verstanden & Weiter</button>
+    </div>
+</div>
+
+<div id="cookie-overlay">
+    <div class="cookie-box">
+        <h2>Nutzungsbedingung & Daten 🎧</h2>
+        <p>Diese Website basiert auf eingebetteten Musik-Playern von <strong>Spotify</strong> und einem Analyse-Tool (GoatCounter), sowie einer Einbettung meiner Posts von <strong>Instagram</strong></p>
+        <p>Ohne das Laden dieser externen Scripte und Cookies kann die Seite viele der Benutzererlebnis relevanten Inhalte nicht anzeigen, da die Inhalte direkt von den Plattformen geladen werden. Dabei werden deine IP-Adresse und Browserdaten an Spotify und Instagram übertragen. </p>
+        <p>Möglicherweise werden noch weitere Daten übertragen. Mehr Informationen in der <a href="datenschutzerklaerung.html" style="color: blue; text-decoration: none; order: 3;">Datenschutzerklärung</a></p>
+        <p>Wenn du die Seite nutzen möchtest, musst du der Datenübertragung zustimmen.</p>
+        <div class="cookie-btn-group">
+            <button class="welcome-btn" style="margin-top:0;" onclick="acceptCookies()">Einverstanden & Laden</button>
+            <button class="cookie-btn-decline" onclick="declineCookies()">Nein, zurück</button>
+        </div>
     </div>
 </div>
 
@@ -175,7 +235,7 @@
     </p>
 
     <p class="fade-in-top" style="animation-delay: 0.6s; font-family: 'Courier New', Courier, monospace;">
-        05.04.2026: Responsive Layout für Mobilgeräte hinzugefügt
+        30.05.2026: Neuer Post in Galerie; Datenschutzerklärung hinzugefügt; Impressum hinzugefügt
     </p>
 </main>
 
@@ -213,17 +273,57 @@ function toggleMenu() {
 function acceptWelcome() {
     sessionStorage.setItem('welcomeAccepted', 'true');
     document.getElementById('welcome-overlay').style.display = 'none';
+    
+    // Direkt im Anschluss prüfen, ob der Cookie-Banner gezeigt werden muss
+    checkCookieConsent();
 }
 
-// Beim Laden prüfen
+// Cookie-PopUp Logik
+function checkCookieConsent() {
+    if (localStorage.getItem('cookieConsent') === null) {
+        document.getElementById('cookie-overlay').style.display = 'flex';
+    } else if (localStorage.getItem('cookieConsent') === 'true') {
+        loadTrackingScripts();
+    }
+}
+
+function acceptCookies() {
+    localStorage.setItem('cookieConsent', 'true');
+    document.getElementById('cookie-overlay').style.display = 'none';
+    loadTrackingScripts();
+}
+
+function declineCookies() {
+    // Schickt den Nutzer auf die vorherige Seite im Browser-Verlauf zurück
+    if (document.referrer && window.history.length > 1) {
+        window.history.back();
+    } else {
+        // Fallback, wenn direkt in neuem Tab geöffnet
+        window.location.href = "https://www.google.de";
+    }
+}
+
+// Lädt den Tracker erst nach Erlaubnis nach
+function loadTrackingScripts() {
+    if (!document.getElementById('goatcounter-script')) {
+        const script = document.createElement('script');
+        script.id = 'goatcounter-script';
+        script.async = true;
+        script.src = "//gc.zgo.at/count.js";
+        script.setAttribute('data-goatcounter', 'https://yuuki.goatcounter.com/count');
+        document.body.appendChild(script);
+    }
+}
+
+// Beim Laden der Seite die Kette starten
 window.onload = function() {
     if (sessionStorage.getItem('welcomeAccepted') !== 'true') {
         document.getElementById('welcome-overlay').style.display = 'flex';
+    } else {
+        checkCookieConsent();
     }
 };
 </script>
 
-<script data-goatcounter="https://yuuki.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
 </body>
-</html> 
+</html>

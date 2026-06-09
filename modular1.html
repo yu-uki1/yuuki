@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modular & Sustainable Tech</title>
+    <style>
+        /* --- DESIGN SYSTEM & VARIABLEN --- */
+        :root {
+            --bg-dark: #0f1115;
+            --bg-card: #181c24;
+            --accent-green: #00e676;
+            --accent-green-glow: rgba(0, 230, 118, 0.15);
+            --text-main: #f5f6f9;
+            --text-muted: #8a94a6;
+            --border-color: #262d3d;
+            --danger-red: #ff5252;
+            --font-sans: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER & NAVIGATION --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(15, 17, 21, 0.8);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--accent-green);
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent-green);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 75vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 1rem;
+            background: radial-gradient(circle at center, var(--accent-green-glow) 0%, transparent 70%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+        }
+
+        .hero h1 span {
+            color: var(--accent-green);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn {
+            background-color: var(--accent-green);
+            color: var(--bg-dark);
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 230, 118, 0.4);
+        }
+
+        /* --- STRUCTURE & CONTAINERS --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-green);
+            margin: 0.5rem auto 0 auto;
+            border-radius: 2px;
+        }
+
+        /* --- SEKTION 1: FEATURES GRID --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-green);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            color: var(--accent-green);
+            margin-bottom: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- SEKTION 2: VERGLEICHS-ZONE (NEU) --- */
+        .comparison-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .comp-card {
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .comp-card.bad {
+            background: linear-gradient(180deg, rgba(255, 82, 82, 0.03) 0%, transparent 100%);
+            border-left: 4px solid var(--danger-red);
+        }
+
+        .comp-card.good {
+            background: linear-gradient(180deg, rgba(0, 230, 118, 0.03) 0%, transparent 100%);
+            border-left: 4px solid var(--accent-green);
+        }
+
+        .comp-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .comp-list {
+            list-style: none;
+        }
+
+        .comp-list li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-muted);
+        }
+
+        .comp-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .bad .comp-list li::before { color: var(--danger-red); }
+        .good .comp-list li::before { color: var(--accent-green); }
+
+        /* --- SEKTION 3: KOMPONENTEN-EXPLOSION (NEU) --- */
+        .components-showcase {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .comp-item {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .comp-item:hover {
+            background-color: rgba(38, 45, 61, 0.5);
+        }
+
+        .comp-item-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        /* --- SEKTION 4: SPLIT INFO --- */
+        .split-section {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .split-content {
+            flex: 1;
+        }
+
+        .split-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .split-content p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .split-visual {
+            flex: 1;
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--border-color) 100%);
+            border: 1px solid var(--border-color);
+            min-height: 320px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* --- SEKTION 5: FAQ ACCORDION (NEU) --- */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            padding: 1.5rem;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-green);
+        }
+
+        .faq-answer {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 5rem;
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 968px) {
+            .comparison-box, .components-showcase { grid-template-columns: 1fr; }
+            .split-section { flex-direction: column; gap: 2rem; }
+            .hero h1 { font-size: 2.5rem; }
+            nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="logo">MODU<span>LAR</span></div>
+        <nav>
+            <a href="#" class="active">Konzept</a>
+            <a href="#">Vergleich</a>
+            <a href="#">Module</a>
+            <a href="#">FAQ</a>
+        </nav>
+    </header>
+
+    <!-- Hero Bereich -->
+    <section class="hero">
+        <h1>Die Zukunft der Technik ist <span>modular</span>.</h1>
+        <p>[Hier kommt dein knackiger Einführungssatz hin, der den Kern deiner Website auf den Punkt bringt. Warum modulare Geräte die Tech-Welt verändern.]</p>
+        <button class="btn">Konzept entdecken</button>
+    </section>
+
+    <!-- Sektion 1: Das Konzept -->
+    <main class="container">
+        <h2 class="section-title">Das Modulare Prinzip</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">⚡</div>
+                <h3>Einfacher Austausch</h3>
+                <p>[Hier erklärst du, wie leicht einzelne Komponenten wie Akku, Kamera oder Display getauscht werden können, ohne das gesamte Gerät zu entsorgen.]</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🌱</div>
+                <h3>Ressourcenschonung</h3>
+                <p>[Hier beschreibst du den ökologischen Fußabdruck. Weniger Elektroschrott, längere Lebenszyklen der Hardware und effiziente Wiederverwendung.]</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🛠️</div>
+                <h3>Individuelle Upgrades</h3>
+                <p>[Hier kommt Text hin über die Anpassbarkeit. Der Nutzer upgraded nur das, was er wirklich braucht – zum Beispiel mehr Speicher oder ein besseres Modul.]</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Sektion 2: Der direkte Vergleich (NEU) -->
+    <section class="container" style="background-color: rgba(24, 28, 36, 0.2); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); max-width: 100%;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2 class="section-title">Der Lebenszyklus im Vergleich</h2>
+            <div class="comparison-box">
+                <div class="comp-card bad">
+                    <h3><span>✕</span> Klassische Lineare Tech</h3>
+                    <ul class="comp-list">
+                        <li>[Textfüller: Problembeschreibung bezüglich verklebter Akkus und geplanter Obsoleszenz.]</li>
+                        <li>[Textfüller: Was passiert, wenn das Display bricht? Totalschaden statt Reparatur.]</li>
+                        <li>[Textfüller: Der gigantische Berg an Elektroschrott, der durch Neukäufe entsteht.]</li>
+                    </ul>
+                </div>
+                <div class="comp-card good">
+                    <h3><span>✓</span> Modulare Kreislauf-Tech</h3>
+                    <ul class="comp-list">
+                        <li>[Textfüller: Die Lösung – Bauteile sind verschraubt oder gesteckt, nicht verklebt.]</li>
+                        <li>[Textfüller: Unendliche Lebensdauer durch gezielte Upgrades einzelner Module.]</li>
+                        <li>[Textfüller: Wertvolle Edelmetalle bleiben im Kreislauf und werden wiederverwendet.]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sektion 3: Die Anatomie eines modularen Geräts (NEU) -->
+    <section class="container">
+        <h2 class="section-title">Architektur der Module</h2>
+        <div class="components-showcase">
+            <div class="comp-item">
+                <div class="comp-item-title">📱 Display-Modul</div>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">[Füller: Text zu kratzfesten, leicht ablösbaren Front-Panels.]</p>
+            </div>
+            <div class="comp-item">
+                <div class="comp-item-title">🔋 Core-Akku</div>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">[Füller: Text zum werkzeuglosen Akkuwechsel in unter 30 Sekunden.]</p>
+            </div>
+            <div class="comp-item">
+                <div class="comp-item-title">📷 Kamera-Sensor</div>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">[Füller: Text über das Upgraden auf neue Sensoren ohne Smartphone-Neukauf.]</p>
+            </div>
+            <div class="comp-item">
+                <div class="comp-item-title">🧠 Mainboard & SoC</div>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">[Füller: Text zu austauschbaren Chipsets und erweiterbarem RAM.]</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sektion 4: Nachhaltigkeit im Fokus -->
+    <section class="container" style="border-top: 1px solid var(--border-color);">
+        <div class="split-section">
+            <div class="split-content">
+                <h2>Ein klares Statement gegen die Wegwerfgesellschaft</h2>
+                <p>[Hier kannst du tiefer auf den Aspekt der Nachhaltigkeit eingehen. Erkläre die Problematik von geplantem Verschleiß (Obsoleszenz) und wie modulare Bauweisen dem entgegenwirken.]</p>
+                <p>[Zweiter Absatz für zusätzliche Argumente, Statistiken oder einen Appell an den bewussten Konsum von Technologie.]</p>
+            </div>
+            <div class="split-visual">
+                [ ECO-TECH GRAPHIC ]
+            </div>
+        </div>
+    </section>
+
+    <!-- Sektion 5: Häufige Fragen / FAQ (NEU) -->
+    <section class="container" style="border-top: 1px solid var(--border-color);">
+        <h2 class="section-title">Häufig gestellte Fragen</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">Sind modulare Geräte nicht viel klobiger und schwerer?</div>
+                <div class="faq-answer">[Hier entkräftest du das Vorurteil. Erkläre, dass modernes Engineering extrem dünne Steckverbindungen erlaubt.]</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Kostet die Herstellung nicht anfangs mehr Ressourcen?</div>
+                <div class="faq-answer">[Hier erklärst du die Relation: Höherer Aufwand beim ersten Design amortisiert sich extrem schnell durch die lange Nutzung.]</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Woher bekommt man die Ersatzteile in der Zukunft?</div>
+                <div class="faq-answer">[Hier beschreibst du das Konzept von offenen Standards und langlebigen Marktplätzen für Ersatzteile.]</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Modular Website Konzept. Entworfen für eine nachhaltige Zukunft.</p>
+    </footer>
+
+</body>
+</html>

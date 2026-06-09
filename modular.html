@@ -14,6 +14,7 @@
             --text-main: #f5f6f9;
             --text-muted: #8a94a6;
             --border-color: #262d3d;
+            --danger-red: #ff5252;
             --font-sans: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
@@ -67,6 +68,14 @@
             color: var(--accent-green);
         }
 
+        /* BURGER BUTTON */
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            user-select: none;
+        }
+
         /* --- HERO SECTION --- */
         .hero {
             min-height: 75vh;
@@ -115,7 +124,7 @@
             box-shadow: 0 4px 20px rgba(0, 230, 118, 0.4);
         }
 
-        /* --- MAIN CONTENT & GRID --- */
+        /* --- STRUCTURE & CONTAINERS --- */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -123,7 +132,7 @@
         }
 
         .section-title {
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 3rem;
             text-align: center;
             position: relative;
@@ -139,7 +148,7 @@
             border-radius: 2px;
         }
 
-        /* Features Grid (Das Konzept) */
+        /* --- SEKTION 1: FEATURES GRID --- */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -175,12 +184,90 @@
             font-size: 0.95rem;
         }
 
-        /* --- INFO SPLIT SECTION (Nachhaltigkeit) --- */
+        /* --- SEKTION 2: VERGLEICHS-ZONE --- */
+        .comparison-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .comp-card {
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .comp-card.bad {
+            background: linear-gradient(180deg, rgba(255, 82, 82, 0.03) 0%, transparent 100%);
+            border-left: 4px solid var(--danger-red);
+        }
+
+        .comp-card.good {
+            background: linear-gradient(180deg, rgba(0, 230, 118, 0.03) 0%, transparent 100%);
+            border-left: 4px solid var(--accent-green);
+        }
+
+        .comp-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .comp-list {
+            list-style: none;
+        }
+
+        .comp-list li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-muted);
+        }
+
+        .comp-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .bad .comp-list li::before { color: var(--danger-red); }
+        .good .comp-list li::before { color: var(--accent-green); }
+
+        /* --- SEKTION 3: KOMPONENTEN-EXPLOSION --- */
+        .components-showcase {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .comp-item {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .comp-item:hover {
+            background-color: rgba(38, 45, 61, 0.5);
+        }
+
+        .comp-item-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        /* --- SEKTION 4: SPLIT INFO --- */
         .split-section {
             display: flex;
             align-items: center;
             gap: 4rem;
-            margin-top: 5rem;
         }
 
         .split-content {
@@ -201,7 +288,7 @@
             flex: 1;
             background: linear-gradient(135deg, var(--bg-card) 0%, var(--border-color) 100%);
             border: 1px solid var(--border-color);
-            min-height: 300px;
+            min-height: 320px;
             border-radius: 12px;
             display: flex;
             justify-content: center;
@@ -213,14 +300,91 @@
             overflow: hidden;
         }
 
-        .split-visual::before {
-            content: '';
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            background: var(--accent-green-glow);
-            filter: blur(50px);
-            border-radius: 50%;
+        /* --- SEKTION 5: FAQ ACCORDION --- */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            padding: 1.5rem;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-green);
+        }
+
+        .faq-answer {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- 🍪 INTERAKTIVE OVERLAYS (FARBLICH ANGEPASST) --- */
+        #welcome-overlay, #cookie-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 17, 21, 0.9);
+            backdrop-filter: blur(8px);
+            display: none; 
+            justify-content: center; 
+            align-items: center;
+            z-index: 2000; 
+            padding: 20px;
+        }
+
+        .welcome-box, .cookie-box {
+            background: var(--bg-card); 
+            padding: 35px; 
+            border-radius: 15px;
+            max-width: 500px; 
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid var(--border-color);
+        }
+
+        .welcome-box h2, .cookie-box h2 { 
+            color: var(--accent-green); 
+            margin-top: 0;
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .welcome-box p, .cookie-box p {
+            color: var(--text-muted);
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+        }
+
+        .cookie-btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .cookie-btn-decline {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-color); 
+            padding: 0.8rem 1.8rem; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-weight: 600; 
+            font-size: 1rem;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .cookie-btn-decline:hover {
+            background: var(--danger-red);
+            color: var(--bg-dark);
+            border-color: var(--danger-red);
         }
 
         /* --- FOOTER --- */
@@ -230,56 +394,149 @@
             border-top: 1px solid var(--border-color);
             color: var(--text-muted);
             font-size: 0.9rem;
+            margin-top: 5rem;
+        }
+
+        footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--accent-green);
         }
 
         /* --- RESPONSIVE DESIGN --- */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
+        @media (max-width: 968px) {
+            .comparison-box, .components-showcase { grid-template-columns: 1fr; }
             .split-section { flex-direction: column; gap: 2rem; }
-            nav { display: none; } /* Einfachheitshalber für das Grundlayout */
+            .hero h1 { font-size: 2.5rem; }
+            .menu-toggle { display: block; }
+            nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 10px;
+            }
+            nav.active { display: flex; }
+            nav a { margin: 10px 0; padding: 5px 0; }
         }
     </style>
 </head>
 <body>
 
+    <div id="welcome-overlay">
+        <div class="welcome-box">
+            <h2>Willkommen auf meiner Seite 😁</h2>
+            <p>Sie ist noch im Aufbau und wächst gerade mit jedem Tag ein bisschen weiter.</p>
+            <p>Es kann sein, dass noch nicht alles perfekt ist – aber genau daran arbeite ich gerade.</p>
+            <p>Ich bitte dich um einen respektvollen Umgang und um Verständnis für Fehler.</p>
+            <p>Danke ☺️</p>
+            <button class="btn" onclick="acceptWelcome()">Verstanden & Weiter</button>
+        </div>
+    </div>
+
+    <div id="cookie-overlay">
+        <div class="cookie-box">
+            <h2>Nutzungsbedingung & Daten 🎧</h2>
+            <p>Diese Website basiert auf eingebetteten Musik-Playern von <strong>Spotify</strong> und einem Analyse-Tool (GoatCounter), sowie einer Einbettung meiner Posts von <strong>Instagram</strong>.</p>
+            <p>Ohne das Laden dieser externen Scripte und Cookies kann die Seite viele der Benutzererlebnis relevanten Inhalte nicht anzeigen, da die Inhalte direkt von den Plattformen geladen werden. Dabei werden deine IP-Adresse und Browserdaten an Spotify und Instagram übertragen.</p>
+            <p>Möglicherweise werden noch weitere Daten übertragen. Mehr Informationen in der <a href="datenschutzerklaerung.html" style="color: var(--accent-green); text-decoration: underline;">Datenschutzerklärung</a>.</p>
+            <p>Wenn du die Seite nutzen möchtest, musst du der Datenübertragung zustimmen.</p>
+            <div class="cookie-btn-group">
+                <button class="btn" onclick="acceptCookies()">Einverstanden & Laden</button>
+                <button class="cookie-btn-decline" onclick="declineCookies()">Nein, zurück</button>
+            </div>
+        </div>
+    </div>
+
     <header>
         <div class="logo">MODU<span>LAR</span></div>
-        <nav>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <nav id="nav">
             <a href="#" class="active">Konzept</a>
-            <a href="#">Nachhaltigkeit</a>
-            <a href="#">Technologie</a>
+            <a href="#">Vergleich</a>
+            <a href="#">Module</a>
+            <a href="#">FAQ</a>
         </nav>
     </header>
 
     <section class="hero">
         <h1>Die Zukunft der Technik ist <span>modular</span>.</h1>
-        <p>[Hier kommt dein knackiger Einführungssatz hin, der den Kern deiner Website auf den Punkt bringt. Warum modulare Geräte die Tech-Welt verändern.]</p>
-        <button class="btn">Mehr erfahren</button>
+        <p>[Hier kommt dein knackiger Einführungssatz hin, der den Kern deiner Website auf den Point bringt. Warum modulare Geräte die Tech-Welt verändern.]</p>
+        <button class="btn">Konzept entdecken</button>
     </section>
 
     <main class="container">
         <h2 class="section-title">Das Modulare Prinzip</h2>
-        
         <div class="grid">
             <div class="card">
                 <div class="card-icon">⚡</div>
                 <h3>Einfacher Austausch</h3>
                 <p>[Hier erklärst du, wie leicht einzelne Komponenten wie Akku, Kamera oder Display getauscht werden können, ohne das gesamte Gerät zu entsorgen.]</p>
             </div>
-
             <div class="card">
                 <div class="card-icon">🌱</div>
                 <h3>Ressourcenschonung</h3>
                 <p>[Hier beschreibst du den ökologischen Fußabdruck. Weniger Elektroschrott, längere Lebenszyklen der Hardware und effiziente Wiederverwendung.]</p>
             </div>
-
             <div class="card">
                 <div class="card-icon">🛠️</div>
                 <h3>Individuelle Upgrades</h3>
                 <p>[Hier kommt Text hin über die Anpassbarkeit. Der Nutzer upgraded nur das, was er wirklich braucht – zum Beispiel mehr Speicher oder ein besseres Modul.]</p>
             </div>
         </div>
+    </main>
 
+    <section class="container" style="background-color: rgba(24, 28, 36, 0.2); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); max-width: 100%;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2 class="section-title">Der Lebenszyklus im Vergleich</h2>
+            <div class="comparison-box">
+                <div class="comp-card bad">
+                    <h3><span>✕</span> Klassische Lineare Tech</h3>
+                    <ul class="comp-list">
+                        <li>[Textfüller: Problembeschreibung bezüglich verklebter Akkus und geplanter Obsoleszenz.]</li>
+                        <li>[Textfüller: Was passiert, wenn das Display bricht? Totalschaden statt Reparatur.]</li>
+                        <li>[Textfüller: Der gigantische Berg an Elektroschrott, der durch Neukäufe entsteht.]</li>
+                    </ul>
+                </div>
+                <div class="comp-card good">
+                    <h3><span>✓</span> Modulare Kreislauf-Tech</h3>
+                    <ul class="comp-list">
+                        <li>[Textfüller: Die Lösung – Bauteile sind verschraubt oder gesteckt, nicht verklebt.]</li>
+                        <li>[Textfüller: Unendliche Lebensdauer durch gezielte Upgrades einzelner Module.]</li>
+                        <li>[Textfüller: Wertvolle Edelmetalle bleiben im Kreislauf und werden wiederverwendet.]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 class="section-title">Architektur der Module</h2>
+        <div class="components-showcase">
+            <div class="comp-item">
+                <div class="comp-item-title">📱 Display-Modul</div>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">[Füller: Text zu kratzfesten, leicht ablösbaren Front-Panels.]</p>
+            </div>
+            <div class="comp-item">
+                <div class="comp-item-title">🔋 Core-Akku</div>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">[Füller: Text zum werkzeuglosen Akkuwechsel in unter 30 Sekunden.]</p>
+            </div>
+            <div class="comp-item">
+                <div class="comp-item-title">📷 Kamera-Sensor</div>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">[Füller: Text über das Upgraden auf neue Sensoren ohne Smartphone-Neukauf.]</p>
+            </div>
+            <div class="comp-item">
+                <div class="comp-item-title">🧠 Mainboard & SoC</div>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">[Füller: Text zu austauschbaren Chipsets und erweiterbarem RAM.]</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" style="border-top: 1px solid var(--border-color);">
         <div class="split-section">
             <div class="split-content">
                 <h2>Ein klares Statement gegen die Wegwerfgesellschaft</h2>
@@ -287,14 +544,95 @@
                 <p>[Zweiter Absatz für zusätzliche Argumente, Statistiken oder einen Appell an den bewussten Konsum von Technologie.]</p>
             </div>
             <div class="split-visual">
-                [ VISUAL / GRAFIK PLATZHALTER ]
+                [ ECO-TECH GRAPHIC ]
             </div>
         </div>
-    </main>
+    </section>
+
+    <section class="container" style="border-top: 1px solid var(--border-color);">
+        <h2 class="section-title">Häufig gestellte Fragen</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">Sind modulare Geräte nicht viel klobiger und schwerer?</div>
+                <div class="faq-answer">[Hier entkräftest du das Vorurteil. Erkläre, dass modernes Engineering extrem dünne Steckverbindungen erlaubt.]</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Kostet die Herstellung nicht anfangs mehr Ressourcen?</div>
+                <div class="faq-answer">[Hier erklärst du die Relation: Höherer Aufwand beim ersten Design amortisiert sich extrem schnell durch die lange Nutzung.]</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Woher bekommt man die Ersatzteile in der Zukunft?</div>
+                <div class="faq-answer">[Hier beschreibst du das Konzept von offenen Standards und langlebigen Marktplätzen für Ersatzteile.]</div>
+            </div>
+        </div>
+    </section>
 
     <footer>
-        <p>&copy; 2026 Modular Website Konzept. Alle Rechte vorbehalten.</p>
+        <span style="display: block; margin-bottom: 10px;">&copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with Love❤️)</span>
+        <a href="impressum.html">Impressum</a> | 
+        <a href="datenschutzerklaerung.html">Datenschutzerklärung</a>
     </footer>
+
+    <script>
+    // Burger Menü Logik
+    function toggleMenu() {
+        const nav = document.getElementById("nav");
+        nav.classList.toggle("active");
+    }
+
+    // Willkommens-PopUp Logik
+    function acceptWelcome() {
+        sessionStorage.setItem('welcomeAccepted', 'true');
+        document.getElementById('welcome-overlay').style.display = 'none';
+        
+        // Direkt im Anschluss prüfen, ob der Cookie-Banner gezeigt werden muss
+        checkCookieConsent();
+    }
+
+    // Cookie-PopUp Logik
+    function checkCookieConsent() {
+        if (localStorage.getItem('cookieConsent') === null) {
+            document.getElementById('cookie-overlay').style.display = 'flex';
+        } else if (localStorage.getItem('cookieConsent') === 'true') {
+            loadTrackingScripts();
+        }
+    }
+
+    function acceptCookies() {
+        localStorage.setItem('cookieConsent', 'true');
+        document.getElementById('cookie-overlay').style.display = 'none';
+        loadTrackingScripts();
+    }
+
+    function declineCookies() {
+        if (document.referrer && window.history.length > 1) {
+            window.history.back();
+        } else {
+            window.location.href = "https://www.google.de";
+        }
+    }
+
+    // Lädt den Tracker erst nach Erlaubnis nach
+    function loadTrackingScripts() {
+        if (!document.getElementById('goatcounter-script')) {
+            const script = document.createElement('script');
+            script.id = 'goatcounter-script';
+            script.async = true;
+            script.src = "//gc.zgo.at/count.js";
+            script.setAttribute('data-goatcounter', 'https://yuuki.goatcounter.com/count');
+            document.body.appendChild(script);
+        }
+    }
+
+    // Beim Laden der Seite die Kette starten
+    window.onload = function() {
+        if (sessionStorage.getItem('welcomeAccepted') !== 'true') {
+            document.getElementById('welcome-overlay').style.display = 'flex';
+        } else {
+            checkCookieConsent();
+        }
+    };
+    </script>
 
 </body>
 </html>

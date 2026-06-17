@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALVION X10 Ultra - Konzept</title>
+    <style>
+        /* 🔥 Globales Setup */
+        * {
+            box-sizing: border-box;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            background: #f4f4f9; 
+            color: #333; 
+            overflow-x: hidden;
+        }
+
+        header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background-color: #FF69B4; 
+            padding: 15px 30px; 
+            color: white; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            width: 100%;
+        }
+
+        header a { 
+            color: white; 
+            text-decoration: none; 
+            margin: 0 15px; 
+            font-weight: bold;
+        }
+
+        header a:hover { text-decoration: underline; }
+
+        nav {
+            display: flex;
+        }
+
+        /* 🍔 Burger Menu */
+        .menu-toggle {
+            display: none;
+            font-size: 26px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-wrap: wrap; }
+            .menu-toggle { display: block; }
+            nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 10px;
+            }
+            nav.active { display: flex; }
+            header a { margin: 10px 0; padding: 8px 0; }
+        }
+
+        main { 
+            max-width: 900px; 
+            margin: 30px auto; 
+            padding: 20px; 
+            width: 100%;
+        }
+
+        h1 { color: #FF69B4; text-align: center; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: #666; font-style: italic; margin-bottom: 40px; }
+
+        /* 📱 Spec-Grid */
+        .specs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .spec-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 4px solid #FF69B4;
+        }
+
+        .spec-box strong {
+            display: block;
+            color: #FF69B4;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-size: 0.85em;
+        }
+
+        /* 🖼️ Smartphone Bild */
+        .phone-image {
+            width: 100%;
+            max-width: 500px;
+            display: block;
+            margin: 40px auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* ✨ Animationen */
+        .fade-in-top {
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInTop 0.8s ease forwards;
+        }
+
+        @keyframes fadeInTop {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            background: #eee;
+            border-top: 2px solid #FF69B4;
+            color: #333;
+            font-size: 13px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div><strong class="fade-in-top">ALVION Concept</strong></div>
+        
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+        <nav id="nav">
+            <a href="index.html" class="fade-in-top" style="animation-delay: 0.1s;">Home</a>
+            <a href="ueber.html" class="fade-in-top" style="animation-delay: 0.2s;">Über den Entwickler</a>
+            <a href="projekte.html" class="fade-in-top" style="animation-delay: 0.3s;">Projekte</a>
+            <a href="galerie.html" class="fade-in-top" style="animation-delay: 0.4s;">Galerie</a>
+            <a href="kontakt.html" class="fade-in-top" style="animation-delay: 0.5s;">Kontakt</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1 class="fade-in-top" style="animation-delay: 0.3s;">ALVION X10 Ultra</h1>
+        <p class="subtitle fade-in-top" style="animation-delay: 0.4s;">Ein Flaggshiff Konzept-Smartphone von ALVION (by DarkSystems)</p>
+
+        <img class="phone-image fade-in-top" style="animation-delay: 0.6s;" src="concept-smartphone-2.png" alt="Bild des ALVION X10 Pro">
+
+        <div class="specs-container">
+            <div class="spec-box fade-in-top" style="animation-delay: 0.7s;"><strong>Prozessor</strong>Snapdragon 8 Gen 5</div>
+            <div class="spec-box fade-in-top" style="animation-delay: 0.8s;"><strong>Display</strong>6.9" LTPO AMOLED, 165Hz, 3120x1440</div>
+            <div class="spec-box fade-in-top" style="animation-delay: 0.9s;"><strong>Akku</strong>7000mAh, 240W Fast-Charging (48V/5A)</div>
+            <div class="spec-box fade-in-top" style="animation-delay: 1.0s;"><strong>Speicher</strong>Bis zu 24GB RAM + 2TB Speicher</div>
+            <div class="spec-box fade-in-top" style="animation-delay: 1.1s;"><strong>Hauptkamera</strong>Quad: 50MP(f/1,5-f20, 1/3", 22mm-40mm) + 200MP(f/1,5-f/10, 3/4", 22-115mm) + 200MP(f/1,5-f/10, 1/1,2", 22-250mm) + 2MP(f/1,5-2,5, 1/5", 30mm/</div>
+            <div class="spec-box fade-in-top" style="animation-delay: 1.2s;"><strong>Selfie</strong>32MP (f/2.0, 1/2,5"), Wide-Angle</div>
+            <div class="spec-box fade-in-top" style="animation-delay: 1.3s;"><strong>Konnektivität</strong>5G, WiFi 7, Bluetooth 6.0, NFC, Infrarot, LiDAR</div>
+            <div class="spec-box fade-in-top" style="animation-delay: 1.4s;"><strong>Anschlüsse</strong>USB-C 4 (PD3.1)</div>
+        </div>
+    </main>
+
+    <footer style="
+        width: 100%;
+        padding: 15px;
+        background: #eee;
+        border-top: 2px solid #FF69B4;
+        font-size: 14px;
+        margin-top: 40px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        box-sizing: border-box;">
+    
+        <a href="impressum.html" style="color: inherit; text-decoration: none; order: 1;">Impressum</a>
+    
+        <span style="color: inherit; text-align: center; order: 2; flex-grow: 1; min-width: 200px;">
+            &copy; 2026 Yuuki – Alle Rechte vorbehalten. (Made with Love❤️)
+        </span>
+    
+        <a href="datenschutzerklaerung.html" style="color: inherit; text-decoration: none; order: 3;">Datenschutzerklärung</a>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById("nav");
+            nav.classList.toggle("active");
+        }
+    </script>
+<script data-goatcounter="https://yuuki.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
+ 
